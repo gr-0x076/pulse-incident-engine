@@ -167,7 +167,7 @@ export const DashboardPage = () => {
   };
 
   return (
-    <div className="p-4 md:p-6 lg:p-8 space-y-7 max-w-7xl mx-auto font-sans">
+    <div className="p-6 md:p-8 space-y-8 max-w-7xl mx-auto font-sans">
       {/* ── TOP ACTION HEADER & EDITORIAL SUBHEAD ── */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-border-subtle/60 pb-5">
         <div>
@@ -214,7 +214,7 @@ export const DashboardPage = () => {
       {/* ── 4 EXECUTIVE KPI CARDS (LINEAR / STRIPE GRADE) ── */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {/* MTTA */}
-        <div className="linear-card p-6 relative overflow-hidden group">
+        <div className="dashboard-kpi linear-card p-6 relative overflow-hidden group">
           <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-[#C8A97E]/30 to-transparent group-hover:via-[#C8A97E]/60 transition-all duration-300" />
           <div className="flex items-center justify-between text-xs font-medium text-text-secondary">
             <span>MTTA (Acknowledge)</span>
@@ -235,7 +235,7 @@ export const DashboardPage = () => {
         </div>
 
         {/* MTTR */}
-        <div className="linear-card p-6 relative overflow-hidden group">
+        <div className="dashboard-kpi linear-card p-6 relative overflow-hidden group">
           <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:via-white/20 transition-all duration-300" />
           <div className="flex items-center justify-between text-xs font-medium text-text-secondary">
             <span>MTTR (Resolve)</span>
@@ -256,7 +256,7 @@ export const DashboardPage = () => {
         </div>
 
         {/* SLA Compliance */}
-        <div className="linear-card p-6 relative overflow-hidden group">
+        <div className="dashboard-kpi linear-card p-6 relative overflow-hidden group">
           <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-[#6EE7B7]/25 to-transparent group-hover:via-[#6EE7B7]/50 transition-all duration-300" />
           <div className="flex items-center justify-between text-xs font-medium text-text-secondary">
             <span>SLA Compliance</span>
@@ -277,7 +277,7 @@ export const DashboardPage = () => {
         </div>
 
         {/* Active Stream */}
-        <div className="linear-card p-6 relative overflow-hidden group">
+        <div className="dashboard-kpi linear-card p-6 relative overflow-hidden group">
           <div className="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-[#E5C185]/25 to-transparent group-hover:via-[#E5C185]/50 transition-all duration-300" />
           <div className="flex items-center justify-between text-xs font-medium text-text-secondary">
             <span>Active Stream</span>
@@ -515,7 +515,7 @@ export const DashboardPage = () => {
                   <div
                     key={incident._id}
                     onClick={() => navigate(`/incidents/${incident._id}`)}
-                    className={`group p-4 sm:px-5 sm:py-3.5 rounded-xl border transition-all duration-200 cursor-pointer relative flex flex-col md:flex-row md:items-center justify-between gap-3.5 ${
+                    className={`incident-row group p-5 sm:px-6 sm:py-4 rounded-xl border transition-all duration-200 cursor-pointer relative flex flex-col md:flex-row md:items-center justify-between gap-3.5 ${
                       isP1 && isFiredOrEscalated
                         ? 'bg-[#E5C185]/[0.03] border-[#E5C185]/35 hover:border-[#E5C185]/60 hover:bg-[#E5C185]/[0.06]'
                         : 'bg-bg-secondary/70 border-white/[0.05] hover:border-white/[0.12] hover:bg-bg-tertiary/70'

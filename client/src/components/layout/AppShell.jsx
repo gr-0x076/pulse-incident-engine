@@ -70,7 +70,7 @@ export const AppShell = () => {
   return (
     <div className="min-h-screen bg-bg-primary text-text-primary flex flex-col font-sans selection:bg-accent-primary/20">
       {/* ── TOP TELEMETRY CHASSIS ── */}
-      <header className="h-13 border-b border-border-subtle bg-bg-secondary/70 backdrop-blur-md px-4 sm:px-6 flex items-center justify-between z-30 sticky top-0">
+      <header className="app-topbar h-14 border-b border-border-subtle px-5 sm:px-7 flex items-center justify-between z-30 sticky top-0">
         {/* Left: Brand & Connection Status */}
         <div className="flex items-center gap-5">
           <div
@@ -143,7 +143,7 @@ export const AppShell = () => {
       {/* ── WORKSPACE BODY WITH REFINED MINIMAL SIDEBAR ── */}
       <div className="flex-1 flex overflow-hidden">
         {/* Sidebar */}
-        <aside className="w-60 border-r border-border-subtle bg-bg-secondary/40 backdrop-blur-md flex flex-col justify-between p-4 flex-shrink-0 hidden md:flex">
+        <aside className="app-sidebar w-56 border-r border-border-subtle flex flex-col justify-between p-5 flex-shrink-0 hidden md:flex">
           <div className="space-y-6">
             {/* Org Slug stamp */}
             <div className="px-3 py-2 rounded-xl bg-white/[0.02] border border-border-subtle flex items-center justify-between">
@@ -163,7 +163,7 @@ export const AppShell = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
                     isActive
-                      ? 'bg-white/10 text-white border border-white/15 shadow-[0_0_12px_rgba(255,255,255,0.05)]'
+                      ? 'bg-white/[0.07] text-white border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]'
                       : 'text-text-secondary hover:text-text-primary hover:bg-white/[0.03]'
                   }`
                 }
@@ -177,7 +177,7 @@ export const AppShell = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
                     isActive
-                      ? 'bg-white/10 text-white border border-white/15 shadow-[0_0_12px_rgba(255,255,255,0.05)]'
+                      ? 'bg-white/[0.07] text-white border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]'
                       : 'text-text-secondary hover:text-text-primary hover:bg-white/[0.03]'
                   }`
                 }
@@ -197,7 +197,7 @@ export const AppShell = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
                     isActive
-                      ? 'bg-white/10 text-white border border-white/15 shadow-[0_0_12px_rgba(255,255,255,0.05)]'
+                      ? 'bg-white/[0.07] text-white border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]'
                       : 'text-text-secondary hover:text-text-primary hover:bg-white/[0.03]'
                   }`
                 }
@@ -217,7 +217,7 @@ export const AppShell = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
                     isActive
-                      ? 'bg-white/10 text-white border border-white/15 shadow-[0_0_12px_rgba(255,255,255,0.05)]'
+                      ? 'bg-white/[0.07] text-white border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]'
                       : 'text-text-secondary hover:text-text-primary hover:bg-white/[0.03]'
                   }`
                 }

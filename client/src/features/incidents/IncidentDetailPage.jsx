@@ -208,7 +208,7 @@ export const IncidentDetailPage = () => {
   const currentPipelineIdx = STATUS_PIPELINE.indexOf(incident.status);
 
   return (
-    <div className="p-4 md:p-6 space-y-6 max-w-7xl mx-auto">
+    <div className="p-6 md:p-8 space-y-8 max-w-7xl mx-auto">
       {/* ── TOP BREADCRUMB & INCIDENT ID ── */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-border-subtle/60 pb-5">
         <div className="flex items-center gap-3">
