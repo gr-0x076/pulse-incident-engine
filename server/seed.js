@@ -59,15 +59,14 @@ const seed = async () => {
     console.log(`✅ Created organization: ${org.name} (${org._id})`);
 
     // Create users
-    console.log('👥 Creating users with pre-hashed credentials...');
-    const passwordHash = await bcrypt.hash(SEED_PASSWORD, 12);
+    console.log('👥 Creating users...');
 
     const [adminUser, commanderUser, responderUser, viewerUser] = await User.create([
       {
         orgId: org._id,
         email: 'admin@acme.dev',
         name: 'Sarah Chen',
-        passwordHash,
+        passwordHash: SEED_PASSWORD,
         role: ROLES.ADMIN,
         activeIncidentCount: 0,
       },
@@ -75,7 +74,7 @@ const seed = async () => {
         orgId: org._id,
         email: 'commander@acme.dev',
         name: 'Alex Rivera',
-        passwordHash,
+        passwordHash: SEED_PASSWORD,
         role: ROLES.INCIDENT_COMMANDER,
         activeIncidentCount: 2,
       },
@@ -83,7 +82,7 @@ const seed = async () => {
         orgId: org._id,
         email: 'responder@acme.dev',
         name: 'Marcus Vance',
-        passwordHash,
+        passwordHash: SEED_PASSWORD,
         role: ROLES.RESPONDER,
         activeIncidentCount: 3,
       },
@@ -91,7 +90,7 @@ const seed = async () => {
         orgId: org._id,
         email: 'viewer@acme.dev',
         name: 'Elena Rostova',
-        passwordHash,
+        passwordHash: SEED_PASSWORD,
         role: ROLES.VIEWER,
         activeIncidentCount: 0,
       },
