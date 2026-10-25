@@ -33,7 +33,18 @@ apiClient.interceptors.response.use(
   (error) => {
     console.error('API Response Error:', error);
 
+    const details = error.response?.data?.error?.details;
+    let detailMessage = null;
+    if (details && typeof details === 'object') {
+      const firstField = Object.keys(details)[0];
+      const errList = details[firstField];
+      if (Array.isArray(errList) && errList.length > 0) {
+        detailMessage = `${firstField}: ${errList[0]}`;
+      }
+    }
+
     const errorMessage =
+      detailMessage ||
       error.response?.data?.error?.message ||
       error.response?.data?.message ||
       error.message ||

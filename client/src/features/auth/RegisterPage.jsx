@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Shield, Building, User, Mail, Lock, ArrowRight } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import toast from 'react-hot-toast';
+
+const slugify = (text) =>
+  (text || '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 
 export const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -11,17 +19,24 @@ export const RegisterPage = () => {
     orgName: '',
     orgSlug: '',
   });
+  const [slugManual, setSlugManual] = useState(false);
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'orgName' && !formData.orgSlug) {
+    if (name === 'orgName') {
       setFormData((prev) => ({
         ...prev,
         orgName: value,
-        orgSlug: value.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-'),
+        orgSlug: slugManual ? prev.orgSlug : slugify(value),
+      }));
+    } else if (name === 'orgSlug') {
+      setSlugManual(true);
+      setFormData((prev) => ({
+        ...prev,
+        orgSlug: value.toLowerCase().replace(/[^a-z0-9-]/g, ''),
       }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
@@ -30,9 +45,45 @@ export const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const cleanOrgName = formData.orgName.trim();
+    const cleanSlug = (formData.orgSlug.trim() || slugify(cleanOrgName))
+      .toLowerCase()
+      .replace(/[^a-z0-9-]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+    const cleanName = formData.name.trim();
+    const cleanEmail = formData.email.trim().toLowerCase();
+
+    if (cleanOrgName.length < 2) {
+      toast.error('Organization name must be at least 2 characters');
+      return;
+    }
+    if (cleanSlug.length < 2) {
+      toast.error('Organization slug must be at least 2 alphanumeric characters');
+      return;
+    }
+    if (cleanName.length < 2) {
+      toast.error('Administrator name must be at least 2 characters');
+      return;
+    }
+    if (!cleanEmail.includes('@') || !cleanEmail.includes('.')) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+    if (formData.password.length < 6) {
+      toast.error('Master password must be at least 6 characters');
+      return;
+    }
+
     setLoading(true);
     try {
-      const data = await register(formData);
+      const data = await register({
+        orgName: cleanOrgName,
+        orgSlug: cleanSlug,
+        name: cleanName,
+        email: cleanEmail,
+        password: formData.password,
+      });
       if (data) {
         navigate('/dashboard');
       }
