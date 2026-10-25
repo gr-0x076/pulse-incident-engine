@@ -44,7 +44,7 @@ export const SocketProvider = ({ children }) => {
       toast(
         (t) => (
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-severity-p1 animate-pulse shadow-[0_0_8px_#F43F5E]" />
+            <span className="w-2 h-2 rounded-full bg-severity-p1 animate-pulse shadow-[0_0_8px_rgba(229,193,133,0.4)]" />
             <span className="text-xs">
               <strong className="font-mono text-severity-p1">INC-{String(incident.incidentNumber).padStart(5, '0')}</strong>{' '}
               {incident.title}
@@ -53,7 +53,7 @@ export const SocketProvider = ({ children }) => {
         ),
         {
           duration: 2200,
-          style: { borderLeft: '3px solid #F43F5E' },
+          style: { borderLeft: '3px solid #C8A97E' },
         }
       );
     });

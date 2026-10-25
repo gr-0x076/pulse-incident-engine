@@ -43,7 +43,7 @@ export const CreateIncidentModal = ({ isOpen, onClose, onCreated, teamMembers = 
       const response = await apiClient.post('/incidents', payload);
       if (response.success) {
         toast.success(`Declared INC-${String(response.data.incidentNumber).padStart(5, '0')}`, {
-          icon: '🚨',
+          icon: '⚡',
         });
         if (onCreated) onCreated(response.data);
         onClose();
@@ -61,9 +61,9 @@ export const CreateIncidentModal = ({ isOpen, onClose, onCreated, teamMembers = 
         {/* Top Header */}
         <div className="px-5 py-3.5 border-b border-border-subtle flex items-center justify-between bg-bg-tertiary/40">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-severity-p1 animate-pulse" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#E5C185] animate-pulse" />
             <h2 className="text-xs font-mono font-bold tracking-wider uppercase text-text-primary">
-              // DECLARE_PRODUCTION_INCIDENT
+              Declare Production Incident
             </h2>
           </div>
           <button
@@ -100,10 +100,10 @@ export const CreateIncidentModal = ({ isOpen, onClose, onCreated, teamMembers = 
                 onChange={(e) => setFormData({ ...formData, severity: e.target.value })}
                 className="w-full bg-bg-tertiary/60 border border-border-default focus:border-accent-primary rounded px-2.5 py-2 text-xs text-text-primary font-mono"
               >
-                <option value="P1">🔴 P1 — Critical (5m SLA)</option>
-                <option value="P2">🟠 P2 — High (15m SLA)</option>
-                <option value="P3">🟡 P3 — Moderate (60m SLA)</option>
-                <option value="P4">🟢 P4 — Low (240m SLA)</option>
+                <option value="P1">P1 — Critical (5m SLA)</option>
+                <option value="P2">P2 — High (15m SLA)</option>
+                <option value="P3">P3 — Moderate (60m SLA)</option>
+                <option value="P4">P4 — Low (240m SLA)</option>
               </select>
             </div>
 
@@ -158,9 +158,9 @@ export const CreateIncidentModal = ({ isOpen, onClose, onCreated, teamMembers = 
             <button
               type="submit"
               disabled={loading || !formData.title.trim()}
-              className="px-4 py-2 rounded bg-severity-p1 hover:bg-severity-p1/90 text-white font-mono text-xs font-bold transition-all shadow-[0_0_12px_rgba(255,69,58,0.2)] disabled:opacity-50"
+              className="px-4 py-2 rounded-xl bg-[#F4F3EF] hover:bg-white text-[#09090B] font-medium text-xs transition-all disabled:opacity-40"
             >
-              {loading ? 'Declaring...' : 'Declare Incident 🚨'}
+              {loading ? 'Declaring...' : 'Declare Incident'}
             </button>
           </div>
         </form>

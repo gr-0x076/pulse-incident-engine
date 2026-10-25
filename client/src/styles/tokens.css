@@ -1,35 +1,35 @@
 :root {
   /* Base Obsidian Palette */
-  --bg-primary: #060608;
-  --bg-secondary: #0E0E11;
-  --bg-tertiary: #16161A;
-  --bg-elevated: #1F1F24;
+  --bg-primary: #09090B;
+  --bg-secondary: #111114;
+  --bg-tertiary: #18181C;
+  --bg-elevated: #202026;
 
   --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-default: rgba(255, 255, 255, 0.08);
-  --border-elevated: rgba(255, 255, 255, 0.12);
+  --border-default: rgba(255, 255, 255, 0.10);
+  --border-elevated: rgba(255, 255, 255, 0.14);
 
-  --text-primary: #F4F4F6;
-  --text-secondary: #94949E;
-  --text-tertiary: #5E5E69;
+  --text-primary: #F4F3EF;
+  --text-secondary: #A1A1AA;
+  --text-tertiary: #63636B;
 
-  /* Luxury Semantic Jewel Accents */
-  --severity-p1: #F43F5E; /* Ruby Crimson */
-  --severity-p2: #F59E0B; /* Warm AmberGold */
-  --severity-p3: #EAB308; /* Champagne Gold */
-  --severity-p4: #10B981; /* Jade Emerald */
+  /* Luxury Champagne Gold & Noble Metal Accents (ZERO BRIGHT RED) */
+  --severity-p1: #E5C185; /* Warm Champagne Gold */
+  --severity-p2: #C8A97E; /* Soft Bronze */
+  --severity-p3: #94A3B8; /* Cool Titanium Silver */
+  --severity-p4: #64748B; /* Muted Slate */
 
   /* Status Colors */
-  --status-active: #F43F5E;
-  --status-mitigated: #F59E0B;
-  --status-resolved: #10B981;
-  --status-closed: #71717A;
+  --status-active: #E5C185;
+  --status-mitigated: #C8A97E;
+  --status-resolved: #6EE7B7;
+  --status-closed: #64748B;
 
   /* Accent */
-  --accent-primary: #3B82F6;
-  --accent-success: #10B981;
-  --accent-error: #F43F5E;
-  --accent-ivory: #F4F4F6;
+  --accent-primary: #C8A97E;
+  --accent-success: #6EE7B7;
+  --accent-error: #D48C96;
+  --accent-ivory: #F4F3EF;
 
   /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

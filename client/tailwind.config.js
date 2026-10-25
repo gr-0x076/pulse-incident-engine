@@ -5,36 +5,37 @@ export default {
     extend: {
       colors: {
         bg: {
-          primary: '#0A0A0B',
-          secondary: '#141416',
-          tertiary: '#1C1C1F',
-          elevated: '#232326',
+          primary: '#09090B',
+          secondary: '#111114',
+          tertiary: '#18181C',
+          elevated: '#202026',
         },
         border: {
-          subtle: '#2A2A2E',
-          default: '#3A3A3F',
+          subtle: 'rgba(255, 255, 255, 0.06)',
+          default: 'rgba(255, 255, 255, 0.10)',
         },
         text: {
-          primary: '#EDEDEF',
-          secondary: '#8E8E93',
-          tertiary: '#5C5C61',
+          primary: '#F4F3EF',
+          secondary: '#A1A1AA',
+          tertiary: '#63636B',
         },
         severity: {
-          p1: '#FF453A',
-          p2: '#FF9F0A',
-          p3: '#FFD60A',
-          p4: '#30D158',
+          p1: '#E5C185', // Warm Champagne Gold (NO BRIGHT RED)
+          p2: '#C8A97E', // Soft Bronze
+          p3: '#94A3B8', // Cool Titanium Silver
+          p4: '#64748B', // Muted Slate
         },
         status: {
-          active: '#FF453A',
-          mitigated: '#FF9F0A',
-          resolved: '#30D158',
-          closed: '#8E8E93',
+          active: '#E5C185',
+          mitigated: '#C8A97E',
+          resolved: '#6EE7B7',
+          closed: '#64748B',
         },
         accent: {
-          primary: '#0A84FF',
-          success: '#30D158',
-          error: '#FF453A',
+          primary: '#C8A97E', // Brushed Champagne Gold
+          ivory: '#F4F3EF',   // Crisp Alabaster
+          success: '#6EE7B7', // Soft Muted Sage
+          error: '#D48C96',   // Subtle Muted Rose
         },
       },
       fontFamily: {

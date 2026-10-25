@@ -98,7 +98,7 @@ export const InfrastructureTopologyMap = ({ incidents = [] }) => {
       if (res.success) {
         toast.success(`Outage Simulated: ${service.name} failed!`, {
           icon: '⚡',
-          style: { borderLeft: '3px solid #F43F5E' },
+          style: { borderLeft: '3px solid #C8A97E' },
         });
       }
     } catch (err) {
@@ -115,7 +115,7 @@ export const InfrastructureTopologyMap = ({ incidents = [] }) => {
       {/* Header bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 mb-4 border-b border-border-subtle">
         <div className="flex items-center gap-2.5">
-          <span className={`w-2 h-2 rounded-full ${burningCount > 0 ? 'bg-severity-p1 animate-ping shadow-[0_0_8px_#F43F5E]' : 'bg-accent-success'}`} />
+          <span className={`w-2 h-2 rounded-full ${burningCount > 0 ? 'bg-[#E5C185] animate-pulse shadow-[0_0_8px_rgba(229,193,133,0.4)]' : 'bg-accent-success'}`} />
           <h2 className="text-xs font-mono font-bold tracking-wider text-text-primary uppercase">
             Distributed Infrastructure Topology
           </h2>
@@ -123,7 +123,7 @@ export const InfrastructureTopologyMap = ({ incidents = [] }) => {
         <div className="flex items-center gap-3 text-[11px] font-mono">
           <span className="text-text-tertiary">
             STATUS:{' '}
-            <strong className={burningCount > 0 ? 'text-severity-p1' : 'text-accent-success'}>
+            <strong className={burningCount > 0 ? 'text-[#E5C185]' : 'text-accent-success'}>
               {burningCount > 0 ? `${burningCount} NODES DEGRADED` : 'ALL SYSTEMS NOMINAL'}
             </strong>
           </span>
@@ -148,20 +148,20 @@ export const InfrastructureTopologyMap = ({ incidents = [] }) => {
                   navigate(`/incidents/${activeIncident._id}`);
                 }
               }}
-              className={`p-3.5 rounded border transition-all duration-200 relative group text-left ${
+              className={`p-3.5 rounded-xl border transition-all duration-200 relative group text-left ${
                 isBurning
-                  ? 'bg-severity-p1/10 border-severity-p1/60 shadow-[0_0_20px_rgba(255,69,58,0.2)] cursor-pointer hover:border-severity-p1'
-                  : 'bg-[#1C1C1F]/60 border-[#2C2C30] hover:border-[#4A4A50] hover:bg-[#1C1C1F]'
+                  ? 'bg-[#E5C185]/[0.05] border-[#E5C185]/40 cursor-pointer hover:border-[#E5C185]/70'
+                  : 'bg-[#18181C]/60 border-white/[0.06] hover:border-white/[0.12] hover:bg-[#18181C]'
               }`}
             >
               {/* Top Row: Icon + Name + Port */}
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-center gap-2">
                   <div
-                    className={`p-2 rounded border ${
+                    className={`p-2 rounded-lg border ${
                       isBurning
-                        ? 'bg-severity-p1/20 border-severity-p1 text-severity-p1 animate-pulse'
-                        : 'bg-bg-tertiary border-[#3A3A3F] text-accent-primary'
+                        ? 'bg-[#E5C185]/15 border-[#E5C185]/40 text-[#E5C185]'
+                        : 'bg-bg-tertiary border-white/[0.08] text-accent-primary'
                     }`}
                   >
                     {isBurning ? <Flame className="w-4 h-4" /> : <Icon className="w-4 h-4" />}
@@ -179,18 +179,18 @@ export const InfrastructureTopologyMap = ({ incidents = [] }) => {
                 <span
                   className={`text-[9px] font-mono px-1.5 py-0.5 rounded font-bold uppercase tracking-wider ${
                     isBurning
-                      ? 'bg-severity-p1 text-white animate-pulse'
+                      ? 'bg-[#E5C185]/20 text-[#E5C185] border border-[#E5C185]/40'
                       : 'bg-accent-success/15 text-accent-success border border-accent-success/30'
                   }`}
                 >
-                  {isBurning ? 'CRIT' : 'OK'}
+                  {isBurning ? 'DEGRADED' : 'NOMINAL'}
                 </span>
               </div>
 
               {/* Middle Row: Metrics telemetry */}
-              <div className="mt-3 pt-2 border-t border-[#2A2A2E] flex items-center justify-between text-[10px] font-mono">
+              <div className="mt-3 pt-2 border-t border-white/[0.06] flex items-center justify-between text-[10px] font-mono">
                 <span className="text-text-tertiary">TELEMETRY:</span>
-                <span className={isBurning ? 'text-severity-p1 font-bold' : 'text-text-secondary'}>
+                <span className={isBurning ? 'text-[#E5C185] font-bold' : 'text-text-secondary'}>
                   {isBurning ? 'HIGH LATENCY / 5XX SPIKE' : svc.metrics}
                 </span>
               </div>
@@ -198,10 +198,10 @@ export const InfrastructureTopologyMap = ({ incidents = [] }) => {
               {/* Bottom Row: 1-Click Action */}
               <div className="mt-2.5 flex items-center justify-between">
                 {isBurning ? (
-                  <div className="w-full flex items-center justify-between text-xs font-mono text-severity-p1 bg-severity-p1/20 px-2 py-1 rounded border border-severity-p1/40 hover:bg-severity-p1 hover:text-white transition-colors">
+                  <div className="w-full flex items-center justify-between text-xs font-mono text-[#E5C185] bg-[#C8A97E]/15 px-2.5 py-1.5 rounded-lg border border-[#C8A97E]/30 hover:bg-[#C8A97E]/25 transition-colors">
                     <span className="font-bold">INC-{String(activeIncident.incidentNumber).padStart(5, '0')}</span>
                     <span className="flex items-center gap-1 text-[11px]">
-                      War Room <ArrowRight className="w-3 h-3" />
+                      View Incident <ArrowRight className="w-3 h-3" />
                     </span>
                   </div>
                 ) : user?.role === 'VIEWER' ? (
@@ -214,13 +214,13 @@ export const InfrastructureTopologyMap = ({ incidents = [] }) => {
                     type="button"
                     onClick={(e) => handleSimulate(e, svc)}
                     disabled={isSimulating}
-                    className="w-full py-1.5 px-2 rounded-lg btn-ghost hover:text-severity-p1 text-[10px] font-mono transition-all flex items-center justify-center gap-1.5 disabled:opacity-50"
+                    className="w-full py-1.5 px-2 rounded-lg btn-ghost hover:text-[#E5C185] text-[10px] font-mono transition-all flex items-center justify-center gap-1.5 disabled:opacity-50"
                   >
                     {isSimulating ? (
                       <span>Injecting Outage...</span>
                     ) : (
                       <>
-                        <Zap className="w-3 h-3 text-severity-p1" />
+                        <Zap className="w-3 h-3 text-[#E5C185]" />
                         <span>Simulate Node Failure</span>
                       </>
                     )}

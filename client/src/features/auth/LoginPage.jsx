@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Shield, Lock, Mail, ArrowRight, Zap, Radio, Terminal, Target } from 'lucide-react';
+import { Mail, Lock, ArrowRight } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { getRoleInsignia } from '../../components/ui/TacticalInsignia';
-import BrutalistCard from '../../components/ui/BrutalistCard';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -46,208 +45,123 @@ export const LoginPage = () => {
       role: 'ADMIN',
       name: 'Sarah Chen',
       email: 'admin@acme.dev',
-      badge: 'COMMANDER_IN_CHIEF',
-      desc: 'Full administrative rights, escalation policy control & settings access.',
-      border: 'border-accent-primary/40 hover:border-accent-primary bg-accent-primary/5',
+      badge: 'Admin',
+      desc: 'Full administrative rights & org policies',
     },
     {
       role: 'INCIDENT_COMMANDER',
       name: 'Alex Rivera',
       email: 'commander@acme.dev',
-      badge: 'INCIDENT_COMMANDER',
-      desc: 'Can escalate P1s, reassign responders, mitigate, and close postmortems.',
-      border: 'border-severity-p1/40 hover:border-severity-p1 bg-severity-p1/5',
+      badge: 'Commander',
+      desc: 'Incident escalation & postmortem governance',
     },
     {
       role: 'RESPONDER',
       name: 'Marcus Vance',
       email: 'responder@acme.dev',
-      badge: 'ON_CALL_SRE',
-      desc: 'Executes interactive runbooks, acknowledges incidents, posts timeline notes.',
-      border: 'border-severity-p2/40 hover:border-severity-p2 bg-severity-p2/5',
+      badge: 'Responder',
+      desc: 'Interactive runbook SOP execution',
     },
     {
       role: 'VIEWER',
       name: 'Elena Rostova',
       email: 'viewer@acme.dev',
-      badge: 'AUDIT_OBSERVER',
-      desc: 'Read-only observer for compliance audits, metrics & postmortem reviews.',
-      border: 'border-border-default hover:border-text-secondary bg-bg-tertiary/20',
+      badge: 'Observer',
+      desc: 'Read-only compliance & analytics review',
     },
   ];
 
   return (
-    <div className="min-h-screen bg-bg-primary text-text-primary flex flex-col md:flex-row font-sans">
-      {/* ── LEFT PANE: CINEMATIC MISSION CONTROL BRIEFING ── */}
-      <div className="w-full md:w-5/12 bg-bg-secondary border-r border-border-subtle p-8 md:p-12 flex flex-col justify-between relative overflow-hidden">
-        {/* Ambient Glow */}
-        <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-severity-p1/10 blur-3xl pointer-events-none" />
+    <div className="min-h-screen bg-[#09090B] text-[#F4F3EF] flex flex-col justify-center items-center p-6 relative overflow-hidden font-sans selection:bg-[#C8A97E]/25">
+      {/* Subtle Warm Champagne Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#C8A97E]/[0.04] blur-[120px] pointer-events-none rounded-full" />
 
-        <div className="relative z-10 space-y-6">
-          <div className="flex items-center gap-2.5">
-            <span className="w-3 h-3 rounded-full bg-severity-p1 animate-pulse shadow-[0_0_10px_#FF453A]" />
-            <span className="text-xs font-mono font-bold tracking-widest uppercase text-text-primary">
-              PULSE // INCIDENT WAR-ROOM
-            </span>
+      <div className="w-full max-w-lg mx-auto relative z-10 space-y-8">
+        {/* Brand Header */}
+        <div className="text-center space-y-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-[#A1A1AA] mb-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E5C185] animate-pulse" />
+            <span>Operational Intelligence</span>
           </div>
-
-          <div className="space-y-2">
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tighter text-text-primary leading-tight">
-              Mission-Critical Incident Response Engine.
-            </h1>
-            <p className="text-xs text-text-secondary font-mono leading-relaxed">
-              Real-time finite state triage, deterministic runbook SOP execution, autonomous SLA sentinel, and SHA-256 deduplicated alert ingestion.
-            </p>
-          </div>
-
-          {/* ── TACTICAL NERV/PALANTIR SVG TELEMETRY HUD ── */}
-          <div className="relative w-56 h-56 mx-auto my-4 flex items-center justify-center font-mono">
-            {/* Outer coordinate frame */}
-            <div className="absolute inset-0 rounded-full border border-border-subtle" />
-            <div className="absolute inset-4 rounded-full border border-dashed border-border-default/60 animate-spin" style={{ animationDuration: '30s' }} />
-            <div className="absolute inset-10 rounded-full border border-border-subtle/80" />
-            <div className="absolute inset-16 rounded-full border border-border-subtle/40" />
-
-            {/* Crosshair grids */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-full h-[1px] bg-border-subtle/40" />
-            </div>
-            <div className="absolute inset-0 flex items-center justify-center rotate-90">
-              <div className="w-full h-[1px] bg-border-subtle/40" />
-            </div>
-            <div className="absolute inset-0 flex items-center justify-center rotate-45">
-              <div className="w-full h-[1px] bg-border-subtle/20" />
-            </div>
-            <div className="absolute inset-0 flex items-center justify-center -rotate-45">
-              <div className="w-full h-[1px] bg-border-subtle/20" />
-            </div>
-
-            {/* Radar Conic Sweep Arc */}
-            <div
-              className="absolute inset-0 rounded-full animate-radar-sweep pointer-events-none"
-              style={{
-                background: 'conic-gradient(from 0deg, rgba(255, 69, 58, 0.3) 0deg, transparent 75deg)',
-              }}
-            />
-
-            {/* Active Blips */}
-            <div className="absolute top-12 left-16 w-1.5 h-1.5 rounded-full bg-severity-p1 animate-ping" />
-            <div className="absolute top-12 left-16 w-1.5 h-1.5 rounded-full bg-severity-p1" />
-            <div className="absolute bottom-14 right-14 w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse" />
-
-            {/* Center Reticle */}
-            <div className="w-3 h-3 rounded-full border border-severity-p1/60 flex items-center justify-center">
-              <div className="w-1.5 h-1.5 rounded-full bg-severity-p1 shadow-[0_0_8px_#FF453A]" />
-            </div>
-
-            {/* Coordinate telemetry badges */}
-            <span className="absolute top-1 left-2 text-[8px] text-text-tertiary select-none">
-              LAT 37.7749°N
-            </span>
-            <span className="absolute bottom-1 right-2 text-[8px] text-text-tertiary select-none">
-              LON 122.4194°W
-            </span>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3 pt-4 border-t border-border-subtle/60 text-xs font-mono text-text-secondary">
-            <div>
-              <span className="text-[10px] text-text-tertiary uppercase block">HEARTBEAT</span>
-              <span className="text-accent-success flex items-center gap-1.5 mt-0.5">
-                <Radio className="w-3 h-3 animate-pulse" /> 5s SLA SENTINEL
-              </span>
-            </div>
-            <div>
-              <span className="text-[10px] text-text-tertiary uppercase block">TELEMETRY</span>
-              <span className="text-accent-primary mt-0.5 block">DUAL-WEBSOCKET BUS</span>
-            </div>
-          </div>
+          <h1 className="text-3xl font-bold tracking-tight text-[#F4F3EF]">
+            Pulse Console
+          </h1>
+          <p className="text-xs text-[#A1A1AA] max-w-sm mx-auto leading-relaxed">
+            Automated incident triage, deterministic runbook execution, and autonomous SLA governance.
+          </p>
         </div>
 
-        <div className="relative z-10 pt-6 text-[11px] font-mono text-text-tertiary flex items-center justify-between">
-          <span>SEC_LEVEL: TOP_SECRET</span>
-          <span>SYS_NODE // 01-PROD</span>
-        </div>
-      </div>
-
-      {/* ── RIGHT PANE: 1-CLICK EVALUATOR LOGIN & FORM ── */}
-      <div className="flex-1 p-6 md:p-12 flex flex-col justify-center max-w-2xl mx-auto w-full">
-        <div className="space-y-6">
-          <div>
-            <div className="text-[11px] font-mono tracking-widest text-accent-primary uppercase mb-1">
-              // EVALUATOR ACCESS TERMINAL
-            </div>
-            <h2 className="text-2xl font-bold tracking-tight text-text-primary">
-              1-Click Authentication Dossier
-            </h2>
-            <p className="text-xs text-text-secondary mt-1">
-              For evaluation grading, select any role card below to authenticate instantly with seeded demo data:
-            </p>
+        {/* 1-Click Evaluator Persona Dossiers */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between text-[11px] font-mono text-[#63636B] uppercase tracking-wider px-1">
+            <span>Evaluator 1-Click Personas</span>
+            <span className="text-[#C8A97E]">Instant JWT Auth</span>
           </div>
 
-          {/* 1-Click Dossier Cards with Tactical SVG Insignias */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {demoDossiers.map((d) => (
               <button
                 key={d.role}
                 type="button"
                 onClick={() => handleQuickDossier(d.role)}
                 disabled={loading}
-                className={`p-3.5 rounded border ${d.border} text-left transition-all duration-200 group relative disabled:opacity-50`}
+                className="p-3.5 rounded-xl bg-[#111114] border border-white/[0.08] hover:border-[#C8A97E]/40 hover:bg-[#18181C] text-left transition-all duration-200 group relative disabled:opacity-50"
               >
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2">
-                    {getRoleInsignia(d.role, "w-4 h-4")}
-                    <span className="text-[11px] font-mono font-bold text-text-primary">
+                    {getRoleInsignia(d.role, 'w-3.5 h-3.5 text-[#C8A97E]')}
+                    <span className="text-[11px] font-mono font-bold text-[#F4F3EF]">
                       {d.badge}
                     </span>
                   </div>
-                  <ArrowRight className="w-3.5 h-3.5 text-text-tertiary group-hover:text-text-primary group-hover:translate-x-0.5 transition-all" />
+                  <ArrowRight className="w-3 h-3 text-[#63636B] group-hover:text-[#F4F3EF] group-hover:translate-x-0.5 transition-all" />
                 </div>
-                <div className="text-xs font-semibold text-text-primary mt-1.5">{d.name}</div>
-                <div className="text-[11px] font-mono text-text-tertiary">{d.email}</div>
-                <p className="text-[11px] text-text-secondary mt-2 leading-tight">{d.desc}</p>
+                <div className="text-xs font-medium text-[#F4F3EF]">{d.name}</div>
+                <div className="text-[10px] text-[#A1A1AA] mt-0.5">{d.desc}</div>
               </button>
             ))}
           </div>
+        </div>
 
-          {/* Divider */}
-          <div className="relative flex items-center justify-center">
-            <div className="w-full border-t border-border-subtle" />
-            <span className="bg-bg-primary px-3 text-[10px] font-mono uppercase text-text-tertiary relative">
-              OR LOGIN WITH CUSTOM CREDENTIALS
-            </span>
-          </div>
+        {/* Divider */}
+        <div className="relative flex items-center justify-center">
+          <div className="w-full border-t border-white/[0.06]" />
+          <span className="bg-[#09090B] px-3 text-[10px] font-mono uppercase text-[#63636B] relative">
+            Or Standard Credentials
+          </span>
+        </div>
 
-          {/* Manual Login Form */}
+        {/* Manual Login Card */}
+        <div className="bg-[#111114] border border-white/[0.08] rounded-2xl p-6 shadow-2xl space-y-5">
           <form onSubmit={handleManualLogin} className="space-y-4">
             <div>
-              <label className="text-xs font-mono text-text-secondary block mb-1.5 uppercase">
+              <label className="text-xs font-mono text-[#A1A1AA] block mb-1.5 uppercase">
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-text-tertiary absolute left-3 top-3" />
+                <Mail className="w-4 h-4 text-[#63636B] absolute left-3 top-3" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="commander@acme.dev"
-                  className="w-full bg-bg-secondary border border-border-default focus:border-accent-primary rounded px-3 py-2.5 pl-9 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none font-mono transition-colors"
+                  className="w-full bg-[#18181C] border border-white/[0.08] focus:border-[#C8A97E] rounded-xl px-3 py-2.5 pl-9 text-xs text-[#F4F3EF] placeholder:text-[#63636B] focus:outline-none font-mono transition-colors"
                 />
               </div>
             </div>
 
             <div>
-              <label className="text-xs font-mono text-text-secondary block mb-1.5 uppercase">
+              <label className="text-xs font-mono text-[#A1A1AA] block mb-1.5 uppercase">
                 Password
               </label>
               <div className="relative">
-                <Lock className="w-4 h-4 text-text-tertiary absolute left-3 top-3" />
+                <Lock className="w-4 h-4 text-[#63636B] absolute left-3 top-3" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
-                  className="w-full bg-bg-secondary border border-border-default focus:border-accent-primary rounded px-3 py-2.5 pl-9 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none font-mono transition-colors"
+                  className="w-full bg-[#18181C] border border-white/[0.08] focus:border-[#C8A97E] rounded-xl px-3 py-2.5 pl-9 text-xs text-[#F4F3EF] placeholder:text-[#63636B] focus:outline-none font-mono transition-colors"
                 />
               </div>
             </div>
@@ -255,11 +169,11 @@ export const LoginPage = () => {
             <button
               type="submit"
               disabled={loading || !email || !password}
-              className="w-full py-2.5 rounded bg-accent-primary hover:bg-accent-primary/90 text-white font-mono text-xs font-semibold flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+              className="w-full py-2.5 rounded-xl bg-[#F4F3EF] hover:bg-white text-[#09090B] font-medium text-xs flex items-center justify-center gap-2 transition-all disabled:opacity-40"
             >
               {loading ? (
                 <>
-                  <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span className="w-3.5 h-3.5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
                   <span>Authenticating...</span>
                 </>
               ) : (
@@ -270,13 +184,14 @@ export const LoginPage = () => {
               )}
             </button>
           </form>
+        </div>
 
-          <div className="text-center text-xs text-text-secondary">
-            Need to deploy a new organization?{' '}
-            <Link to="/register" className="text-accent-primary hover:underline font-mono">
-              Initialize Organization →
-            </Link>
-          </div>
+        {/* Footer */}
+        <div className="text-center text-xs text-[#A1A1AA]">
+          Deploying a fresh workspace?{' '}
+          <Link to="/register" className="text-[#C8A97E] hover:underline font-medium">
+            Initialize Organization →
+          </Link>
         </div>
       </div>
     </div>

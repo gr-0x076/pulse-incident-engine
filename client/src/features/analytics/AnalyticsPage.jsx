@@ -99,18 +99,18 @@ export const AnalyticsPage = () => {
           { date: 'Today', Total: summary.totalIncidents || 8, P1Critical: summary.slaBreachCount || 2 },
         ];
 
-  // Severity colors mapping
+  // Severity colors mapping (Obsidian & Champagne Gold Luxury)
   const severityColorMap = {
-    P1: '#FF453A',
-    P2: '#FF9F0A',
-    P3: '#FFD60A',
-    P4: '#30D158',
+    P1: '#E5C185',
+    P2: '#C8A97E',
+    P3: '#94A3B8',
+    P4: '#64748B',
   };
 
   const severityChartData = severities.map((s) => ({
     severity: s._id,
     count: s.count,
-    color: severityColorMap[s._id] || '#0A84FF',
+    color: severityColorMap[s._id] || '#C8A97E',
   }));
 
   const rootCauseChartData = rootCauses.map((rc) => ({
@@ -224,12 +224,12 @@ export const AnalyticsPage = () => {
             <AreaChart data={displayTimeline} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
               <defs>
                 <linearGradient id="totalVolumeGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#0A84FF" stopOpacity={0.4} />
-                  <stop offset="95%" stopColor="#0A84FF" stopOpacity={0.0} />
+                  <stop offset="5%" stopColor="#94A3B8" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#94A3B8" stopOpacity={0.0} />
                 </linearGradient>
                 <linearGradient id="p1VolumeGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#FF453A" stopOpacity={0.5} />
-                  <stop offset="95%" stopColor="#FF453A" stopOpacity={0.0} />
+                  <stop offset="5%" stopColor="#E5C185" stopOpacity={0.4} />
+                  <stop offset="95%" stopColor="#E5C185" stopOpacity={0.0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.05)" />
@@ -240,7 +240,7 @@ export const AnalyticsPage = () => {
                 type="monotone"
                 dataKey="Total"
                 name="Total Incidents"
-                stroke="#0A84FF"
+                stroke="#94A3B8"
                 strokeWidth={2}
                 fillOpacity={1}
                 fill="url(#totalVolumeGradient)"
@@ -249,7 +249,7 @@ export const AnalyticsPage = () => {
                 type="monotone"
                 dataKey="P1Critical"
                 name="P1 Critical"
-                stroke="#FF453A"
+                stroke="#E5C185"
                 strokeWidth={2}
                 fillOpacity={1}
                 fill="url(#p1VolumeGradient)"
@@ -308,7 +308,7 @@ export const AnalyticsPage = () => {
                   <XAxis type="number" stroke="#5C5C61" tick={{ fontSize: 10, fontFamily: 'monospace' }} allowDecimals={false} />
                   <YAxis type="category" dataKey="category" stroke="#5C5C61" tick={{ fontSize: 10, fontFamily: 'monospace' }} />
                   <Tooltip content={<TelemetryTooltip />} />
-                  <Bar dataKey="count" name="Classifications" fill="#30D158" radius={[0, 4, 4, 0]} />
+                  <Bar dataKey="count" name="Classifications" fill="#6EE7B7" radius={[0, 4, 4, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>

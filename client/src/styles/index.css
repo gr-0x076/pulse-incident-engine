@@ -19,7 +19,7 @@
 
   body {
     background-color: var(--bg-primary);
-    background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.12), transparent);
+    background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(200, 169, 126, 0.06), transparent);
     color: var(--text-primary);
     min-height: 100vh;
   }
@@ -51,42 +51,42 @@
 
   /* Selection */
   ::selection {
-    background: rgba(10, 132, 255, 0.3);
+    background: rgba(200, 169, 126, 0.25);
     color: var(--text-primary);
   }
 
   /* Force solid opaque high-contrast surfaces for all select and option elements globally */
   select {
-    background-color: #141416 !important;
-    color: #EDEDEF !important;
-    border: 1px solid #3A3A3F !important;
+    background-color: #111114 !important;
+    color: #F4F3EF !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
   }
 
   select option {
-    background-color: #141416 !important;
-    color: #EDEDEF !important;
+    background-color: #111114 !important;
+    color: #F4F3EF !important;
     padding: 8px 12px;
   }
 
   select option:hover,
   select option:focus,
   select option:checked {
-    background-color: #0A84FF !important;
-    color: #FFFFFF !important;
+    background-color: #C8A97E !important;
+    color: #09090B !important;
   }
 }
 
 @layer utilities {
   /* High-Contrast Opaque Floating Surfaces (100% Solid) */
   .popover-surface {
-    background-color: #141416 !important;
-    border: 1px solid #3A3A3F !important;
+    background-color: #111114 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
   }
 
   .modal-surface {
-    background-color: #141416 !important;
-    border: 1px solid #3A3A3F !important;
+    background-color: #111114 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     box-shadow: 0 32px 72px rgba(0, 0, 0, 0.98), 0 0 0 1px rgba(255, 255, 255, 0.08) !important;
   }
 }
@@ -214,24 +214,24 @@
 
   /* Jewel Badges */
   .jewel-pill-p1 {
-    background: rgba(244, 63, 94, 0.08);
-    color: #F43F5E;
-    border: 1px solid rgba(244, 63, 94, 0.22);
+    background: rgba(229, 193, 133, 0.08);
+    color: #E5C185;
+    border: 1px solid rgba(229, 193, 133, 0.25);
   }
   .jewel-pill-p2 {
-    background: rgba(245, 158, 11, 0.08);
-    color: #F59E0B;
-    border: 1px solid rgba(245, 158, 11, 0.22);
+    background: rgba(200, 169, 126, 0.08);
+    color: #C8A97E;
+    border: 1px solid rgba(200, 169, 126, 0.25);
   }
   .jewel-pill-p3 {
-    background: rgba(234, 179, 8, 0.08);
-    color: #EAB308;
-    border: 1px solid rgba(234, 179, 8, 0.22);
+    background: rgba(148, 163, 184, 0.08);
+    color: #94A3B8;
+    border: 1px solid rgba(148, 163, 184, 0.25);
   }
   .jewel-pill-p4 {
-    background: rgba(16, 185, 129, 0.08);
-    color: #10B981;
-    border: 1px solid rgba(16, 185, 129, 0.22);
+    background: rgba(100, 116, 139, 0.08);
+    color: #64748B;
+    border: 1px solid rgba(100, 116, 139, 0.25);
   }
 }
 

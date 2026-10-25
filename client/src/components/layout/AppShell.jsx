@@ -77,14 +77,14 @@ export const AppShell = () => {
             className="flex items-center gap-2.5 cursor-pointer group"
             onClick={() => navigate('/dashboard')}
           >
-            <span className="w-2 h-2 rounded-full bg-severity-p1 animate-pulse shadow-[0_0_8px_#F43F5E]" />
+            <span className="w-2 h-2 rounded-full bg-[#E5C185] animate-pulse shadow-[0_0_8px_rgba(229,193,133,0.4)]" />
             <span className="text-sm font-semibold tracking-tight text-text-primary group-hover:text-white transition-colors">
               Pulse <span className="text-text-tertiary font-normal text-xs ml-1 font-mono">ops console</span>
             </span>
           </div>
 
           <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.03] border border-border-subtle text-[11px] font-mono text-text-secondary">
-            <Radio className={`w-3 h-3 ${connected ? 'text-accent-success animate-pulse' : 'text-severity-p1'}`} />
+            <Radio className={`w-3 h-3 ${connected ? 'text-accent-success animate-pulse' : 'text-[#E5C185]'}`} />
             <span>{connected ? 'WS_LIVE' : 'WS_DISCONNECTED'}</span>
           </div>
 
@@ -108,9 +108,9 @@ export const AppShell = () => {
           {/* Chaos Simulator Trigger */}
           <button
             onClick={() => setChaosOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-severity-p1/10 hover:bg-severity-p1/15 border border-severity-p1/30 text-severity-p1 text-xs font-mono font-medium transition-all shadow-[0_0_12px_rgba(244,63,94,0.15)]"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#C8A97E]/10 hover:bg-[#C8A97E]/20 border border-[#C8A97E]/25 text-[#E5C185] text-xs font-mono font-medium transition-all"
           >
-            <Flame className="w-3.5 h-3.5 animate-pulse" />
+            <Flame className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Simulate Outage</span>
           </button>
 
@@ -132,7 +132,7 @@ export const AppShell = () => {
             <button
               onClick={logout}
               title="Sign Out"
-              className="p-1.5 rounded-lg text-text-tertiary hover:text-severity-p1 hover:bg-white/[0.04] transition-colors"
+              className="p-1.5 rounded-lg text-text-tertiary hover:text-[#E5C185] hover:bg-white/[0.04] transition-colors"
             >
               <LogOut className="w-4 h-4" />
             </button>

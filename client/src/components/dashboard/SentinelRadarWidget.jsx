@@ -87,7 +87,7 @@ export const SentinelRadarWidget = ({ metrics = {} }) => {
                     key={idx}
                     className={`flex-1 rounded-sm transition-all duration-500 ${
                       isFilled
-                        ? 'bg-accent-success shadow-[0_0_6px_rgba(16,185,129,0.4)]'
+                        ? 'bg-accent-success'
                         : 'bg-white/[0.06]'
                     }`}
                   />
@@ -99,13 +99,13 @@ export const SentinelRadarWidget = ({ metrics = {} }) => {
       </div>
 
       {/* Footer Status */}
-      <div className="mt-4 pt-3 border-t border-[#2A2A2E] flex items-center justify-between text-[11px] font-mono">
+      <div className="mt-4 pt-3 border-t border-border-subtle flex items-center justify-between text-[11px] font-mono">
         <div className="flex items-center gap-1.5">
-          <span className={`w-2 h-2 rounded-full ${connected ? 'bg-accent-success' : 'bg-severity-p1'}`} />
+          <span className={`w-2 h-2 rounded-full ${connected ? 'bg-accent-success' : 'bg-[#E5C185]'}`} />
           <span className="text-text-secondary">{connected ? 'BI-DIRECTIONAL WS: UP' : 'WS RECONNECTING'}</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-severity-p1 font-bold">P1 CRIT: {p1Count}</span>
+          <span className="text-[#E5C185] font-semibold">P1 ACTIVE: {p1Count}</span>
         </div>
       </div>
     </div>

@@ -68,9 +68,9 @@ export const TransitionModal = ({
         {/* Header */}
         <div className="px-5 py-3.5 border-b border-border-subtle flex items-center justify-between bg-bg-tertiary/40">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-accent-primary animate-pulse" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#E5C185] animate-pulse" />
             <h2 className="text-xs font-mono font-bold tracking-wider uppercase text-text-primary">
-              // TRANSITION_GATE: {targetStatus}
+              Transition Gate: {targetStatus}
             </h2>
           </div>
           <button onClick={onClose} className="p-1 rounded text-text-secondary hover:text-text-primary">
@@ -95,7 +95,7 @@ export const TransitionModal = ({
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
                 placeholder="Explain why incident severity must be elevated or higher tier paging is necessary..."
-                className="w-full bg-bg-tertiary/60 border border-border-default focus:border-severity-p1 rounded p-2.5 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none font-sans"
+                className="w-full bg-bg-tertiary/60 border border-border-default focus:border-[#C8A97E] rounded-xl p-2.5 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none font-sans"
               />
             </div>
           )}
@@ -143,7 +143,7 @@ export const TransitionModal = ({
                 value={mitigationSummary}
                 onChange={(e) => setMitigationSummary(e.target.value)}
                 placeholder="Describe tactical containment actions taken (e.g. rolled back deployment v2.4, traffic rerouted to secondary cluster)..."
-                className="w-full bg-bg-tertiary/60 border border-border-default focus:border-accent-success rounded p-2.5 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none font-sans"
+                className="w-full bg-bg-tertiary/60 border border-border-default focus:border-[#C8A97E] rounded-xl p-2.5 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none font-sans"
               />
             </div>
           )}
@@ -158,7 +158,7 @@ export const TransitionModal = ({
                 <select
                   value={rootCauseCategory}
                   onChange={(e) => setRootCauseCategory(e.target.value)}
-                  className="w-full bg-bg-tertiary/60 border border-border-default focus:border-accent-success rounded px-2.5 py-2 text-xs text-text-primary font-mono"
+                  className="w-full bg-bg-tertiary/60 border border-border-default focus:border-[#C8A97E] rounded-xl px-2.5 py-2 text-xs text-text-primary font-mono"
                 >
                   {['CODE', 'INFRA', 'CONFIG', 'DEPENDENCY', 'HUMAN', 'UNKNOWN'].map((cat) => (
                     <option key={cat} value={cat}>
@@ -178,7 +178,7 @@ export const TransitionModal = ({
                   value={rootCauseDescription}
                   onChange={(e) => setRootCauseDescription(e.target.value)}
                   placeholder="Explain fundamental defect or trigger event that caused the incident..."
-                  className="w-full bg-bg-tertiary/60 border border-border-default focus:border-accent-success rounded p-2.5 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none font-sans"
+                  className="w-full bg-bg-tertiary/60 border border-border-default focus:border-[#C8A97E] rounded-xl p-2.5 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none font-sans"
                 />
               </div>
             </div>
@@ -195,7 +195,7 @@ export const TransitionModal = ({
             <button
               type="submit"
               disabled={submitting}
-              className="px-4 py-2 rounded bg-accent-primary hover:bg-accent-primary/90 text-white font-mono text-xs font-bold transition-all shadow-[0_0_12px_rgba(10,132,255,0.2)] disabled:opacity-50 flex items-center gap-1.5"
+              className="px-4 py-2 rounded-xl bg-[#F4F3EF] hover:bg-white text-[#09090B] font-medium text-xs transition-all disabled:opacity-40 flex items-center gap-1.5"
             >
               <span>Confirm Transition</span>
               <ArrowRight className="w-3.5 h-3.5" />

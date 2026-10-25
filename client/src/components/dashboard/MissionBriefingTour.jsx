@@ -22,8 +22,8 @@ export const MissionBriefingTour = ({ isOpen, onClose }) => {
       const res = await apiClient.post('/webhooks/simulate', { preset: 'API_GATEWAY_5XX' });
       if (res.success) {
         toast.success('Synthetic P1 Outage Ingested! Watch the SLA Sentinel start ticking.', {
-          icon: '🚨',
-          style: { borderLeft: '3px solid #FF453A' },
+          icon: '⚡',
+          style: { borderLeft: '3px solid #C8A97E' },
         });
       }
     } catch (err) {

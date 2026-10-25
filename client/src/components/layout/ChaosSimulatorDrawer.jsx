@@ -22,7 +22,7 @@ export const ChaosSimulatorDrawer = ({ isOpen, onClose }) => {
       if (response.success) {
         toast.success(`Outage Simulated: ${title}`, {
           icon: '⚡',
-          style: { borderLeft: '3px solid #F43F5E' },
+          style: { borderLeft: '3px solid #C8A97E' },
         });
         onClose();
       }
@@ -100,9 +100,9 @@ export const ChaosSimulatorDrawer = ({ isOpen, onClose }) => {
         {/* Drawer Header */}
         <div className="px-5 py-4 border-b border-border-subtle flex items-center justify-between bg-bg-tertiary/40">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-severity-p1 animate-pulse" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#E5C185] animate-pulse" />
             <h2 className="text-sm font-semibold text-text-primary tracking-wide uppercase font-mono">
-              // CHAOS_OUTAGE_SIMULATOR
+              Outage Simulator
             </h2>
           </div>
           <button
@@ -114,7 +114,7 @@ export const ChaosSimulatorDrawer = ({ isOpen, onClose }) => {
         </div>
 
         {/* Warning Banner */}
-        <div className="px-5 py-2.5 bg-severity-p1/10 border-b border-severity-p1/20 flex items-center gap-2 text-xs text-severity-p1 font-mono">
+        <div className="px-5 py-2.5 bg-[#C8A97E]/10 border-b border-[#C8A97E]/20 flex items-center gap-2 text-xs text-[#E5C185] font-mono">
           <AlertTriangle className="w-3.5 h-3.5 flex-shrink-0" />
           <span>EVALUATOR BENCHMARK: Ingest real-time alerts with 1 click.</span>
         </div>
