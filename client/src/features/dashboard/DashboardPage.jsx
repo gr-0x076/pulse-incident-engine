@@ -18,6 +18,7 @@ import {
   Sparkles,
   Check,
   CheckCheck,
+  Lock,
 } from 'lucide-react';
 import apiClient from '../../api/client';
 import { useAuth } from '../../context/AuthContext';
@@ -116,21 +117,21 @@ export const DashboardPage = () => {
     <div className="p-4 md:p-6 space-y-6 max-w-7xl mx-auto">
       {/* ── DEFCON WARNING BANNER (ACTIVATES WHEN P1 IS ACTIVE) ── */}
       {hasCriticalActive && (
-        <div className="hazard-stripes-p1 border border-severity-p1/60 rounded-lg p-3.5 flex items-center justify-between animate-fade-in shadow-[0_0_30px_rgba(255,69,58,0.25)]">
+        <div className="bg-severity-p1/5 border border-severity-p1/25 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade-in shadow-[0_8px_30px_rgba(244,63,94,0.12)]">
           <div className="flex items-center gap-3">
-            <span className="w-3 h-3 rounded-full bg-severity-p1 animate-ping" />
+            <span className="w-2.5 h-2.5 rounded-full bg-severity-p1 animate-ping flex-shrink-0" />
             <div>
-              <div className="text-xs font-mono font-bold text-severity-p1 tracking-wider uppercase flex items-center gap-2">
-                <span>[ DEFCON 1 // ACTIVE PRODUCTION OUTAGE DETECTED ]</span>
+              <div className="text-xs font-mono font-bold text-severity-p1 tracking-wide uppercase flex items-center gap-2">
+                <span>Critical P1 Incident in Progress</span>
               </div>
-              <p className="text-xs text-text-secondary mt-0.5 font-mono">
-                Active P1 incidents require immediate triage. Background 5s SLA Sentinel actively monitoring for breaches.
+              <p className="text-xs text-text-secondary mt-0.5">
+                Active P1 incidents require immediate triage. Automated 5s SLA Sentinel actively monitoring for breach.
               </p>
             </div>
           </div>
           <button
             onClick={() => setSelectedSeverity('P1')}
-            className="px-3 py-1.5 rounded bg-severity-p1 text-white font-mono text-xs font-bold hover:bg-severity-p1/90 transition-all flex items-center gap-1.5 shadow-[0_0_12px_rgba(255,69,58,0.4)]"
+            className="btn-ivory px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 flex-shrink-0"
           >
             <span>Filter P1 Outages</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -139,35 +140,45 @@ export const DashboardPage = () => {
       )}
 
       {/* ── TOP ACTION HEADER & SYSTEM STATUS ── */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#2A2A2E] pb-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-border-subtle pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono tracking-widest text-text-tertiary uppercase">
-              // TELEMETRY_MATRIX: CYBER-BRUTALIST COMMAND CENTER
+            <span className="text-[10px] font-mono tracking-wider text-text-tertiary uppercase">
+              Ops Console Telemetry
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-accent-success" />
           </div>
           <h1 className="text-xl md:text-2xl font-bold tracking-tight text-text-primary mt-0.5">
             Incident Operations Center
           </h1>
+          <p className="text-xs text-text-secondary mt-0.5">
+            Real-time distributed systems health, live triage queue, and automated SLA enforcement.
+          </p>
         </div>
 
         <div className="flex items-center gap-2.5">
           <button
             onClick={() => setBriefingOpen((prev) => !prev)}
-            className="px-3 py-2 rounded bg-[#1C1C1F] hover:bg-[#2A2A2E] border border-[#3A3A3F] text-xs font-mono text-text-secondary hover:text-text-primary transition-all flex items-center gap-1.5"
+            className="btn-ghost px-3 py-2 rounded-xl text-xs flex items-center gap-1.5"
           >
             <Sparkles className="w-3.5 h-3.5 text-accent-primary" />
             <span>{briefingOpen ? 'Hide Guide' : 'Mission Guide'}</span>
           </button>
 
-          <button
-            onClick={() => setCreateModalOpen(true)}
-            className="px-3.5 py-2 rounded bg-severity-p1 hover:bg-severity-p1/90 text-white font-mono text-xs font-bold transition-all shadow-[0_0_12px_rgba(255,69,58,0.25)] flex items-center gap-2"
-          >
-            <PlusCircle className="w-4 h-4" />
-            <span>Declare Incident</span>
-          </button>
+          {user?.role !== 'VIEWER' ? (
+            <button
+              onClick={() => setCreateModalOpen(true)}
+              className="btn-ivory px-3.5 py-2 rounded-xl text-xs flex items-center gap-2"
+            >
+              <PlusCircle className="w-4 h-4" />
+              <span>Declare Incident</span>
+            </button>
+          ) : (
+            <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/[0.02] border border-border-subtle text-text-tertiary text-xs font-mono">
+              <Lock className="w-3.5 h-3.5" />
+              <span>Read-Only Observer</span>
+            </div>
+          )}
         </div>
       </div>
 
@@ -188,26 +199,20 @@ export const DashboardPage = () => {
       </div>
 
       {/* ── BENTO GRID ROW 2: ACTIVE TRIAGE COMMAND QUEUE (FULL WIDTH SPLIT) ── */}
-      <div className="p-4 sm:p-5 rounded-lg bg-[#141416] border border-[#3A3A3F] shadow-[0_16px_40px_rgba(0,0,0,0.6)] relative">
-        {/* Corner Crosshairs */}
-        <span className="absolute top-1.5 left-2 font-mono text-[10px] text-text-tertiary select-none">+</span>
-        <span className="absolute top-1.5 right-2 font-mono text-[10px] text-text-tertiary select-none">+</span>
-        <span className="absolute bottom-1.5 left-2 font-mono text-[10px] text-text-tertiary select-none">+</span>
-        <span className="absolute bottom-1.5 right-2 font-mono text-[10px] text-text-tertiary select-none">+</span>
-
+      <div className="p-5 sm:p-6 rounded-2xl titanium-surface relative">
         {/* Bento Queue Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 mb-4 border-b border-[#2A2A2E]">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-mono font-bold tracking-wider text-text-primary uppercase">
-              // BENTO_03: ACTIVE TRIAGE COMMAND QUEUE
-            </span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-accent-primary/10 border border-accent-primary/30 text-accent-primary font-bold">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 mb-4 border-b border-border-subtle">
+          <div className="flex items-center gap-2.5">
+            <h2 className="text-xs font-mono font-bold tracking-wider text-text-primary uppercase">
+              Active Incident Stream
+            </h2>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary font-bold">
               {incidents.length} IN STREAM
             </span>
           </div>
 
           <div className="text-[11px] font-mono text-text-tertiary">
-            STATE ENGINE: <span className="text-text-primary font-bold">FINITE STATE MACHINE (OCC PROTECTED)</span>
+            STATE ENGINE: <span className="text-text-primary font-semibold">FINITE STATE MACHINE (OCC PROTECTED)</span>
           </div>
         </div>
 
@@ -384,10 +389,10 @@ export const DashboardPage = () => {
                   <div
                     key={incident._id}
                     onClick={() => navigate(`/incidents/${incident._id}`)}
-                    className={`group p-4 rounded-lg border transition-all duration-200 cursor-pointer relative ${
+                    className={`group p-4 rounded-xl transition-all duration-200 cursor-pointer relative ${
                       isP1 && isFiredOrEscalated
-                        ? 'bg-[#1C1414] border-severity-p1/60 hover:border-severity-p1 shadow-[0_0_20px_rgba(255,69,58,0.15)] border-l-4 border-l-severity-p1'
-                        : 'bg-[#18181C]/80 border-[#2E2E33] hover:border-[#4A4A52] hover:bg-[#1C1C21]'
+                        ? 'bg-severity-p1/[0.06] border border-severity-p1/40 hover:border-severity-p1/70 shadow-[0_4px_24px_rgba(244,63,94,0.15)]'
+                        : 'titanium-surface-interactive'
                     }`}
                   >
                     {/* Top Row: Severity + Incident Number + Service Tag + Title */}
@@ -450,21 +455,21 @@ export const DashboardPage = () => {
                     </div>
 
                     {/* Bottom Action Row: Inline 1-Click Quick Actions */}
-                    <div className="mt-3 pt-2.5 border-t border-[#2A2A2E] flex items-center justify-end gap-2.5">
-                      {/* Inline 1-Click Acknowledge button */}
-                      {isFiredOrEscalated && (
+                    <div className="mt-3 pt-2.5 border-t border-border-subtle flex items-center justify-end gap-2.5">
+                      {/* Inline 1-Click Acknowledge button (RBAC Gated: Non-Viewers only) */}
+                      {isFiredOrEscalated && user?.role !== 'VIEWER' && (
                         <button
                           type="button"
                           onClick={(e) => handleInlineAcknowledge(e, incident)}
                           disabled={isAcknowledging}
-                          className="px-3 py-1 text-xs font-mono font-bold rounded bg-severity-p2 hover:bg-severity-p2/90 text-bg-primary transition-all flex items-center gap-1.5 shadow-[0_0_8px_rgba(255,159,10,0.25)] disabled:opacity-50"
+                          className="px-3 py-1.5 text-xs font-medium rounded-lg bg-severity-p2 hover:bg-severity-p2/90 text-bg-primary transition-all flex items-center gap-1.5 shadow-[0_0_8px_rgba(245,158,11,0.25)] disabled:opacity-50"
                         >
                           {isAcknowledging ? (
                             <span>Stopping SLA...</span>
                           ) : (
                             <>
                               <CheckCheck className="w-3.5 h-3.5" />
-                              <span>1-Click Acknowledge (Stop SLA)</span>
+                              <span>Acknowledge (Stop SLA)</span>
                             </>
                           )}
                         </button>
@@ -477,7 +482,7 @@ export const DashboardPage = () => {
                           e.stopPropagation();
                           navigate(`/incidents/${incident._id}`);
                         }}
-                        className="px-3 py-1 text-xs font-mono font-bold rounded bg-[#232326] hover:bg-accent-primary hover:text-white border border-[#3A3A3F] hover:border-accent-primary text-text-primary transition-all flex items-center gap-1.5"
+                        className="btn-ghost px-3 py-1.5 text-xs font-medium rounded-lg text-text-primary flex items-center gap-1.5"
                       >
                         <span>War Room</span>
                         <ArrowRight className="w-3.5 h-3.5" />

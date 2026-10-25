@@ -1,22 +1,28 @@
 import React, { useState } from 'react';
-import { X, Flame, Database, CreditCard, Copy, RefreshCw, AlertTriangle, CheckCircle } from 'lucide-react';
+import { X, Flame, Database, CreditCard, Copy, RefreshCw, AlertTriangle, CheckCircle, Lock } from 'lucide-react';
 import apiClient from '../../api/client';
+import { useAuth } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 
 export const ChaosSimulatorDrawer = ({ isOpen, onClose }) => {
+  const { user } = useAuth();
   const [loadingPreset, setLoadingPreset] = useState(null);
   const [resetting, setResetting] = useState(false);
 
   if (!isOpen) return null;
 
   const handleSimulate = async (preset, title) => {
+    if (user?.role === 'VIEWER') {
+      toast.error('Simulation locked: Read-only observers cannot trigger outages');
+      return;
+    }
     setLoadingPreset(preset);
     try {
       const response = await apiClient.post('/webhooks/simulate', { preset });
       if (response.success) {
         toast.success(`Outage Simulated: ${title}`, {
           icon: '⚡',
-          style: { borderLeft: '3px solid #FF453A' },
+          style: { borderLeft: '3px solid #F43F5E' },
         });
         onClose();
       }
@@ -28,6 +34,10 @@ export const ChaosSimulatorDrawer = ({ isOpen, onClose }) => {
   };
 
   const handleResetDemo = async () => {
+    if (user?.role === 'VIEWER') {
+      toast.error('Restricted: Read-only observers cannot reset demo database');
+      return;
+    }
     if (!window.confirm('Re-seed entire environment back to pristine demo state?')) return;
     setResetting(true);
     try {
@@ -150,23 +160,30 @@ export const ChaosSimulatorDrawer = ({ isOpen, onClose }) => {
                   </p>
 
                   <div className="mt-3 flex justify-end">
-                    <button
-                      onClick={() => handleSimulate(preset.id, preset.title)}
-                      disabled={isSimulating}
-                      className="px-3 py-1.5 text-xs font-mono font-medium rounded bg-bg-elevated hover:bg-white/10 text-text-primary border border-border-default hover:border-white/20 transition-all flex items-center gap-1.5 disabled:opacity-50"
-                    >
-                      {isSimulating ? (
-                        <>
-                          <span className="w-3 h-3 border-2 border-text-tertiary border-t-text-primary rounded-full animate-spin" />
-                          <span>Ingesting...</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>Trigger Outage</span>
-                          <span className="text-[10px] text-text-tertiary">↵</span>
-                        </>
-                      )}
-                    </button>
+                    {user?.role === 'VIEWER' ? (
+                      <div className="px-3 py-1.5 text-xs font-mono rounded-lg bg-white/[0.02] border border-border-subtle text-text-tertiary flex items-center gap-1.5">
+                        <Lock className="w-3 h-3" />
+                        <span>Simulation Locked</span>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => handleSimulate(preset.id, preset.title)}
+                        disabled={isSimulating}
+                        className="btn-ghost px-3 py-1.5 text-xs font-mono font-medium rounded-lg flex items-center gap-1.5 disabled:opacity-50"
+                      >
+                        {isSimulating ? (
+                          <>
+                            <span className="w-3 h-3 border-2 border-text-tertiary border-t-text-primary rounded-full animate-spin" />
+                            <span>Ingesting...</span>
+                          </>
+                        ) : (
+                          <>
+                            <span>Trigger Outage</span>
+                            <span className="text-[10px] text-text-tertiary">↵</span>
+                          </>
+                        )}
+                      </button>
+                    )}
                   </div>
                 </div>
               );

@@ -11,12 +11,15 @@ import {
   ArrowRight,
   AlertTriangle,
   Zap,
+  Lock,
 } from 'lucide-react';
 import apiClient from '../../api/client';
+import { useAuth } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 
 export const InfrastructureTopologyMap = ({ incidents = [] }) => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [simulatingNode, setSimulatingNode] = useState(null);
 
   // Helper to find active incident for a service
@@ -85,13 +88,17 @@ export const InfrastructureTopologyMap = ({ incidents = [] }) => {
 
   const handleSimulate = async (e, service) => {
     e.stopPropagation();
+    if (user?.role === 'VIEWER') {
+      toast.error('Simulation locked: Read-only observers cannot trigger outages');
+      return;
+    }
     setSimulatingNode(service.id);
     try {
       const res = await apiClient.post('/webhooks/simulate', { preset: service.preset });
       if (res.success) {
         toast.success(`Outage Simulated: ${service.name} failed!`, {
           icon: '⚡',
-          style: { borderLeft: '3px solid #FF453A' },
+          style: { borderLeft: '3px solid #F43F5E' },
         });
       }
     } catch (err) {
@@ -104,19 +111,13 @@ export const InfrastructureTopologyMap = ({ incidents = [] }) => {
   const burningCount = services.filter((s) => Boolean(findActiveIncident(s.keywords))).length;
 
   return (
-    <div className="p-4 sm:p-5 rounded-lg bg-[#141416] border border-[#3A3A3F] relative overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.6)]">
-      {/* Structural Corner Crosshairs */}
-      <span className="absolute top-1.5 left-2 font-mono text-[10px] text-text-tertiary select-none">+</span>
-      <span className="absolute top-1.5 right-2 font-mono text-[10px] text-text-tertiary select-none">+</span>
-      <span className="absolute bottom-1.5 left-2 font-mono text-[10px] text-text-tertiary select-none">+</span>
-      <span className="absolute bottom-1.5 right-2 font-mono text-[10px] text-text-tertiary select-none">+</span>
-
+    <div className="p-5 sm:p-6 rounded-2xl titanium-surface relative overflow-hidden">
       {/* Header bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 mb-4 border-b border-[#2A2A2E]">
-        <div className="flex items-center gap-2">
-          <span className={`w-2.5 h-2.5 rounded-full ${burningCount > 0 ? 'bg-severity-p1 animate-ping' : 'bg-accent-success'}`} />
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 mb-4 border-b border-border-subtle">
+        <div className="flex items-center gap-2.5">
+          <span className={`w-2 h-2 rounded-full ${burningCount > 0 ? 'bg-severity-p1 animate-ping shadow-[0_0_8px_#F43F5E]' : 'bg-accent-success'}`} />
           <h2 className="text-xs font-mono font-bold tracking-wider text-text-primary uppercase">
-            // TOPOLOGY_MATRIX: LIVE INFRASTRUCTURE MESH
+            Distributed Infrastructure Topology
           </h2>
         </div>
         <div className="flex items-center gap-3 text-[11px] font-mono">
@@ -203,12 +204,17 @@ export const InfrastructureTopologyMap = ({ incidents = [] }) => {
                       War Room <ArrowRight className="w-3 h-3" />
                     </span>
                   </div>
+                ) : user?.role === 'VIEWER' ? (
+                  <div className="w-full py-1.5 px-2 rounded-lg bg-white/[0.02] border border-border-subtle text-text-tertiary text-[10px] font-mono flex items-center justify-center gap-1">
+                    <Lock className="w-3 h-3" />
+                    <span>Simulation Locked</span>
+                  </div>
                 ) : (
                   <button
                     type="button"
                     onClick={(e) => handleSimulate(e, svc)}
                     disabled={isSimulating}
-                    className="w-full py-1 px-2 rounded bg-[#232326] hover:bg-severity-p1/20 border border-[#3A3A3F] hover:border-severity-p1/50 text-text-secondary hover:text-severity-p1 text-[10px] font-mono transition-all flex items-center justify-center gap-1.5 disabled:opacity-50"
+                    className="w-full py-1.5 px-2 rounded-lg btn-ghost hover:text-severity-p1 text-[10px] font-mono transition-all flex items-center justify-center gap-1.5 disabled:opacity-50"
                   >
                     {isSimulating ? (
                       <span>Injecting Outage...</span>

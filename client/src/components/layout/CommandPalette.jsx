@@ -142,7 +142,7 @@ export const CommandPalette = ({ isOpen, onClose, onOpenChaos, onOpenCreateIncid
       onClick={onClose}
     >
       <div
-        className="w-full max-w-xl rounded-lg overflow-hidden modal-surface"
+        className="w-full max-w-xl rounded-2xl overflow-hidden titanium-surface shadow-[0_32px_72px_rgba(0,0,0,0.98)]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Input Bar */}

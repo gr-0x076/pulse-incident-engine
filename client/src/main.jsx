@@ -27,27 +27,30 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <QueryClientProvider client={queryClient}>
         <App />
         <Toaster
-          position="top-right"
+          position="bottom-right"
           toastOptions={{
-            duration: 4000,
+            duration: 2200,
             style: {
-              background: '#232326',
-              color: '#EDEDEF',
-              border: '1px solid #2A2A2E',
-              borderRadius: '6px',
+              background: '#0E0E11',
+              color: '#F4F4F6',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+              boxShadow: '0 16px 36px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(255, 255, 255, 0.1)',
+              borderRadius: '12px',
               fontSize: '0.8125rem',
               fontFamily: 'Inter, -apple-system, sans-serif',
+              cursor: 'pointer',
+              padding: '10px 14px',
             },
             success: {
               iconTheme: {
-                primary: '#30D158',
-                secondary: '#232326',
+                primary: '#10B981',
+                secondary: '#0E0E11',
               },
             },
             error: {
               iconTheme: {
-                primary: '#FF453A',
-                secondary: '#232326',
+                primary: '#F43F5E',
+                secondary: '#0E0E11',
               },
             },
           }}

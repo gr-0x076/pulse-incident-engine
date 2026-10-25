@@ -44,16 +44,16 @@ export const SocketProvider = ({ children }) => {
       toast(
         (t) => (
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-severity-p1 animate-pulse" />
-            <span>
+            <span className="w-2 h-2 rounded-full bg-severity-p1 animate-pulse shadow-[0_0_8px_#F43F5E]" />
+            <span className="text-xs">
               <strong className="font-mono text-severity-p1">INC-{String(incident.incidentNumber).padStart(5, '0')}</strong>{' '}
               {incident.title}
             </span>
           </div>
         ),
         {
-          duration: 5000,
-          style: { borderLeft: '3px solid #FF453A' },
+          duration: 2200,
+          style: { borderLeft: '3px solid #F43F5E' },
         }
       );
     });
@@ -69,9 +69,9 @@ export const SocketProvider = ({ children }) => {
       queryClient.invalidateQueries({ queryKey: ['incident', incident._id] });
       queryClient.invalidateQueries({ queryKey: ['analytics'] });
       toast.error(
-        `🚨 SLA ESCALATION: INC-${String(incident.incidentNumber).padStart(5, '0')} unacknowledged for ${breachMinutes}m (Limit: ${slaLimitMinutes}m)!`,
+        `🚨 SLA ESCALATION: INC-${String(incident.incidentNumber).padStart(5, '0')} unacknowledged for ${breachMinutes}m!`,
         {
-          duration: 7000,
+          duration: 2200,
         }
       );
     });

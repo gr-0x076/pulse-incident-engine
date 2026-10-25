@@ -124,17 +124,20 @@ export const AnalyticsPage = () => {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-border-subtle pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono tracking-widest text-text-tertiary uppercase">
-              // MONGODB_AGGREGATION_PIPELINES
+            <span className="text-[10px] font-mono tracking-wider text-text-tertiary uppercase">
+              Telemetry Deck
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-accent-primary" />
           </div>
-          <h1 className="text-xl font-bold tracking-tight text-text-primary mt-0.5">
+          <h1 className="text-xl md:text-2xl font-bold tracking-tight text-text-primary mt-0.5">
             Operational Reliability & SRE Telemetry Deck
           </h1>
+          <p className="text-xs text-text-secondary mt-0.5">
+            Real-time MTTA/MTTR metrics, severity distributions, and root cause taxonomy aggregations.
+          </p>
         </div>
-        <div className="text-xs font-mono text-text-tertiary px-3 py-1 rounded bg-bg-secondary border border-border-subtle">
-          CALCULATED VIA $facet, $group & $subtract
+        <div className="text-xs font-mono text-text-tertiary px-3 py-1.5 rounded-xl bg-white/[0.02] border border-border-subtle">
+          MongoDB Aggregation Pipelines ($facet & $group)
         </div>
       </div>
 

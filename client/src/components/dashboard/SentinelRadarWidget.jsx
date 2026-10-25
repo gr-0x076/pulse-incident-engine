@@ -13,36 +13,30 @@ export const SentinelRadarWidget = ({ metrics = {} }) => {
   const p1Count = metrics.severityBreakdown?.find((s) => s._id === 'P1')?.count || 0;
 
   return (
-    <div className="p-4 sm:p-5 rounded-lg bg-[#141416] border border-[#3A3A3F] relative overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.6)] flex flex-col justify-between">
-      {/* Corner crosshairs */}
-      <span className="absolute top-1.5 left-2 font-mono text-[10px] text-text-tertiary select-none">+</span>
-      <span className="absolute top-1.5 right-2 font-mono text-[10px] text-text-tertiary select-none">+</span>
-      <span className="absolute bottom-1.5 left-2 font-mono text-[10px] text-text-tertiary select-none">+</span>
-      <span className="absolute bottom-1.5 right-2 font-mono text-[10px] text-text-tertiary select-none">+</span>
-
+    <div className="p-5 sm:p-6 rounded-2xl titanium-surface relative overflow-hidden flex flex-col justify-between w-full">
       <div>
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#2A2A2E]">
+        <div className="flex items-center justify-between pb-3 mb-4 border-b border-border-subtle">
           <div className="flex items-center gap-2">
             <Radio className="w-3.5 h-3.5 text-accent-success animate-pulse" />
             <h2 className="text-xs font-mono font-bold tracking-wider text-text-primary uppercase">
-              // BENTO_02: SLA SENTINEL TELEMETRY
+              Reliability Telemetry
             </h2>
           </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-accent-success/15 border border-accent-success/30 text-accent-success font-bold">
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-accent-success/15 border border-accent-success/30 text-accent-success font-bold">
             5s TICKER
           </span>
         </div>
 
         {/* Monumental Numbers Grid */}
-        <div className="space-y-4">
+        <div className="space-y-3.5">
           {/* MTTA (Acknowledge) */}
-          <div className="p-3 rounded border border-[#2A2A2E] bg-[#1C1C1F]/40 flex items-center justify-between">
+          <div className="p-3.5 rounded-xl bg-white/[0.02] border border-border-subtle flex items-center justify-between">
             <div>
               <span className="text-[10px] font-mono text-text-tertiary uppercase block">
-                MEAN TIME TO ACKNOWLEDGE (MTTA)
+                Mean Time to Ack (MTTA)
               </span>
-              <div className="text-3xl sm:text-4xl font-black font-mono tracking-tighter text-text-primary mt-0.5">
+              <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-text-primary mt-0.5">
                 {mtta}m
               </div>
             </div>
@@ -55,12 +49,12 @@ export const SentinelRadarWidget = ({ metrics = {} }) => {
           </div>
 
           {/* MTTR (Resolve) */}
-          <div className="p-3 rounded border border-[#2A2A2E] bg-[#1C1C1F]/40 flex items-center justify-between">
+          <div className="p-3.5 rounded-xl bg-white/[0.02] border border-border-subtle flex items-center justify-between">
             <div>
               <span className="text-[10px] font-mono text-text-tertiary uppercase block">
-                MEAN TIME TO REPAIR (MTTR)
+                Mean Time to Repair (MTTR)
               </span>
-              <div className="text-3xl sm:text-4xl font-black font-mono tracking-tighter text-text-primary mt-0.5">
+              <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-text-primary mt-0.5">
                 {mttrDisplay}
               </div>
             </div>
@@ -70,23 +64,35 @@ export const SentinelRadarWidget = ({ metrics = {} }) => {
             </div>
           </div>
 
-          {/* SLA Compliance Gauge & Brutalist ASCII Bar */}
-          <div className="p-3 rounded border border-[#2A2A2E] bg-[#1C1C1F]/40">
+          {/* SLA Compliance Gauge & Sleek Segmented Bar */}
+          <div className="p-3.5 rounded-xl bg-white/[0.02] border border-border-subtle">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-mono text-text-tertiary uppercase">
-                SLA COMPLIANCE GAUGE
+                SLA Compliance Gauge
               </span>
               <span className="text-xs font-mono font-bold text-accent-success">
                 {slaCompliance}%
               </span>
             </div>
             {/* Monumental Number */}
-            <div className="text-3xl sm:text-4xl font-black font-mono tracking-tighter text-text-primary mt-1">
+            <div className="text-2xl sm:text-3xl font-black font-mono tracking-tight text-text-primary mt-0.5">
               {slaCompliance}%
             </div>
-            {/* Segmented brutalist bar */}
-            <div className="mt-2 text-xs font-mono tracking-widest text-accent-success truncate select-none">
-              ||||||||||||||||||||<span className="text-border-default">||||</span>
+            {/* Segmented luxury titanium track */}
+            <div className="mt-3 flex gap-1 h-1.5">
+              {Array.from({ length: 24 }).map((_, idx) => {
+                const isFilled = idx < Math.round((slaCompliance / 100) * 24);
+                return (
+                  <div
+                    key={idx}
+                    className={`flex-1 rounded-sm transition-all duration-500 ${
+                      isFilled
+                        ? 'bg-accent-success shadow-[0_0_6px_rgba(16,185,129,0.4)]'
+                        : 'bg-white/[0.06]'
+                    }`}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>

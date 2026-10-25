@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Users, UserPlus, Shield, UserCheck, Copy, Check, X } from 'lucide-react';
+import { Users, UserPlus, Shield, UserCheck, Copy, Check, X, Lock } from 'lucide-react';
 import apiClient from '../../api/client';
+import { useAuth } from '../../context/AuthContext';
 import { getRoleInsignia } from '../../components/ui/TacticalInsignia';
 import BrutalistCard from '../../components/ui/BrutalistCard';
 import toast from 'react-hot-toast';
 
 export const TeamPage = () => {
   const queryClient = useQueryClient();
+  const { user } = useAuth();
   const [inviteModalOpen, setInviteModalOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('RESPONDER');
@@ -27,6 +29,10 @@ export const TeamPage = () => {
 
   const handleGenerateInvite = async (e) => {
     e.preventDefault();
+    if (user?.role !== 'ADMIN') {
+      toast.error('Only Administrators can issue team invitations');
+      return;
+    }
     try {
       const res = await apiClient.post('/invites', { email, role });
       if (res.success) {
@@ -54,23 +60,33 @@ export const TeamPage = () => {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-border-subtle pb-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono tracking-widest text-text-tertiary uppercase">
-              // SQUADRON_ROSTER
+            <span className="text-[10px] font-mono tracking-wider text-text-tertiary uppercase">
+              Organization Squadron
             </span>
             <span className="w-1.5 h-1.5 rounded-full bg-accent-primary" />
           </div>
-          <h1 className="text-xl font-bold tracking-tight text-text-primary mt-0.5">
-            Team Roster & Role-Based Access Control
+          <h1 className="text-xl md:text-2xl font-bold tracking-tight text-text-primary mt-0.5">
+            Squadron Roster & Role-Based Access Control
           </h1>
+          <p className="text-xs text-text-secondary mt-0.5">
+            Manage responder clearances, team invites, and cryptographic access delegation.
+          </p>
         </div>
 
-        <button
-          onClick={() => setInviteModalOpen(true)}
-          className="px-3.5 py-2 rounded bg-accent-primary hover:bg-accent-primary/90 text-white font-mono text-xs font-bold transition-all shadow-[0_0_12px_rgba(10,132,255,0.2)] flex items-center gap-2"
-        >
-          <UserPlus className="w-4 h-4" />
-          <span>Invite Responder</span>
-        </button>
+        {user?.role === 'ADMIN' ? (
+          <button
+            onClick={() => setInviteModalOpen(true)}
+            className="btn-ivory px-3.5 py-2 rounded-xl text-xs flex items-center gap-2"
+          >
+            <UserPlus className="w-4 h-4" />
+            <span>Invite Responder</span>
+          </button>
+        ) : (
+          <div className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/[0.02] border border-border-subtle text-text-tertiary text-xs font-mono">
+            <Lock className="w-3.5 h-3.5" />
+            <span>Admin Clearance Required to Invite</span>
+          </div>
+        )}
       </div>
 
       {/* Roster Cards */}
