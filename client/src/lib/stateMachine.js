@@ -27,6 +27,13 @@ export const ROOT_CAUSE_CATEGORIES = Object.freeze([
   'UNKNOWN',
 ]);
 
+export const SLA_DEFAULTS = Object.freeze({
+  P1: 5,
+  P2: 15,
+  P3: 60,
+  P4: 240,
+});
+
 export const getValidTransitions = (currentStatus) => {
   return VALID_TRANSITIONS[currentStatus] || [];
 };

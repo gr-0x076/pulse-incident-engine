@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Shield, Lock, Mail, ArrowRight, Zap, Radio, Terminal } from 'lucide-react';
+import { Shield, Lock, Mail, ArrowRight, Zap, Radio, Terminal, Target } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { getRoleInsignia } from '../../components/ui/TacticalInsignia';
+import BrutalistCard from '../../components/ui/BrutalistCard';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -38,7 +40,7 @@ export const LoginPage = () => {
       role: 'ADMIN',
       name: 'Sarah Chen',
       email: 'admin@acme.dev',
-      badge: '👑 Commander-in-Chief',
+      badge: 'COMMANDER_IN_CHIEF',
       desc: 'Full administrative rights, escalation policy control & settings access.',
       border: 'border-accent-primary/40 hover:border-accent-primary bg-accent-primary/5',
     },
@@ -46,7 +48,7 @@ export const LoginPage = () => {
       role: 'INCIDENT_COMMANDER',
       name: 'Alex Rivera',
       email: 'commander@acme.dev',
-      badge: '⚡ Incident Commander',
+      badge: 'INCIDENT_COMMANDER',
       desc: 'Can escalate P1s, reassign responders, mitigate, and close postmortems.',
       border: 'border-severity-p1/40 hover:border-severity-p1 bg-severity-p1/5',
     },
@@ -54,7 +56,7 @@ export const LoginPage = () => {
       role: 'RESPONDER',
       name: 'Marcus Vance',
       email: 'responder@acme.dev',
-      badge: '🛡️ On-Call SRE',
+      badge: 'ON_CALL_SRE',
       desc: 'Executes interactive runbooks, acknowledges incidents, posts timeline notes.',
       border: 'border-severity-p2/40 hover:border-severity-p2 bg-severity-p2/5',
     },
@@ -62,7 +64,7 @@ export const LoginPage = () => {
       role: 'VIEWER',
       name: 'Elena Rostova',
       email: 'viewer@acme.dev',
-      badge: '👁️ Audit Observer',
+      badge: 'AUDIT_OBSERVER',
       desc: 'Read-only observer for compliance audits, metrics & postmortem reviews.',
       border: 'border-border-default hover:border-text-secondary bg-bg-tertiary/20',
     },
@@ -92,27 +94,53 @@ export const LoginPage = () => {
             </p>
           </div>
 
-          {/* Radar Sweep Telemetry Visual */}
-          <div className="relative w-48 h-48 mx-auto my-6 flex items-center justify-center">
-            {/* Concentric rings */}
+          {/* ── TACTICAL NERV/PALANTIR SVG TELEMETRY HUD ── */}
+          <div className="relative w-56 h-56 mx-auto my-4 flex items-center justify-center font-mono">
+            {/* Outer coordinate frame */}
             <div className="absolute inset-0 rounded-full border border-border-subtle" />
-            <div className="absolute inset-6 rounded-full border border-border-subtle/60" />
-            <div className="absolute inset-12 rounded-full border border-border-subtle/30" />
+            <div className="absolute inset-4 rounded-full border border-dashed border-border-default/60 animate-spin" style={{ animationDuration: '30s' }} />
+            <div className="absolute inset-10 rounded-full border border-border-subtle/80" />
+            <div className="absolute inset-16 rounded-full border border-border-subtle/40" />
+
+            {/* Crosshair grids */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-full h-[1px] bg-border-subtle/40" />
             </div>
             <div className="absolute inset-0 flex items-center justify-center rotate-90">
               <div className="w-full h-[1px] bg-border-subtle/40" />
             </div>
-            {/* Radar Sweep Ray */}
+            <div className="absolute inset-0 flex items-center justify-center rotate-45">
+              <div className="w-full h-[1px] bg-border-subtle/20" />
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center -rotate-45">
+              <div className="w-full h-[1px] bg-border-subtle/20" />
+            </div>
+
+            {/* Radar Conic Sweep Arc */}
             <div
               className="absolute inset-0 rounded-full animate-radar-sweep pointer-events-none"
               style={{
-                background: 'conic-gradient(from 0deg, rgba(255, 69, 58, 0.25) 0deg, transparent 60deg)',
+                background: 'conic-gradient(from 0deg, rgba(255, 69, 58, 0.3) 0deg, transparent 75deg)',
               }}
             />
-            {/* Center Blip */}
-            <div className="w-2 h-2 rounded-full bg-severity-p1 shadow-[0_0_8px_#FF453A]" />
+
+            {/* Active Blips */}
+            <div className="absolute top-12 left-16 w-1.5 h-1.5 rounded-full bg-severity-p1 animate-ping" />
+            <div className="absolute top-12 left-16 w-1.5 h-1.5 rounded-full bg-severity-p1" />
+            <div className="absolute bottom-14 right-14 w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse" />
+
+            {/* Center Reticle */}
+            <div className="w-3 h-3 rounded-full border border-severity-p1/60 flex items-center justify-center">
+              <div className="w-1.5 h-1.5 rounded-full bg-severity-p1 shadow-[0_0_8px_#FF453A]" />
+            </div>
+
+            {/* Coordinate telemetry badges */}
+            <span className="absolute top-1 left-2 text-[8px] text-text-tertiary select-none">
+              LAT 37.7749°N
+            </span>
+            <span className="absolute bottom-1 right-2 text-[8px] text-text-tertiary select-none">
+              LON 122.4194°W
+            </span>
           </div>
 
           <div className="grid grid-cols-2 gap-3 pt-4 border-t border-border-subtle/60 text-xs font-mono text-text-secondary">
@@ -131,7 +159,7 @@ export const LoginPage = () => {
 
         <div className="relative z-10 pt-6 text-[11px] font-mono text-text-tertiary flex items-center justify-between">
           <span>SEC_LEVEL: TOP_SECRET</span>
-          <span>v1.0.0-PROD</span>
+          <span>SYS_NODE // 01-PROD</span>
         </div>
       </div>
 
@@ -150,7 +178,7 @@ export const LoginPage = () => {
             </p>
           </div>
 
-          {/* 1-Click Dossier Cards */}
+          {/* 1-Click Dossier Cards with Tactical SVG Insignias */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {demoDossiers.map((d) => (
               <button
@@ -161,12 +189,15 @@ export const LoginPage = () => {
                 className={`p-3.5 rounded border ${d.border} text-left transition-all duration-200 group relative disabled:opacity-50`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono font-bold text-text-primary">
-                    {d.badge}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    {getRoleInsignia(d.role, "w-4 h-4")}
+                    <span className="text-[11px] font-mono font-bold text-text-primary">
+                      {d.badge}
+                    </span>
+                  </div>
                   <ArrowRight className="w-3.5 h-3.5 text-text-tertiary group-hover:text-text-primary group-hover:translate-x-0.5 transition-all" />
                 </div>
-                <div className="text-xs font-semibold text-text-primary mt-1">{d.name}</div>
+                <div className="text-xs font-semibold text-text-primary mt-1.5">{d.name}</div>
                 <div className="text-[11px] font-mono text-text-tertiary">{d.email}</div>
                 <p className="text-[11px] text-text-secondary mt-2 leading-tight">{d.desc}</p>
               </button>

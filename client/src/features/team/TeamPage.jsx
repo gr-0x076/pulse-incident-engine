@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Users, UserPlus, Shield, UserCheck, Copy, Check, X } from 'lucide-react';
 import apiClient from '../../api/client';
+import { getRoleInsignia } from '../../components/ui/TacticalInsignia';
+import BrutalistCard from '../../components/ui/BrutalistCard';
 import toast from 'react-hot-toast';
 
 export const TeamPage = () => {
@@ -46,21 +48,6 @@ export const TeamPage = () => {
     }
   };
 
-  const getRoleIcon = (r) => {
-    switch (r) {
-      case 'ADMIN':
-        return '👑';
-      case 'INCIDENT_COMMANDER':
-        return '⚡';
-      case 'RESPONDER':
-        return '🛡️';
-      case 'VIEWER':
-        return '👁️';
-      default:
-        return '👤';
-    }
-  };
-
   return (
     <div className="p-4 md:p-6 space-y-6 max-w-7xl mx-auto">
       {/* Header */}
@@ -92,12 +79,15 @@ export const TeamPage = () => {
           [1, 2, 3, 4].map((i) => <div key={i} className="h-32 rounded-lg skeleton" />)
         ) : (
           members.map((m) => (
-            <div
+            <BrutalistCard
               key={m._id}
-              className="p-4 rounded-lg bg-bg-secondary/60 border border-border-subtle glass-panel space-y-3 relative overflow-hidden"
+              indexStamp={`//OFFICER_${m.role}`}
+              className="space-y-3"
             >
               <div className="flex items-start justify-between">
-                <span className="text-2xl">{getRoleIcon(m.role)}</span>
+                <div className="p-2 rounded bg-bg-tertiary/70 border border-border-subtle">
+                  {getRoleInsignia(m.role, "w-6 h-6")}
+                </div>
                 <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-border-subtle bg-bg-tertiary/60 text-accent-primary font-semibold">
                   {m.role}
                 </span>
@@ -114,7 +104,7 @@ export const TeamPage = () => {
                   {m.activeIncidentCount || 0} Incidents
                 </span>
               </div>
-            </div>
+            </BrutalistCard>
           ))
         )}
       </div>
@@ -186,10 +176,10 @@ export const TeamPage = () => {
                     onChange={(e) => setRole(e.target.value)}
                     className="w-full bg-bg-tertiary/60 border border-border-default focus:border-accent-primary rounded px-2.5 py-2 text-xs text-text-primary font-mono"
                   >
-                    <option value="RESPONDER">🛡️ RESPONDER (Standard SRE)</option>
-                    <option value="INCIDENT_COMMANDER">⚡ INCIDENT COMMANDER (Lead)</option>
-                    <option value="ADMIN">👑 ADMIN (Full Commander)</option>
-                    <option value="VIEWER">👁️ VIEWER (Read-Only Audit)</option>
+                    <option value="RESPONDER">[RESPONDER] On-Call SRE (Tactical Playbook Execution)</option>
+                    <option value="INCIDENT_COMMANDER">[INCIDENT_COMMANDER] Lead IC (Triage & Mitigation)</option>
+                    <option value="ADMIN">[ADMIN] Command Officer (Full Authority)</option>
+                    <option value="VIEWER">[VIEWER] Audit Observer (Compliance & Metrics)</option>
                   </select>
                 </div>
 

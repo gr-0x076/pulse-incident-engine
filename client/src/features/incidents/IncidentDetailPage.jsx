@@ -28,6 +28,8 @@ import {
   SEVERITY_COLORS,
   getValidTransitions,
 } from '../../lib/stateMachine';
+import LiveSLACountdown from '../../components/ui/LiveSLACountdown';
+import BrutalistCard from '../../components/ui/BrutalistCard';
 import TransitionModal from './TransitionModal';
 import toast from 'react-hot-toast';
 
@@ -266,6 +268,9 @@ export const IncidentDetailPage = () => {
           })}
         </div>
       </div>
+
+      {/* ── LIVE SLA COUNTDOWN WIDGET ── */}
+      <LiveSLACountdown incident={incident} compact={false} />
 
       {/* ── SPLIT WORKSPACE: WORKBENCH (LEFT) & TIMELINE (RIGHT) ── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">

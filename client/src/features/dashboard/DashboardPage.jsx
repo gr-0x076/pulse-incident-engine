@@ -21,6 +21,8 @@ import { useAuth } from '../../context/AuthContext';
 import { formatIncidentNumber, formatRelativeTime } from '../../lib/formatters';
 import { STATUS_LABELS, STATUS_COLORS, SEVERITY_COLORS } from '../../lib/stateMachine';
 import CreateIncidentModal from '../incidents/CreateIncidentModal';
+import LiveSLACountdown from '../../components/ui/LiveSLACountdown';
+import BrutalistCard from '../../components/ui/BrutalistCard';
 
 export const DashboardPage = () => {
   const [selectedStatus, setSelectedStatus] = useState('ACTIVE');
@@ -428,13 +430,8 @@ export const DashboardPage = () => {
                       )}
                     </div>
 
-                    {/* SLA countdown notice */}
-                    {['FIRED', 'ESCALATED'].includes(incident.status) && (
-                      <div className="flex items-center gap-1.5 text-severity-p1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-severity-p1 animate-pulse" />
-                        <span>SLA ACTIVE</span>
-                      </div>
-                    )}
+                    {/* SLA live countdown timer */}
+                    <LiveSLACountdown incident={incident} compact={true} />
                   </div>
                 </div>
               );

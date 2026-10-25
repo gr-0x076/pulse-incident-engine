@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useSocket } from '../../context/SocketContext';
+import { getRoleInsignia } from '../ui/TacticalInsignia';
 import ChaosSimulatorDrawer from './ChaosSimulatorDrawer';
 import CommandPalette from './CommandPalette';
 
@@ -52,10 +53,10 @@ export const AppShell = () => {
   }, []);
 
   const roles = [
-    { role: 'ADMIN', name: 'Sarah Chen', desc: 'Full System Commander Privileges', icon: '👑' },
-    { role: 'INCIDENT_COMMANDER', name: 'Alex Rivera', desc: 'Incident Escalation & Mitigation Gate', icon: '⚡' },
-    { role: 'RESPONDER', name: 'Marcus Vance', desc: 'On-Call Tactical Execution', icon: '🛡️' },
-    { role: 'VIEWER', name: 'Elena Rostova', desc: 'Read-Only Audit Observer', icon: '👁️' },
+    { role: 'ADMIN', name: 'Sarah Chen', desc: 'Full System Commander Privileges' },
+    { role: 'INCIDENT_COMMANDER', name: 'Alex Rivera', desc: 'Incident Escalation & Mitigation Gate' },
+    { role: 'RESPONDER', name: 'Marcus Vance', desc: 'On-Call Tactical Execution' },
+    { role: 'VIEWER', name: 'Elena Rostova', desc: 'Read-Only Audit Observer' },
   ];
 
   return (
@@ -108,6 +109,7 @@ export const AppShell = () => {
               onClick={() => setRoleDropdownOpen(!roleDropdownOpen)}
               className="flex items-center gap-2 px-2.5 py-1 rounded bg-bg-elevated border border-border-default hover:border-text-tertiary text-xs transition-all font-mono"
             >
+              {getRoleInsignia(user?.role, "w-3.5 h-3.5")}
               <span className="text-accent-primary font-semibold">[{user?.role}]</span>
               <span className="text-text-primary hidden md:inline">{user?.name}</span>
               <ChevronDown className="w-3.5 h-3.5 text-text-tertiary" />
@@ -131,7 +133,7 @@ export const AppShell = () => {
                         isActive ? 'bg-accent-primary/10 border-l-2 border-accent-primary' : ''
                       }`}
                     >
-                      <span className="text-sm">{r.icon}</span>
+                      {getRoleInsignia(r.role, "w-4 h-4 mt-0.5")}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between">
                           <span className={`text-xs font-mono font-semibold ${isActive ? 'text-accent-primary' : 'text-text-primary'}`}>
