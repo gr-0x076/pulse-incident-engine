@@ -5,13 +5,13 @@
   --bg-tertiary: #141418;
   --bg-elevated: #1C1C22;
 
-  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-subtle: rgba(255, 255, 255, 0.07);
   --border-default: rgba(255, 255, 255, 0.10);
   --border-elevated: rgba(255, 255, 255, 0.16);
 
   --text-primary: #F4F3EF;
-  --text-secondary: #A1A1AA;
-  --text-tertiary: #63636B;
+  --text-secondary: #A7A7B0;
+  --text-tertiary: #777780;
 
   /* Luxury Champagne Gold & Noble Metal Accents (ZERO BRIGHT RED) */
   --severity-p1: #E5C185; /* Warm Champagne Gold */
@@ -67,6 +67,6 @@
   --transition-slow: 350ms cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Layout */
-  --sidebar-width: 240px;
-  --topbar-height: 52px;
+  --sidebar-width: 224px;
+  --topbar-height: 56px;
 }

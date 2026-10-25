@@ -22,7 +22,12 @@
     background: radial-gradient(circle 800px at 50% -20%, rgba(120, 119, 198, 0.08), transparent 70%), #050507;
     color: var(--text-primary);
     min-height: 100vh;
+    background-attachment: fixed;
+    letter-spacing: -0.01em;
   }
+
+  button, input, select, textarea { font: inherit; }
+  button { -webkit-tap-highlight-color: transparent; }
 
   /* Scrollbar styling for the ops console aesthetic */
   ::-webkit-scrollbar {
@@ -157,10 +162,10 @@
   /* Linear-Grade Card Surfaces & Surface Physics */
   .linear-card,
   .titanium-surface {
-    background: linear-gradient(180deg, rgba(22, 22, 26, 0.7) 0%, rgba(13, 13, 16, 0.9) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 24px 48px -12px rgba(0, 0, 0, 0.7);
-    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(22, 22, 26, 0.78) 0%, rgba(13, 13, 16, 0.96) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.085), 0 20px 48px -24px rgba(0, 0, 0, 0.9);
+    border-radius: 16px;
   }
 
   .titanium-surface-interactive {
@@ -176,6 +181,12 @@
     box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 20px 40px -10px rgba(0, 0, 0, 0.8);
   }
 
+  .linear-card { transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease; }
+  .linear-card:hover { border-color: rgba(255,255,255,.105); }
+
+  .status-badge { border-radius: 999px; padding: 3px 9px; letter-spacing: .045em; }
+  .font-mono, .font-mono-data { font-variant-numeric: tabular-nums; }
+
   /* Signature Ivory CTA (#FAFAFA) */
   .btn-ivory {
     background-color: #FAFAFA;
@@ -190,6 +201,8 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 24px rgba(250, 250, 250, 0.25);
     transform: scale(1.02);
   }
+
+  .btn-ivory { border-radius: 9px; font-weight: 600; }
   .btn-ivory:active:not(:disabled) {
     transform: scale(0.98);
   }
@@ -251,3 +264,22 @@
   animation: radar-spin 4s linear infinite;
 }
 
+/* Shared product chrome: keep navigation quiet and reserve contrast for work. */
+header.sticky { min-height: var(--topbar-height); background: rgba(10,10,13,.84); border-color: rgba(255,255,255,.075); }
+aside { background: rgba(10,10,13,.56) !important; }
+aside a { min-height: 36px; border-radius: 9px !important; }
+main > div { scroll-behavior: smooth; }
+
+@media (max-width: 1023px) {
+  .linear-card { border-radius: 14px; }
+  .incident-audit-stream { position: static; height: 620px; }
+}
+@media (max-width: 640px) {
+  :root { --topbar-height: 52px; }
+  .linear-card { border-radius: 12px; }
+  .btn-ivory:hover:not(:disabled) { transform: none; }
+  .incident-audit-stream { min-height: 420px; height: 70vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

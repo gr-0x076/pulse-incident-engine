@@ -310,9 +310,9 @@ export const IncidentDetailPage = () => {
       <LiveSLACountdown incident={incident} compact={false} />
 
       {/* ── SPLIT WORKSPACE: WORKBENCH (LEFT) & TIMELINE (RIGHT) ── */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 xl:gap-6 items-start">
         {/* LEFT / CENTER PANE: RUNBOOK & ACTION CONSOLE */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-8 space-y-5">
           {/* Action Console: Transition Buttons */}
           <div className="linear-card p-5 space-y-3">
             <div className="text-xs text-text-tertiary flex items-center justify-between">
@@ -585,7 +585,7 @@ export const IncidentDetailPage = () => {
         </div>
 
         {/* RIGHT PANE: REAL-TIME AUDIT TIMELINE */}
-        <div className="linear-card p-5 flex flex-col h-[740px]">
+        <div className="incident-audit-stream linear-card p-5 flex flex-col h-[min(740px,calc(100vh-150px))] min-h-[520px] lg:col-span-4 sticky top-4">
           <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
             <div>
               <h2 className="text-sm font-semibold text-text-primary tracking-tight">

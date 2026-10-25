@@ -66,7 +66,7 @@ export const DashboardPage = () => {
   const [search, setSearch] = useState('');
   const [assignedToMe, setAssignedToMe] = useState(false);
   const [createModalOpen, setCreateModalOpen] = useState(false);
-  const [briefingOpen, setBriefingOpen] = useState(true);
+  const [briefingOpen, setBriefingOpen] = useState(false);
   const [acknowledgingId, setAcknowledgingId] = useState(null);
 
   const navigate = useNavigate();
@@ -296,35 +296,6 @@ export const DashboardPage = () => {
             <Sparkline points={[3, 4, 2, 5, 3, 2, activeCount || 1]} color="#94A3B8" gradientId="streamGrad" />
           </div>
         </div>
-      </div>
-
-      {/* ── 5-NODE SLEEK SERVICE HEALTH & TOPOLOGY STRIP ── */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-        {serviceStatuses.map((svc) => (
-          <div
-            key={svc.name}
-            className="linear-card p-3.5 px-4 flex items-center justify-between group hover:border-white/15 transition-all duration-200"
-          >
-            <div>
-              <div className="text-xs font-medium text-text-primary group-hover:text-white transition-colors">
-                {svc.name}
-              </div>
-              <div className="text-[10px] font-mono text-text-tertiary mt-0.5">{svc.metric}</div>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span
-                className={`w-2 h-2 rounded-full ${
-                  svc.ok
-                    ? 'bg-accent-success shadow-[0_0_8px_rgba(110,231,183,0.3)]'
-                    : 'bg-severity-p1 animate-pulse shadow-[0_0_8px_rgba(229,193,133,0.4)]'
-                }`}
-              />
-              <span className={`text-[10px] font-mono uppercase font-semibold ${svc.ok ? 'text-accent-success' : 'text-severity-p1'}`}>
-                {svc.ok ? 'OK' : 'ATTN'}
-              </span>
-            </div>
-          </div>
-        ))}
       </div>
 
       {/* ── MISSION BRIEFING TOUR (HOW PULSE WORKS) ── */}
