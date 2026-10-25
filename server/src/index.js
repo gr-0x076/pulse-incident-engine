@@ -51,11 +51,12 @@ app.get('/api/health', (req, res) => {
 // API Routes
 app.use('/api/auth', require('./modules/auth/auth.routes'));
 app.use('/api/incidents', require('./modules/incident/incident.routes'));
-// app.use('/api/org', require('./modules/org/org.routes'));
-// app.use('/api/invites', require('./modules/invite/invite.routes'));
-// app.use('/api/postmortems', require('./modules/postmortem/postmortem.routes'));
-// app.use('/api/analytics', require('./modules/analytics/analytics.routes'));
-// app.use('/api/webhooks', require('./modules/webhook/webhook.routes'));
+app.use('/api/org', require('./modules/org/org.routes'));
+app.use('/api/invites', require('./modules/invite/invite.routes'));
+app.use('/api/postmortems', require('./modules/postmortem/postmortem.routes'));
+app.use('/api/analytics', require('./modules/analytics/analytics.routes'));
+app.use('/api/webhooks', require('./modules/webhook/webhook.routes'));
+app.use('/api/demo', require('./modules/demo/demo.routes'));
 
 // 404 handler
 app.use('/api/*', (req, res) => {
