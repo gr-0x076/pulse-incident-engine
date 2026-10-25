@@ -18,6 +18,15 @@ export const VALID_TRANSITIONS = Object.freeze({
   [INCIDENT_STATUS.CLOSED]: [],
 });
 
+export const ROOT_CAUSE_CATEGORIES = Object.freeze([
+  'CODE',
+  'INFRA',
+  'CONFIG',
+  'DEPENDENCY',
+  'HUMAN',
+  'UNKNOWN',
+]);
+
 export const getValidTransitions = (currentStatus) => {
   return VALID_TRANSITIONS[currentStatus] || [];
 };
