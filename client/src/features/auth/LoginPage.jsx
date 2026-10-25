@@ -72,22 +72,22 @@ export const LoginPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#09090B] text-[#F4F3EF] flex flex-col justify-center items-center p-6 relative overflow-hidden font-sans selection:bg-[#C8A97E]/25">
-      {/* Subtle Warm Champagne Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#C8A97E]/[0.04] blur-[120px] pointer-events-none rounded-full" />
+    <div className="min-h-screen bg-[#050507] text-[#F4F3EF] flex flex-col justify-center items-center p-6 relative overflow-hidden font-sans selection:bg-[#C8A97E]/25">
+      {/* High-End Ambient Velvet Spotlight */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[360px] bg-[radial-gradient(ellipse_at_top,rgba(120,119,198,0.12),transparent_70%)] pointer-events-none rounded-full" />
 
       <div className="w-full max-w-lg mx-auto relative z-10 space-y-8">
         {/* Brand Header */}
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-[#A1A1AA] mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-[#A1A1AA] mb-1">
             <span className="w-1.5 h-1.5 rounded-full bg-[#E5C185] animate-pulse" />
-            <span>Operational Intelligence</span>
+            <span>Autonomous Incident Governance</span>
           </div>
-          <h1 className="text-3xl font-bold tracking-tight text-[#F4F3EF]">
-            Pulse Console
+          <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-[#F4F3EF]">
+            Pulse <span className="font-serif italic font-normal text-[#C8A97E]">Intelligence</span>
           </h1>
           <p className="text-xs text-[#A1A1AA] max-w-sm mx-auto leading-relaxed">
-            Automated incident triage, deterministic runbook execution, and autonomous SLA governance.
+            Stateful incident triage, deterministic runbook SOP playbooks, and autonomous SLA sentinel.
           </p>
         </div>
 
@@ -95,7 +95,7 @@ export const LoginPage = () => {
         <div className="space-y-3">
           <div className="flex items-center justify-between text-[11px] font-mono text-[#63636B] uppercase tracking-wider px-1">
             <span>Evaluator 1-Click Personas</span>
-            <span className="text-[#C8A97E]">Instant JWT Auth</span>
+            <span className="text-[#C8A97E] font-medium">Instant JWT Auth</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -105,7 +105,7 @@ export const LoginPage = () => {
                 type="button"
                 onClick={() => handleQuickDossier(d.role)}
                 disabled={loading}
-                className="p-3.5 rounded-xl bg-[#111114] border border-white/[0.08] hover:border-[#C8A97E]/40 hover:bg-[#18181C] text-left transition-all duration-200 group relative disabled:opacity-50"
+                className="p-3.5 rounded-2xl linear-card hover:border-[#C8A97E]/40 text-left transition-all duration-200 group relative disabled:opacity-50"
               >
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2">
@@ -114,10 +114,10 @@ export const LoginPage = () => {
                       {d.badge}
                     </span>
                   </div>
-                  <ArrowRight className="w-3 h-3 text-[#63636B] group-hover:text-[#F4F3EF] group-hover:translate-x-0.5 transition-all" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#63636B] group-hover:text-[#F4F3EF] group-hover:translate-x-0.5 transition-all" />
                 </div>
                 <div className="text-xs font-medium text-[#F4F3EF]">{d.name}</div>
-                <div className="text-[10px] text-[#A1A1AA] mt-0.5">{d.desc}</div>
+                <div className="text-[10px] text-[#A1A1AA] mt-0.5 leading-snug">{d.desc}</div>
               </button>
             ))}
           </div>
@@ -126,26 +126,26 @@ export const LoginPage = () => {
         {/* Divider */}
         <div className="relative flex items-center justify-center">
           <div className="w-full border-t border-white/[0.06]" />
-          <span className="bg-[#09090B] px-3 text-[10px] font-mono uppercase text-[#63636B] relative">
+          <span className="bg-[#050507] px-3 text-[10px] font-mono uppercase text-[#63636B] relative">
             Or Standard Credentials
           </span>
         </div>
 
         {/* Manual Login Card */}
-        <div className="bg-[#111114] border border-white/[0.08] rounded-2xl p-6 shadow-2xl space-y-5">
+        <div className="linear-card p-6 space-y-5">
           <form onSubmit={handleManualLogin} className="space-y-4">
             <div>
               <label className="text-xs font-mono text-[#A1A1AA] block mb-1.5 uppercase">
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-[#63636B] absolute left-3 top-3" />
+                <Mail className="w-4 h-4 text-[#63636B] absolute left-3.5 top-3" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="commander@acme.dev"
-                  className="w-full bg-[#18181C] border border-white/[0.08] focus:border-[#C8A97E] rounded-xl px-3 py-2.5 pl-9 text-xs text-[#F4F3EF] placeholder:text-[#63636B] focus:outline-none font-mono transition-colors"
+                  className="w-full bg-[#141418] border border-white/[0.08] focus:border-[#C8A97E] rounded-xl px-3.5 py-2.5 pl-10 text-xs text-[#F4F3EF] placeholder:text-[#63636B] focus:outline-none font-mono transition-colors"
                 />
               </div>
             </div>
@@ -155,13 +155,13 @@ export const LoginPage = () => {
                 Password
               </label>
               <div className="relative">
-                <Lock className="w-4 h-4 text-[#63636B] absolute left-3 top-3" />
+                <Lock className="w-4 h-4 text-[#63636B] absolute left-3.5 top-3" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
-                  className="w-full bg-[#18181C] border border-white/[0.08] focus:border-[#C8A97E] rounded-xl px-3 py-2.5 pl-9 text-xs text-[#F4F3EF] placeholder:text-[#63636B] focus:outline-none font-mono transition-colors"
+                  className="w-full bg-[#141418] border border-white/[0.08] focus:border-[#C8A97E] rounded-xl px-3.5 py-2.5 pl-10 text-xs text-[#F4F3EF] placeholder:text-[#63636B] focus:outline-none font-mono transition-colors"
                 />
               </div>
             </div>
@@ -169,7 +169,7 @@ export const LoginPage = () => {
             <button
               type="submit"
               disabled={loading || !email || !password}
-              className="w-full py-2.5 rounded-xl bg-[#F4F3EF] hover:bg-white text-[#09090B] font-medium text-xs flex items-center justify-center gap-2 transition-all disabled:opacity-40"
+              className="w-full py-2.5 rounded-xl btn-ivory text-xs flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>

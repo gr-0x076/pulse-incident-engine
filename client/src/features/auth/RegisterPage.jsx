@@ -95,44 +95,45 @@ export const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-bg-primary text-text-primary flex items-center justify-center p-4 font-sans bg-grid-dots">
-      <div className="w-full max-w-md bg-bg-secondary border border-border-default rounded-lg p-6 sm:p-8 shadow-2xl glass-panel relative">
-        <div className="space-y-2 mb-6">
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-accent-primary animate-pulse" />
-            <span className="text-[10px] font-mono tracking-widest text-accent-primary uppercase">
-              // INITIALIZE SQUADRON
-            </span>
+    <div className="min-h-screen bg-bg-primary text-text-primary flex items-center justify-center p-4 font-sans relative">
+      {/* Background Atmosphere glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-[#7877C6]/[0.05] rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="w-full max-w-md linear-card p-8 sm:p-10 shadow-[0_30px_90px_rgba(0,0,0,0.85)] relative z-10 space-y-6">
+        <div className="space-y-1.5 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[11px] font-mono text-text-secondary mb-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse" />
+            <span>Workspace Provisioning</span>
           </div>
-          <h1 className="text-xl font-bold tracking-tight text-text-primary">
-            Deploy New Organization
+          <h1 className="text-2xl font-bold tracking-tight text-text-primary">
+            Deploy Organization
           </h1>
-          <p className="text-xs text-text-secondary">
-            Sets up a dedicated multi-tenant incident response environment with default SLA tiers.
+          <p className="text-xs text-text-secondary font-serif italic text-base text-text-secondary/80">
+            Dedicated multi-tenant incident response environment with default SLA tiers.
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="text-xs font-mono text-text-secondary block mb-1 uppercase">
+            <label className="text-xs font-medium text-text-secondary block mb-1.5">
               Organization Name
             </label>
             <div className="relative">
-              <Building className="w-4 h-4 text-text-tertiary absolute left-3 top-3" />
+              <Building className="w-4 h-4 text-text-tertiary absolute left-3.5 top-3" />
               <input
                 type="text"
                 name="orgName"
                 required
                 value={formData.orgName}
                 onChange={handleChange}
-                placeholder="Vercel SRE Team"
-                className="w-full bg-bg-tertiary/50 border border-border-default focus:border-accent-primary rounded px-3 py-2.5 pl-9 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none font-mono"
+                placeholder="Acme Reliability Team"
+                className="w-full bg-[#070709] border border-white/[0.08] focus:border-white/20 rounded-xl px-3.5 py-2.5 pl-10 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none transition-colors"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-mono text-text-secondary block mb-1 uppercase">
+            <label className="text-xs font-medium text-text-secondary block mb-1.5">
               Organization Slug (Subdomain)
             </label>
             <input
@@ -141,53 +142,53 @@ export const RegisterPage = () => {
               required
               value={formData.orgSlug}
               onChange={handleChange}
-              placeholder="vercel-sre"
-              className="w-full bg-bg-tertiary/50 border border-border-default focus:border-accent-primary rounded px-3 py-2 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none font-mono"
+              placeholder="acme-sre"
+              className="w-full bg-[#070709] border border-white/[0.08] focus:border-white/20 rounded-xl px-3.5 py-2.5 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none font-mono transition-colors"
             />
           </div>
 
           <div>
-            <label className="text-xs font-mono text-text-secondary block mb-1 uppercase">
+            <label className="text-xs font-medium text-text-secondary block mb-1.5">
               Administrator Name
             </label>
             <div className="relative">
-              <User className="w-4 h-4 text-text-tertiary absolute left-3 top-3" />
+              <User className="w-4 h-4 text-text-tertiary absolute left-3.5 top-3" />
               <input
                 type="text"
                 name="name"
                 required
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="Commander John Doe"
-                className="w-full bg-bg-tertiary/50 border border-border-default focus:border-accent-primary rounded px-3 py-2.5 pl-9 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none font-mono"
+                placeholder="Sarah Chen"
+                className="w-full bg-[#070709] border border-white/[0.08] focus:border-white/20 rounded-xl px-3.5 py-2.5 pl-10 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none transition-colors"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-mono text-text-secondary block mb-1 uppercase">
+            <label className="text-xs font-medium text-text-secondary block mb-1.5">
               Admin Email
             </label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-text-tertiary absolute left-3 top-3" />
+              <Mail className="w-4 h-4 text-text-tertiary absolute left-3.5 top-3" />
               <input
                 type="email"
                 name="email"
                 required
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="admin@company.com"
-                className="w-full bg-bg-tertiary/50 border border-border-default focus:border-accent-primary rounded px-3 py-2.5 pl-9 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none font-mono"
+                placeholder="sarah@acme.corp"
+                className="w-full bg-[#070709] border border-white/[0.08] focus:border-white/20 rounded-xl px-3.5 py-2.5 pl-10 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none transition-colors"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-mono text-text-secondary block mb-1 uppercase">
+            <label className="text-xs font-medium text-text-secondary block mb-1.5">
               Master Password
             </label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-text-tertiary absolute left-3 top-3" />
+              <Lock className="w-4 h-4 text-text-tertiary absolute left-3.5 top-3" />
               <input
                 type="password"
                 name="password"
@@ -196,7 +197,7 @@ export const RegisterPage = () => {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder="••••••••••••"
-                className="w-full bg-bg-tertiary/50 border border-border-default focus:border-accent-primary rounded px-3 py-2.5 pl-9 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none font-mono"
+                className="w-full bg-[#070709] border border-white/[0.08] focus:border-white/20 rounded-xl px-3.5 py-2.5 pl-10 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none font-mono transition-colors"
               />
             </div>
           </div>
@@ -204,7 +205,7 @@ export const RegisterPage = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 rounded bg-accent-primary hover:bg-accent-primary/90 text-white font-mono text-xs font-semibold flex items-center justify-center gap-2 transition-all disabled:opacity-50 mt-2"
+            className="btn-ivory w-full py-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 mt-4"
           >
             {loading ? (
               <span>Deploying Squadron...</span>
@@ -217,9 +218,9 @@ export const RegisterPage = () => {
           </button>
         </form>
 
-        <div className="mt-4 text-center text-xs text-text-secondary">
+        <div className="text-center text-xs text-text-secondary pt-2">
           Already deployed?{' '}
-          <Link to="/login" className="text-accent-primary hover:underline font-mono">
+          <Link to="/login" className="text-text-primary font-medium hover:underline">
             Access Terminal →
           </Link>
         </div>

@@ -5,14 +5,15 @@ export default {
     extend: {
       colors: {
         bg: {
-          primary: '#09090B',
-          secondary: '#111114',
-          tertiary: '#18181C',
-          elevated: '#202026',
+          primary: '#050507',
+          secondary: '#0D0D10',
+          tertiary: '#141418',
+          elevated: '#1C1C22',
         },
         border: {
           subtle: 'rgba(255, 255, 255, 0.06)',
           default: 'rgba(255, 255, 255, 0.10)',
+          highlight: 'rgba(255, 255, 255, 0.16)',
         },
         text: {
           primary: '#F4F3EF',
@@ -33,13 +34,14 @@ export default {
         },
         accent: {
           primary: '#C8A97E', // Brushed Champagne Gold
-          ivory: '#F4F3EF',   // Crisp Alabaster
+          ivory: '#FAFAFA',   // Signature Alabaster Ivory
           success: '#6EE7B7', // Soft Muted Sage
           error: '#D48C96',   // Subtle Muted Rose
         },
       },
       fontFamily: {
-        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        serif: ['Instrument Serif', 'Georgia', 'serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
       },
       fontSize: {

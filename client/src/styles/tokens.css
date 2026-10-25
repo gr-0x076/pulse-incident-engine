@@ -1,13 +1,13 @@
 :root {
-  /* Base Obsidian Palette */
-  --bg-primary: #09090B;
-  --bg-secondary: #111114;
-  --bg-tertiary: #18181C;
-  --bg-elevated: #202026;
+  /* Base Midnight Velvet & Atelier Palette */
+  --bg-primary: #050507;
+  --bg-secondary: #0D0D10;
+  --bg-tertiary: #141418;
+  --bg-elevated: #1C1C22;
 
   --border-subtle: rgba(255, 255, 255, 0.06);
   --border-default: rgba(255, 255, 255, 0.10);
-  --border-elevated: rgba(255, 255, 255, 0.14);
+  --border-elevated: rgba(255, 255, 255, 0.16);
 
   --text-primary: #F4F3EF;
   --text-secondary: #A1A1AA;
@@ -29,10 +29,10 @@
   --accent-primary: #C8A97E;
   --accent-success: #6EE7B7;
   --accent-error: #D48C96;
-  --accent-ivory: #F4F3EF;
+  --accent-ivory: #FAFAFA;
 
   /* Typography */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-serif: 'Instrument Serif', Georgia, serif;
   --font-mono: 'JetBrains Mono', Consolas, monospace;
 

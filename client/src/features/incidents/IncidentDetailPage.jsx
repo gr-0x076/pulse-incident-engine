@@ -210,11 +210,11 @@ export const IncidentDetailPage = () => {
   return (
     <div className="p-4 md:p-6 space-y-6 max-w-7xl mx-auto">
       {/* ── TOP BREADCRUMB & INCIDENT ID ── */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-border-subtle pb-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-border-subtle/60 pb-5">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate('/dashboard')}
-            className="p-1.5 rounded bg-bg-secondary hover:bg-bg-tertiary border border-border-subtle text-text-secondary hover:text-text-primary transition-colors"
+            className="p-2 rounded-xl bg-bg-secondary hover:bg-bg-tertiary border border-border-subtle text-text-secondary hover:text-text-primary transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
@@ -223,14 +223,14 @@ export const IncidentDetailPage = () => {
               <span className={`text-xs font-mono font-bold ${SEVERITY_COLORS[incident.severity]}`}>
                 [{incident.severity}]
               </span>
-              <span className="text-xs font-mono text-text-tertiary">
+              <span className="text-xs font-mono text-text-tertiary font-medium">
                 {formatIncidentNumber(incident.incidentNumber)}
               </span>
               <span className={`status-badge text-[10px] border ${STATUS_COLORS[incident.status]}`}>
                 {STATUS_LABELS[incident.status] || incident.status}
               </span>
             </div>
-            <h1 className="text-lg md:text-xl font-bold tracking-tight text-text-primary mt-1">
+            <h1 className="text-xl md:text-2xl font-semibold tracking-tight text-text-primary mt-1">
               {incident.title}
             </h1>
           </div>
@@ -240,7 +240,7 @@ export const IncidentDetailPage = () => {
         {incident.postmortemId ? (
           <Link
             to={`/postmortems`}
-            className="flex items-center gap-2 px-3 py-1.5 rounded bg-accent-success/10 border border-accent-success/30 text-accent-success text-xs font-mono hover:bg-accent-success/20 transition-all"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-accent-success/10 border border-accent-success/30 text-accent-success text-xs font-medium hover:bg-accent-success/20 transition-all"
           >
             <FileText className="w-3.5 h-3.5" />
             <span>Postmortem Published</span>
@@ -248,7 +248,7 @@ export const IncidentDetailPage = () => {
         ) : incident.status === 'RESOLVED' ? (
           <Link
             to={`/postmortems`}
-            className="flex items-center gap-2 px-3 py-1.5 rounded bg-severity-p2/15 border border-severity-p2/40 text-severity-p2 text-xs font-mono animate-pulse hover:bg-severity-p2/25 transition-all"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-severity-p2/15 border border-severity-p2/40 text-severity-p2 text-xs font-medium animate-pulse hover:bg-severity-p2/25 transition-all"
           >
             <FileText className="w-3.5 h-3.5" />
             <span>Author Postmortem to Unlock Closure →</span>
@@ -257,13 +257,13 @@ export const IncidentDetailPage = () => {
       </div>
 
       {/* ── INTERACTIVE VISUAL STATE MACHINE PIPELINE HEADER ── */}
-      <div className="p-4 rounded-lg bg-bg-secondary/60 border border-border-subtle glass-panel">
-        <div className="text-[10px] font-mono tracking-widest text-text-tertiary uppercase mb-3 flex items-center justify-between">
-          <span>// DETERMINISTIC_STATE_MACHINE_PIPELINE</span>
-          <span>CURRENT_VERSION: v{incident.version}</span>
+      <div className="linear-card p-5">
+        <div className="text-xs text-text-tertiary mb-3.5 flex items-center justify-between">
+          <span className="font-medium text-text-secondary">Lifecycle State Pipeline</span>
+          <span className="font-mono text-[11px]">Version OCC v{incident.version}</span>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5">
           {STATUS_PIPELINE.map((stage, idx) => {
             const isCompleted = currentPipelineIdx > idx;
             const isActive = currentPipelineIdx === idx;
@@ -272,9 +272,9 @@ export const IncidentDetailPage = () => {
             return (
               <div
                 key={stage}
-                className={`p-2.5 rounded border text-center transition-all relative ${
+                className={`p-3 rounded-xl border text-center transition-all relative ${
                   isActive
-                    ? 'border-accent-primary bg-accent-primary/10 shadow-[0_0_12px_rgba(10,132,255,0.2)]'
+                    ? 'border-accent-primary/60 bg-accent-primary/10 shadow-[0_0_12px_rgba(200,169,126,0.15)]'
                     : isCompleted
                     ? 'border-accent-success/40 bg-accent-success/5 text-text-secondary'
                     : 'border-border-subtle/50 bg-bg-tertiary/20 text-text-tertiary'
@@ -284,7 +284,7 @@ export const IncidentDetailPage = () => {
                   {isCompleted ? (
                     <CheckCircle className="w-3.5 h-3.5 text-accent-success" />
                   ) : isActive ? (
-                    <span className="w-2.5 h-2.5 rounded-full bg-accent-primary animate-ping" />
+                    <span className="w-2 h-2 rounded-full bg-accent-primary animate-ping" />
                   ) : (
                     <Lock className="w-3 h-3 text-text-tertiary" />
                   )}
@@ -314,10 +314,10 @@ export const IncidentDetailPage = () => {
         {/* LEFT / CENTER PANE: RUNBOOK & ACTION CONSOLE */}
         <div className="lg:col-span-2 space-y-6">
           {/* Action Console: Transition Buttons */}
-          <div className="p-4 rounded-2xl titanium-surface space-y-3">
-            <div className="text-xs font-mono text-text-tertiary uppercase flex items-center justify-between">
-              <span>State Lifecycle Controls</span>
-              <span className="text-[10px] text-text-tertiary font-mono">OCC Protected v{incident.version}</span>
+          <div className="linear-card p-5 space-y-3">
+            <div className="text-xs text-text-tertiary flex items-center justify-between">
+              <span className="font-medium text-text-secondary">State Lifecycle Controls</span>
+              <span className="text-[11px] font-mono">OCC Guard Active</span>
             </div>
 
             {user?.role === 'VIEWER' ? (
@@ -390,34 +390,34 @@ export const IncidentDetailPage = () => {
 
           {/* Diagnostic Context / Root Cause Details */}
           {(incident.description || incident.mitigationSummary || incident.rootCause?.category) && (
-            <div className="p-4 rounded-lg bg-bg-secondary/40 border border-border-subtle space-y-3 font-mono text-xs">
+            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-3 font-mono text-xs">
               {incident.description && (
                 <div>
-                  <span className="text-text-tertiary block text-[10px] uppercase mb-0.5">CONTEXT:</span>
-                  <p className="text-text-secondary whitespace-pre-wrap">{incident.description}</p>
+                  <span className="text-text-tertiary block text-[10px] uppercase font-semibold tracking-wider mb-1">Incident Context:</span>
+                  <p className="text-text-secondary whitespace-pre-wrap font-sans text-xs leading-relaxed">{incident.description}</p>
                 </div>
               )}
               {incident.mitigationSummary && (
-                <div className="pt-2 border-t border-border-subtle/40">
-                  <span className="text-severity-p2 block text-[10px] uppercase mb-0.5">MITIGATION SUMMARY:</span>
-                  <p className="text-text-primary">{incident.mitigationSummary}</p>
+                <div className="pt-2 border-t border-white/[0.06]">
+                  <span className="text-severity-p2 block text-[10px] uppercase font-semibold tracking-wider mb-1">Mitigation Summary:</span>
+                  <p className="text-text-primary font-sans text-xs leading-relaxed">{incident.mitigationSummary}</p>
                 </div>
               )}
               {incident.rootCause?.category && (
-                <div className="pt-2 border-t border-border-subtle/40">
-                  <span className="text-accent-success block text-[10px] uppercase mb-0.5">
-                    ROOT CAUSE TAXONOMY [{incident.rootCause.category}]:
+                <div className="pt-2 border-t border-white/[0.06]">
+                  <span className="text-accent-success block text-[10px] uppercase font-semibold tracking-wider mb-1">
+                    Root Cause Taxonomy [{incident.rootCause.category}]:
                   </span>
-                  <p className="text-text-primary">{incident.rootCause.description}</p>
+                  <p className="text-text-primary font-sans text-xs leading-relaxed">{incident.rootCause.description}</p>
                 </div>
               )}
             </div>
           )}
 
           {/* ── AUTHENTIC TERMINAL WAR-ROOM WORKBENCH ── */}
-          <div className="rounded-lg bg-[#08080A] border border-[#2E2E33] shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden">
+          <div className="linear-card p-0 overflow-hidden">
             {/* Terminal Window Header Chassis */}
-            <div className="px-4 py-2.5 bg-[#121214] border-b border-[#242428] flex items-center justify-between">
+            <div className="px-4 py-3 bg-[#0A0A0E] border-b border-white/[0.06] flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
                 <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
@@ -427,9 +427,9 @@ export const IncidentDetailPage = () => {
                 </span>
               </div>
               {runbook && (
-                <span className="text-[11px] font-mono text-accent-primary font-bold">
-                  [{incident.runbookProgress?.filter((p) => p.status === 'COMPLETED').length || 0} /{' '}
-                  {runbook.steps.length} SOP STEPS COMPLETED]
+                <span className="text-xs font-mono text-text-secondary font-medium">
+                  {incident.runbookProgress?.filter((p) => p.status === 'COMPLETED').length || 0} /{' '}
+                  {runbook.steps.length} Steps Completed
                 </span>
               )}
             </div>
@@ -437,8 +437,8 @@ export const IncidentDetailPage = () => {
             {/* Terminal Body */}
             <div className="p-4 sm:p-5 space-y-4">
               {!runbook ? (
-                <div className="py-8 text-center text-xs font-mono text-text-tertiary">
-                  // NO SOP PLAYBOOK ATTACHED TO THIS INCIDENT ARCHETYPE
+                <div className="py-10 text-center text-xs font-mono text-text-tertiary">
+                  No automated SOP playbook attached to this incident archetype
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -452,28 +452,28 @@ export const IncidentDetailPage = () => {
                     return (
                       <div
                         key={step.order}
-                        className={`p-4 rounded border transition-all ${
+                        className={`p-4 rounded-xl border transition-all ${
                           isDone
-                            ? 'border-accent-success/40 bg-accent-success/5 shadow-[0_0_15px_rgba(48,209,88,0.05)]'
+                            ? 'border-accent-success/30 bg-accent-success/[0.04]'
                             : isSkipped
-                            ? 'border-[#242428] bg-[#0E0E10] opacity-50'
+                            ? 'border-white/[0.04] bg-white/[0.02] opacity-50'
                             : isRunning
-                            ? 'border-accent-primary bg-accent-primary/10 shadow-[0_0_20px_rgba(10,132,255,0.15)]'
-                            : 'border-[#2C2C30] bg-[#101013]'
+                            ? 'border-accent-primary/60 bg-accent-primary/[0.08]'
+                            : 'border-white/[0.06] bg-[#0E0E12]/80 hover:border-white/[0.12]'
                         }`}
                       >
                         {/* Step Header */}
                         <div className="flex items-start justify-between gap-3">
                           <div className="flex items-start gap-2.5">
-                            <span className="text-xs font-mono text-accent-primary font-bold mt-0.5">
+                            <span className="text-xs font-mono text-text-tertiary font-medium mt-0.5">
                               #{step.order}
                             </span>
                             <div>
-                              <h3 className={`text-xs font-mono font-bold ${isDone ? 'line-through text-text-secondary' : 'text-text-primary'}`}>
+                              <h3 className={`text-xs font-semibold ${isDone ? 'line-through text-text-secondary' : 'text-text-primary'}`}>
                                 {step.title}
                               </h3>
                               {step.description && (
-                                <p className="text-xs text-text-secondary mt-1 font-sans">
+                                <p className="text-xs text-text-secondary mt-1 font-sans leading-relaxed">
                                   {step.description}
                                 </p>
                               )}
@@ -481,11 +481,11 @@ export const IncidentDetailPage = () => {
                           </div>
 
                           <span
-                            className={`text-[10px] font-mono px-2 py-0.5 rounded border uppercase tracking-wider font-semibold ${
+                            className={`text-[10px] font-mono px-2 py-0.5 rounded-full border uppercase tracking-wider font-semibold ${
                               isDone
                                 ? 'bg-accent-success/10 border-accent-success/30 text-accent-success'
                                 : isSkipped
-                                ? 'bg-bg-tertiary border-border-subtle text-text-tertiary'
+                                ? 'bg-white/[0.04] border-white/[0.08] text-text-tertiary'
                                 : isRunning
                                 ? 'bg-accent-primary text-white animate-pulse'
                                 : 'bg-severity-p2/10 border-severity-p2/30 text-severity-p2'
@@ -497,14 +497,14 @@ export const IncidentDetailPage = () => {
 
                         {/* Monospace Interactive Shell Command Box */}
                         {step.command && (
-                          <div className="mt-3 p-2.5 rounded bg-[#050506] border border-[#202024] flex items-center justify-between font-mono text-xs text-accent-primary group">
+                          <div className="mt-3 p-2.5 rounded-lg bg-[#070709] border border-white/[0.06] flex items-center justify-between font-mono text-xs text-text-secondary group">
                             <div className="flex items-center gap-2 truncate pr-2">
-                              <span className="text-accent-success font-bold select-none">$</span>
-                              <code className="text-[#EDEDEF] truncate">{step.command}</code>
+                              <span className="text-text-tertiary font-bold select-none">$</span>
+                              <code className="text-text-primary truncate">{step.command}</code>
                             </div>
                             <button
                               onClick={() => copyToClipboard(step.command, step.order)}
-                              className="p-1 rounded hover:bg-[#1C1C1F] text-text-secondary hover:text-text-primary transition-colors flex-shrink-0"
+                              className="p-1 rounded hover:bg-white/[0.08] text-text-secondary hover:text-text-primary transition-colors flex-shrink-0"
                               title="Copy command to clipboard"
                             >
                               {copiedCommand === step.order ? (
@@ -518,7 +518,7 @@ export const IncidentDetailPage = () => {
 
                         {/* Live Streaming Terminal Output Simulation */}
                         {isRunning && (
-                          <div className="mt-3 p-3 rounded bg-[#050506] border border-accent-primary/40 font-mono text-[11px] text-accent-success space-y-1">
+                          <div className="mt-3 p-3 rounded-lg bg-[#050507] border border-accent-primary/40 font-mono text-[11px] text-accent-success space-y-1">
                             {logs.map((l, lIdx) => (
                               <div key={lIdx} className="leading-relaxed">
                                 {l}
@@ -534,34 +534,34 @@ export const IncidentDetailPage = () => {
                         {/* Interactive Verification Actions */}
                         {!isDone && !isRunning && (
                           user?.role === 'VIEWER' ? (
-                            <div className="mt-3 pt-3 border-t border-white/5 flex items-center gap-2 text-text-tertiary text-xs font-mono">
+                            <div className="mt-3 pt-3 border-t border-white/[0.06] flex items-center gap-2 text-text-tertiary text-xs">
                               <Lock className="w-3.5 h-3.5" />
                               <span>SOP Playbook execution restricted to active responders</span>
                             </div>
                           ) : (
-                            <div className="mt-3 pt-3 border-t border-[#1C1C1F] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+                            <div className="mt-3 pt-3 border-t border-white/[0.06] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
                               <input
                                 type="text"
-                                placeholder="Optional verification note (or click Run & Verify)..."
+                                placeholder="Optional verification note..."
                                 value={stepInputs[step.order] || ''}
                                 onChange={(e) =>
                                   setStepInputs({ ...stepInputs, [step.order]: e.target.value })
                                 }
-                                className="flex-1 bg-[#050506] border border-[#2A2A2E] focus:border-accent-primary rounded px-2.5 py-1.5 text-xs text-text-primary placeholder:text-text-tertiary font-mono focus:outline-none"
+                                className="flex-1 bg-[#070709] border border-white/[0.08] focus:border-white/20 rounded-lg px-2.5 py-1.5 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none"
                               />
                               <div className="flex items-center gap-2 justify-end">
                                 <button
                                   onClick={() => handleExecuteStep(step.order, 'SKIPPED')}
-                                  className="px-2.5 py-1.5 rounded text-xs font-mono text-text-tertiary hover:text-text-secondary hover:bg-[#1C1C1F]"
+                                  className="px-2.5 py-1.5 rounded-lg text-xs text-text-tertiary hover:text-text-secondary hover:bg-white/[0.06] transition-colors"
                                 >
                                   Skip
                                 </button>
                                 <button
                                   onClick={() => handleRunAndVerify(step)}
-                                  className="px-3 py-1.5 rounded bg-accent-success hover:bg-accent-success/90 text-bg-primary font-mono text-xs font-bold transition-all flex items-center gap-1.5 shadow-[0_0_12px_rgba(48,209,88,0.25)]"
+                                  className="btn-ivory px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5"
                                 >
                                   <Zap className="w-3.5 h-3.5 fill-current" />
-                                  <span>RUN & VERIFY ⚡</span>
+                                  <span>Run & Verify</span>
                                 </button>
                               </div>
                             </div>
@@ -570,7 +570,7 @@ export const IncidentDetailPage = () => {
 
                         {/* Completed Verified Terminal Badge */}
                         {isDone && progress?.verificationInput && (
-                          <div className="mt-2 text-xs font-mono text-accent-success bg-accent-success/5 p-2 rounded border border-accent-success/20 flex items-center gap-2">
+                          <div className="mt-2 text-xs font-mono text-accent-success bg-accent-success/[0.06] p-2.5 rounded-lg border border-accent-success/20 flex items-center gap-2">
                             <CheckCircle className="w-3.5 h-3.5 text-accent-success flex-shrink-0" />
                             <span className="truncate">Verified: "{progress.verificationInput}"</span>
                           </div>
@@ -585,12 +585,15 @@ export const IncidentDetailPage = () => {
         </div>
 
         {/* RIGHT PANE: REAL-TIME AUDIT TIMELINE */}
-        <div className="p-4 rounded-lg bg-bg-secondary/60 border border-border-subtle glass-panel flex flex-col h-[700px]">
-          <div className="flex items-center justify-between pb-3 border-b border-border-subtle">
-            <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-text-primary">
-              // AUDIT_TIMELINE_LOG
-            </h2>
-            <span className="text-[10px] font-mono text-text-tertiary">
+        <div className="linear-card p-5 flex flex-col h-[740px]">
+          <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+            <div>
+              <h2 className="text-sm font-semibold text-text-primary tracking-tight">
+                Audit Timeline & Event Stream
+              </h2>
+              <p className="text-[11px] text-text-tertiary">Real-time system actions & state transitions</p>
+            </div>
+            <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-text-secondary">
               {timeline.length} Events
             </span>
           </div>
@@ -598,7 +601,7 @@ export const IncidentDetailPage = () => {
           {/* Timeline Feed */}
           <div className="flex-1 overflow-y-auto py-3 space-y-3">
             {timeline.length === 0 ? (
-              <div className="text-xs font-mono text-text-tertiary text-center py-12">
+              <div className="text-xs text-text-tertiary text-center py-12">
                 No timeline events recorded yet.
               </div>
             ) : (
@@ -610,24 +613,25 @@ export const IncidentDetailPage = () => {
                 return (
                   <div
                     key={event._id}
-                    className={`p-3 rounded border text-xs font-mono space-y-1 ${
+                    className={`p-3.5 rounded-xl border text-xs space-y-1.5 transition-all ${
                       isEscalation
-                        ? 'border-severity-p1/40 bg-severity-p1/10 text-severity-p1'
+                        ? 'border-severity-p1/40 bg-severity-p1/[0.08] text-severity-p1'
                         : isStep
-                        ? 'border-accent-success/30 bg-accent-success/5 text-text-secondary'
+                        ? 'border-accent-success/25 bg-accent-success/[0.04] text-text-secondary'
                         : isComment
-                        ? 'border-accent-primary/30 bg-accent-primary/5 text-text-primary'
-                        : 'border-border-subtle bg-bg-tertiary/30 text-text-secondary'
+                        ? 'border-accent-primary/25 bg-accent-primary/[0.04] text-text-primary'
+                        : 'border-white/[0.06] bg-white/[0.02] text-text-secondary'
                     }`}
                   >
-                    <div className="flex items-center justify-between text-[10px] text-text-tertiary">
-                      <span className="font-semibold text-text-primary">
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="font-medium text-text-primary flex items-center gap-1.5">
+                        <span className={`w-1.5 h-1.5 rounded-full ${isEscalation ? 'bg-severity-p1' : isStep ? 'bg-accent-success' : 'bg-accent-primary'}`} />
                         {event.actorName || 'Pulse System'}
                       </span>
-                      <span>{formatTime(event.createdAt)}</span>
+                      <span className="font-mono text-[10px] text-text-tertiary">{formatTime(event.createdAt)}</span>
                     </div>
 
-                    <p className="text-xs font-sans leading-relaxed text-text-primary">
+                    <p className="text-xs leading-relaxed text-text-secondary font-sans">
                       {event.content}
                     </p>
                   </div>
@@ -637,19 +641,19 @@ export const IncidentDetailPage = () => {
           </div>
 
           {/* Comment Composer */}
-          <form onSubmit={handlePostComment} className="pt-3 border-t border-border-subtle flex gap-2">
+          <form onSubmit={handlePostComment} className="pt-3 border-t border-white/[0.06] flex gap-2">
             <input
               type="text"
               disabled={user?.role === 'VIEWER'}
               placeholder={user?.role === 'VIEWER' ? 'Read-only observer mode — comments locked' : 'Post tactical update or hypothesis...'}
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
-              className="flex-1 bg-bg-primary border border-border-default focus:border-accent-primary rounded-lg px-2.5 py-1.5 text-xs text-text-primary placeholder:text-text-tertiary font-mono focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 bg-[#070709] border border-white/[0.08] focus:border-white/20 rounded-lg px-3 py-1.5 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
             />
             <button
               type="submit"
               disabled={user?.role === 'VIEWER' || postingComment || !newComment.trim()}
-              className="btn-ivory px-3 py-1.5 rounded-lg text-xs font-mono disabled:opacity-40 flex items-center gap-1"
+              className="btn-ivory px-3.5 py-1.5 rounded-lg text-xs font-medium disabled:opacity-40 flex items-center gap-1"
             >
               <Send className="w-3 h-3" />
             </button>

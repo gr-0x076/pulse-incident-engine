@@ -109,56 +109,57 @@ export const AcceptInvitePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-bg-primary text-text-primary flex items-center justify-center p-4 font-sans bg-grid-dots">
-      <BrutalistCard className="w-full max-w-md space-y-5" indexStamp="// SQUADRON_CLEARANCE_PORTAL">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-accent-primary animate-pulse" />
-            <span className="text-[10px] font-mono tracking-widest text-accent-primary uppercase">
-              // SQUADRON COMMISSION
-            </span>
+    <div className="min-h-screen bg-bg-primary text-text-primary flex items-center justify-center p-4 font-sans relative">
+      {/* Background Atmosphere glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[350px] bg-[#7877C6]/[0.05] rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="w-full max-w-md linear-card p-8 sm:p-10 shadow-[0_30px_90px_rgba(0,0,0,0.85)] relative z-10 space-y-6">
+        <div className="space-y-1.5 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] text-[11px] font-mono text-text-secondary mb-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse" />
+            <span>Squadron Commission</span>
           </div>
-          <h1 className="text-xl font-bold tracking-tight text-text-primary mt-1">
-            Accept Squadron Commission
+          <h1 className="text-2xl font-bold tracking-tight text-text-primary">
+            Accept Invitation
           </h1>
-          <p className="text-xs text-text-secondary mt-0.5">
+          <p className="text-xs text-text-secondary font-serif italic text-base text-text-secondary/80">
             You have been cleared to join <strong>{invite.orgId?.name || 'Pulse Squadron'}</strong>.
           </p>
         </div>
 
         {/* Assigned Tactical Role Badge Card */}
-        <div className="p-3.5 rounded bg-bg-tertiary/50 border border-border-subtle flex items-center justify-between font-mono text-xs">
+        <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between text-xs">
           <div className="flex items-center gap-2.5">
             {getRoleInsignia(invite.role, "w-5 h-5")}
             <div>
-              <span className="text-text-tertiary text-[10px] uppercase block">ASSIGNED TACTICAL ROLE</span>
-              <span className="font-bold text-text-primary">{invite.role}</span>
+              <span className="text-text-tertiary text-[10px] uppercase block font-medium">Assigned Tactical Role</span>
+              <span className="font-semibold text-text-primary">{invite.role}</span>
             </div>
           </div>
-          <span className="text-[10px] text-accent-success bg-accent-success/10 px-2 py-0.5 rounded border border-accent-success/30 font-semibold">
-            CLEARANCE VALID
+          <span className="text-[10px] text-accent-success bg-accent-success/10 px-2 py-0.5 rounded-full border border-accent-success/30 font-medium">
+            Clearance Valid
           </span>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="text-xs font-mono text-text-secondary block mb-1 uppercase">
+            <label className="text-xs font-medium text-text-secondary block mb-1.5">
               Officer Email Address (Locked)
             </label>
             <input
               type="email"
               disabled
               value={invite.email}
-              className="w-full bg-bg-primary/80 border border-border-subtle rounded px-3 py-2 text-xs text-text-tertiary font-mono cursor-not-allowed"
+              className="w-full bg-[#070709] border border-white/[0.06] rounded-xl px-3.5 py-2.5 text-xs text-text-tertiary font-mono cursor-not-allowed opacity-75"
             />
           </div>
 
           <div>
-            <label className="text-xs font-mono text-text-secondary block mb-1 uppercase">
+            <label className="text-xs font-medium text-text-secondary block mb-1.5">
               Full Officer Name
             </label>
             <div className="relative">
-              <User className="w-4 h-4 text-text-tertiary absolute left-3 top-3" />
+              <User className="w-4 h-4 text-text-tertiary absolute left-3.5 top-3" />
               <input
                 type="text"
                 required
@@ -166,17 +167,17 @@ export const AcceptInvitePage = () => {
                 placeholder="Marcus Vance"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full bg-bg-tertiary/60 border border-border-default focus:border-accent-primary rounded px-3 py-2.5 pl-9 text-xs text-text-primary placeholder:text-text-tertiary font-mono focus:outline-none"
+                className="w-full bg-[#070709] border border-white/[0.08] focus:border-white/20 rounded-xl px-3.5 py-2.5 pl-10 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none transition-colors"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-mono text-text-secondary block mb-1 uppercase">
+            <label className="text-xs font-medium text-text-secondary block mb-1.5">
               Create Officer Access Password
             </label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-text-tertiary absolute left-3 top-3" />
+              <Lock className="w-4 h-4 text-text-tertiary absolute left-3.5 top-3" />
               <input
                 type="password"
                 required
@@ -184,7 +185,7 @@ export const AcceptInvitePage = () => {
                 placeholder="••••••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-bg-tertiary/60 border border-border-default focus:border-accent-primary rounded px-3 py-2.5 pl-9 text-xs text-text-primary placeholder:text-text-tertiary font-mono focus:outline-none"
+                className="w-full bg-[#070709] border border-white/[0.08] focus:border-white/20 rounded-xl px-3.5 py-2.5 pl-10 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none font-mono transition-colors"
               />
             </div>
           </div>
@@ -192,7 +193,7 @@ export const AcceptInvitePage = () => {
           <button
             type="submit"
             disabled={submitting || !name.trim() || password.length < 6}
-            className="w-full py-2.5 rounded bg-accent-primary hover:bg-accent-primary/90 text-white font-mono text-xs font-bold transition-all shadow-[0_0_12px_rgba(10,132,255,0.25)] flex items-center justify-center gap-2 disabled:opacity-50 mt-2"
+            className="btn-ivory w-full py-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 disabled:opacity-40 mt-4"
           >
             {submitting ? (
               <span>Commissioning Officer...</span>
@@ -205,13 +206,13 @@ export const AcceptInvitePage = () => {
           </button>
         </form>
 
-        <div className="text-center text-xs font-mono text-text-tertiary">
+        <div className="text-center text-xs text-text-secondary pt-2">
           Already commissioned?{' '}
-          <Link to="/login" className="text-accent-primary hover:underline">
+          <Link to="/login" className="text-text-primary font-medium hover:underline">
             Login Terminal →
           </Link>
         </div>
-      </BrutalistCard>
+      </div>
     </div>
   );
 };
