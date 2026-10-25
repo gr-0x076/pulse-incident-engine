@@ -1,21 +1,43 @@
-import { Routes, Route } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import { SocketProvider } from './context/SocketContext';
+import ProtectedRoute from './components/guards/ProtectedRoute';
+import AppShell from './components/layout/AppShell';
+import LoginPage from './features/auth/LoginPage';
+import RegisterPage from './features/auth/RegisterPage';
+import DashboardPage from './features/dashboard/DashboardPage';
+import IncidentDetailPage from './features/incidents/IncidentDetailPage';
+import PostmortemsPage from './features/postmortems/PostmortemsPage';
+import AnalyticsPage from './features/analytics/AnalyticsPage';
+import TeamPage from './features/team/TeamPage';
 
 function App() {
   return (
-    <div className="min-h-screen bg-bg-primary flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-2xl font-semibold text-text-primary tracking-tight">
-          Pulse
-        </h1>
-        <p className="text-sm text-text-secondary mt-2">
-          Incident Triage & Response Engine
-        </p>
-        <div className="mt-6 flex items-center gap-2 justify-center">
-          <span className="severity-dot severity-dot-p1 animate-pulse-live" />
-          <span className="text-xs font-mono text-text-tertiary">SYSTEM ONLINE</span>
-        </div>
-      </div>
-    </div>
+    <AuthProvider>
+      <SocketProvider>
+        <Routes>
+          {/* Public Authentication Routes */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+
+          {/* Protected Tactical War-Room Routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route element={<AppShell />}>
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/incidents/:id" element={<IncidentDetailPage />} />
+              <Route path="/postmortems" element={<PostmortemsPage />} />
+              <Route path="/analytics" element={<AnalyticsPage />} />
+              <Route path="/team" element={<TeamPage />} />
+            </Route>
+          </Route>
+
+          {/* Catch-all redirect */}
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+      </SocketProvider>
+    </AuthProvider>
   );
 }
 

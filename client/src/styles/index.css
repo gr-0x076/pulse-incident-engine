@@ -108,4 +108,69 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  /* Cyber-Brutalist Hazard Stripes */
+  .hazard-stripes-p1 {
+    background: repeating-linear-gradient(
+      -45deg,
+      rgba(255, 59, 48, 0.15),
+      rgba(255, 59, 48, 0.15) 10px,
+      rgba(255, 59, 48, 0.05) 10px,
+      rgba(255, 59, 48, 0.05) 20px
+    );
+  }
+
+  /* Frosted Glass Specular Top Highlight */
+  .glass-panel {
+    background: rgba(20, 20, 22, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  /* Telemetry Grid Background */
+  .bg-grid-dots {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Corner Crosshairs */
+  .corner-crosshair {
+    position: relative;
+  }
+  .corner-crosshair::before {
+    content: '+';
+    position: absolute;
+    top: -8px;
+    left: -6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.25);
+    pointer-events: none;
+  }
+  .corner-crosshair::after {
+    content: '+';
+    position: absolute;
+    bottom: -8px;
+    right: -6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.25);
+    pointer-events: none;
+  }
 }
+
+@keyframes radar-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-radar-sweep {
+  animation: radar-spin 4s linear infinite;
+}
+
