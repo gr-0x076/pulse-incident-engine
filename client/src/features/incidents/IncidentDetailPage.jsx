@@ -256,63 +256,13 @@ export const IncidentDetailPage = () => {
         ) : null}
       </div>
 
-      {/* ── INTERACTIVE VISUAL STATE MACHINE PIPELINE HEADER ── */}
-      <div className="linear-card p-5">
-        <div className="text-xs text-text-tertiary mb-3.5 flex items-center justify-between">
-          <span className="font-medium text-text-secondary">Lifecycle State Pipeline</span>
-          <span className="font-mono text-[11px]">Version OCC v{incident.version}</span>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5">
-          {STATUS_PIPELINE.map((stage, idx) => {
-            const isCompleted = currentPipelineIdx > idx;
-            const isActive = currentPipelineIdx === idx;
-            const isLocked = currentPipelineIdx < idx;
-
-            return (
-              <div
-                key={stage}
-                className={`p-3 rounded-xl border text-center transition-all relative ${
-                  isActive
-                    ? 'border-accent-primary/60 bg-accent-primary/10 shadow-[0_0_12px_rgba(200,169,126,0.15)]'
-                    : isCompleted
-                    ? 'border-accent-success/40 bg-accent-success/5 text-text-secondary'
-                    : 'border-border-subtle/50 bg-bg-tertiary/20 text-text-tertiary'
-                }`}
-              >
-                <div className="flex items-center justify-center gap-1.5 mb-1">
-                  {isCompleted ? (
-                    <CheckCircle className="w-3.5 h-3.5 text-accent-success" />
-                  ) : isActive ? (
-                    <span className="w-2 h-2 rounded-full bg-accent-primary animate-ping" />
-                  ) : (
-                    <Lock className="w-3 h-3 text-text-tertiary" />
-                  )}
-                  <span
-                    className={`text-[11px] font-mono font-semibold ${
-                      isActive ? 'text-accent-primary' : isCompleted ? 'text-text-primary' : 'text-text-tertiary'
-                    }`}
-                  >
-                    {STATUS_LABELS[stage]}
-                  </span>
-                </div>
-
-                <div className="text-[10px] font-mono text-text-tertiary">
-                  {isActive ? 'ACTIVE' : isCompleted ? 'COMPLETED' : 'LOCKED'}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
       {/* ── LIVE SLA COUNTDOWN WIDGET ── */}
       <LiveSLACountdown incident={incident} compact={false} />
 
       {/* ── SPLIT WORKSPACE: WORKBENCH (LEFT) & TIMELINE (RIGHT) ── */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 xl:gap-6 items-start">
         {/* LEFT / CENTER PANE: RUNBOOK & ACTION CONSOLE */}
-        <div className="lg:col-span-8 space-y-5">
+        <div className="lg:col-span-7 lg:order-2 space-y-5">
           {/* Action Console: Transition Buttons */}
           <div className="linear-card p-5 space-y-3">
             <div className="text-xs text-text-tertiary flex items-center justify-between">
@@ -585,7 +535,57 @@ export const IncidentDetailPage = () => {
         </div>
 
         {/* RIGHT PANE: REAL-TIME AUDIT TIMELINE */}
-        <div className="incident-audit-stream linear-card p-5 flex flex-col h-[min(740px,calc(100vh-150px))] min-h-[520px] lg:col-span-4 sticky top-4">
+        <div className="incident-audit-stream linear-card p-5 flex flex-col h-[min(820px,calc(100vh-150px))] min-h-[520px] lg:col-span-5 lg:order-1 sticky top-4">
+      {/* ── INTERACTIVE VISUAL STATE MACHINE PIPELINE HEADER ── */}
+      <div className="linear-card p-5">
+        <div className="text-xs text-text-tertiary mb-3.5 flex items-center justify-between">
+          <span className="font-medium text-text-secondary">Lifecycle State Pipeline</span>
+          <span className="font-mono text-[11px]">Version OCC v{incident.version}</span>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+          {STATUS_PIPELINE.map((stage, idx) => {
+            const isCompleted = currentPipelineIdx > idx;
+            const isActive = currentPipelineIdx === idx;
+            const isLocked = currentPipelineIdx < idx;
+
+            return (
+              <div
+                key={stage}
+                className={`p-3 rounded-xl border text-center transition-all relative ${
+                  isActive
+                    ? 'border-accent-primary/60 bg-accent-primary/10 shadow-[0_0_12px_rgba(200,169,126,0.15)]'
+                    : isCompleted
+                    ? 'border-accent-success/40 bg-accent-success/5 text-text-secondary'
+                    : 'border-border-subtle/50 bg-bg-tertiary/20 text-text-tertiary'
+                }`}
+              >
+                <div className="flex items-center justify-center gap-1.5 mb-1">
+                  {isCompleted ? (
+                    <CheckCircle className="w-3.5 h-3.5 text-accent-success" />
+                  ) : isActive ? (
+                    <span className="w-2 h-2 rounded-full bg-accent-primary animate-ping" />
+                  ) : (
+                    <Lock className="w-3 h-3 text-text-tertiary" />
+                  )}
+                  <span
+                    className={`text-[11px] font-mono font-semibold ${
+                      isActive ? 'text-accent-primary' : isCompleted ? 'text-text-primary' : 'text-text-tertiary'
+                    }`}
+                  >
+                    {STATUS_LABELS[stage]}
+                  </span>
+                </div>
+
+                <div className="text-[10px] font-mono text-text-tertiary">
+                  {isActive ? 'ACTIVE' : isCompleted ? 'COMPLETED' : 'LOCKED'}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
           <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
             <div>
               <h2 className="text-sm font-semibold text-text-primary tracking-tight">

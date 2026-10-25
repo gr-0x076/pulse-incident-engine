@@ -1,260 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import {
-  Activity,
-  Flame,
-  FileText,
-  Users,
-  Shield,
-  Zap,
-  Terminal,
-  LogOut,
-  Radio,
-  Clock,
-  Sparkles,
-  User,
-} from 'lucide-react';
+import { Activity, ArrowUpRight, Clock3, Command, FileText, Flame, LogOut, Radio, ShieldCheck, Users, Zap } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useSocket } from '../../context/SocketContext';
-import { getRoleInsignia } from '../ui/TacticalInsignia';
 import ChaosSimulatorDrawer from './ChaosSimulatorDrawer';
 import CommandPalette from './CommandPalette';
 import EvaluatorSandboxDock from './EvaluatorSandboxDock';
 
+const sections = [
+  { title: 'Operations', items: [{ to: '/dashboard', label: 'Mission Control', icon: Activity }] },
+  { title: 'Intelligence', items: [{ to: '/analytics', label: 'Analytics', icon: Zap }, { to: '/postmortems', label: 'Postmortems', icon: FileText }] },
+  { title: 'Workspace', items: [{ to: '/team', label: 'People & access', icon: Users }] },
+];
+
 export const AppShell = () => {
-  const { user, organization, logout } = useAuth();
-  const { connected } = useSocket();
-  const [utcTime, setUtcTime] = useState('');
-  const [chaosOpen, setChaosOpen] = useState(false);
-  const [paletteOpen, setPaletteOpen] = useState(false);
-  const navigate = useNavigate();
-
-  // Live ticking UTC Clock
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      setUtcTime(now.toUTCString().split(' ').slice(4, 5)[0] + ' UTC');
-    };
-    updateTime();
-    const timer = setInterval(updateTime, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  // Global Cmd+K shortcut
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        setPaletteOpen((prev) => !prev);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  // Helper for role badge colors
-  const getRoleBadgeClass = (role) => {
-    switch (role) {
-      case 'ADMIN':
-        return 'jewel-pill-p1';
-      case 'INCIDENT_COMMANDER':
-        return 'jewel-pill-p2';
-      case 'RESPONDER':
-        return 'jewel-pill-p3';
-      case 'VIEWER':
-      default:
-        return 'bg-white/5 text-text-secondary border border-white/10';
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-bg-primary text-text-primary flex flex-col font-sans selection:bg-accent-primary/20">
-      {/* ── TOP TELEMETRY CHASSIS ── */}
-      <header className="app-topbar h-14 border-b border-border-subtle px-5 sm:px-7 flex items-center justify-between z-30 sticky top-0">
-        {/* Left: Brand & Connection Status */}
-        <div className="flex items-center gap-5">
-          <div
-            className="flex items-center gap-2.5 cursor-pointer group"
-            onClick={() => navigate('/dashboard')}
-          >
-            <span className="w-2 h-2 rounded-full bg-[#E5C185] animate-pulse shadow-[0_0_8px_rgba(229,193,133,0.4)]" />
-            <span className="text-sm font-semibold tracking-tight text-text-primary group-hover:text-white transition-colors">
-              Pulse <span className="text-text-tertiary font-normal text-xs ml-1 font-mono">ops console</span>
-            </span>
-          </div>
-
-          <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.03] border border-border-subtle text-[11px] font-mono text-text-secondary">
-            <Radio className={`w-3 h-3 ${connected ? 'text-accent-success animate-pulse' : 'text-[#E5C185]'}`} />
-            <span>{connected ? 'WS_LIVE' : 'WS_DISCONNECTED'}</span>
-          </div>
-
-          <div className="hidden lg:flex items-center gap-1.5 text-[11px] font-mono text-text-tertiary">
-            <Clock className="w-3 h-3" />
-            <span>{utcTime}</span>
-          </div>
-        </div>
-
-        {/* Right: Quick Controls & Profile Pill */}
-        <div className="flex items-center gap-3">
-          {/* Cmd+K Quick Trigger */}
-          <button
-            onClick={() => setPaletteOpen(true)}
-            className="hidden sm:flex items-center gap-2 px-2.5 py-1.5 rounded-lg btn-ghost text-xs font-mono transition-all"
-          >
-            <Terminal className="w-3.5 h-3.5" />
-            <span>Cmd+K</span>
-          </button>
-
-          {/* Chaos Simulator Trigger */}
-          <button
-            onClick={() => setChaosOpen(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#C8A97E]/10 hover:bg-[#C8A97E]/20 border border-[#C8A97E]/25 text-[#E5C185] text-xs font-mono font-medium transition-all"
-          >
-            <Flame className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Simulate Outage</span>
-          </button>
-
-          {/* Refined User Profile Pill with Sign Out */}
-          <div className="flex items-center gap-2.5 pl-2 border-l border-border-subtle">
-            <div className="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-white/[0.02] border border-border-subtle">
-              <div className="w-5 h-5 rounded-full bg-accent-primary/20 border border-accent-primary/30 flex items-center justify-center text-[10px] font-bold text-accent-primary">
-                {user?.name ? user.name[0] : 'U'}
-              </div>
-              <div className="hidden md:flex flex-col text-left leading-none">
-                <span className="text-xs font-medium text-text-primary">{user?.name}</span>
-                <span className="text-[10px] text-text-tertiary font-mono">{organization?.name || 'Acme Eng'}</span>
-              </div>
-              <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full ${getRoleBadgeClass(user?.role)}`}>
-                {user?.role}
-              </span>
-            </div>
-
-            <button
-              onClick={logout}
-              title="Sign Out"
-              className="p-1.5 rounded-lg text-text-tertiary hover:text-[#E5C185] hover:bg-white/[0.04] transition-colors"
-            >
-              <LogOut className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* ── WORKSPACE BODY WITH REFINED MINIMAL SIDEBAR ── */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Sidebar */}
-        <aside className="app-sidebar w-56 border-r border-border-subtle flex flex-col justify-between p-5 flex-shrink-0 hidden md:flex">
-          <div className="space-y-6">
-            {/* Org Slug stamp */}
-            <div className="px-3 py-2 rounded-xl bg-white/[0.02] border border-border-subtle flex items-center justify-between">
-              <span className="text-xs font-medium text-text-primary truncate">
-                {organization?.name || 'Acme Engineering'}
-              </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-accent-success" />
-            </div>
-
-            {/* Navigation Group: Operations */}
-            <div className="space-y-1">
-              <div className="px-2.5 text-[10px] font-mono tracking-wider text-text-tertiary uppercase mb-2">
-                Operations
-              </div>
-              <NavLink
-                to="/dashboard"
-                className={({ isActive }) =>
-                  `flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
-                    isActive
-                      ? 'bg-white/[0.07] text-white border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]'
-                      : 'text-text-secondary hover:text-text-primary hover:bg-white/[0.03]'
-                  }`
-                }
-              >
-                <Activity className="w-4 h-4" />
-                <span>Console</span>
-              </NavLink>
-
-              <NavLink
-                to="/postmortems"
-                className={({ isActive }) =>
-                  `flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
-                    isActive
-                      ? 'bg-white/[0.07] text-white border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]'
-                      : 'text-text-secondary hover:text-text-primary hover:bg-white/[0.03]'
-                  }`
-                }
-              >
-                <FileText className="w-4 h-4" />
-                <span>Postmortems</span>
-              </NavLink>
-            </div>
-
-            {/* Navigation Group: Telemetry */}
-            <div className="space-y-1">
-              <div className="px-2.5 text-[10px] font-mono tracking-wider text-text-tertiary uppercase mb-2">
-                Telemetry
-              </div>
-              <NavLink
-                to="/analytics"
-                className={({ isActive }) =>
-                  `flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
-                    isActive
-                      ? 'bg-white/[0.07] text-white border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]'
-                      : 'text-text-secondary hover:text-text-primary hover:bg-white/[0.03]'
-                  }`
-                }
-              >
-                <Zap className="w-4 h-4" />
-                <span>Analytics</span>
-              </NavLink>
-            </div>
-
-            {/* Navigation Group: Team */}
-            <div className="space-y-1">
-              <div className="px-2.5 text-[10px] font-mono tracking-wider text-text-tertiary uppercase mb-2">
-                Organization
-              </div>
-              <NavLink
-                to="/team"
-                className={({ isActive }) =>
-                  `flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium transition-all ${
-                    isActive
-                      ? 'bg-white/[0.07] text-white border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]'
-                      : 'text-text-secondary hover:text-text-primary hover:bg-white/[0.03]'
-                  }`
-                }
-              >
-                <Users className="w-4 h-4" />
-                <span>Squadron & RBAC</span>
-              </NavLink>
-            </div>
-          </div>
-
-          {/* Sidebar Footer: System Status */}
-          <div className="pt-4 border-t border-border-subtle px-2 text-[11px] font-mono text-text-tertiary flex items-center justify-between">
-            <span>SLA Sentinel Active</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-accent-success" />
-          </div>
-        </aside>
-
-        {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto relative">
-          <Outlet />
-        </main>
+  const { user, organization, logout } = useAuth(); const { connected } = useSocket(); const navigate = useNavigate();
+  const [utcTime, setUtcTime] = useState(''); const [chaosOpen, setChaosOpen] = useState(false); const [paletteOpen, setPaletteOpen] = useState(false);
+  useEffect(() => { const tick = () => setUtcTime(new Date().toISOString().slice(11, 19)); tick(); const timer = setInterval(tick, 1000); return () => clearInterval(timer); }, []);
+  useEffect(() => { const onKeyDown = e => { if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); setPaletteOpen(open => !open); } }; window.addEventListener('keydown', onKeyDown); return () => window.removeEventListener('keydown', onKeyDown); }, []);
+  const roleTone = user?.role === 'ADMIN' ? 'text-[#D9C1A1]' : user?.role === 'VIEWER' ? 'text-text-tertiary' : 'text-text-secondary';
+  return <div className="app-shell min-h-screen bg-[#070709] font-sans text-text-primary">
+    <header className="app-topbar sticky top-0 z-40 flex h-16 items-center justify-between border-b border-white/[0.07] px-5 backdrop-blur-xl md:px-8">
+      <div className="flex items-center gap-6"><button type="button" onClick={() => navigate('/dashboard')} className="flex items-center gap-3 rounded-lg text-left"><span className="grid h-8 w-8 place-items-center rounded-xl border border-[#C8A97E]/20 bg-[#C8A97E]/[0.08] text-[#D9C1A1]"><Activity className="h-4 w-4"/></span><span><span className="block text-sm font-semibold tracking-tight text-white">Pulse</span><span className="block text-[10px] text-text-tertiary">Incident operations</span></span></button>
+        <div className={`hidden items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] font-mono sm:flex ${connected ? 'border-[#91B5A1]/15 bg-[#91B5A1]/[0.04] text-[#A9C8B7]' : 'border-white/[0.08] bg-white/[0.03] text-text-tertiary'}`}><Radio className={`h-3 w-3 ${connected ? 'animate-pulse' : ''}`}/>{connected ? 'LIVE CONNECTION' : 'RECONNECTING'}</div>
       </div>
-
-      {/* Slide-over Chaos Simulator */}
-      <ChaosSimulatorDrawer isOpen={chaosOpen} onClose={() => setChaosOpen(false)} />
-
-      {/* Command Palette */}
-      <CommandPalette
-        isOpen={paletteOpen}
-        onClose={() => setPaletteOpen(false)}
-        onOpenChaos={() => setChaosOpen(true)}
-      />
-
-      {/* Discreet Evaluator Sandbox Dock (Fixed Bottom-Left) */}
-      <EvaluatorSandboxDock />
+      <div className="flex items-center gap-2 md:gap-3"><div className="hidden items-center gap-2 border-r border-white/[0.08] px-3 font-mono text-[11px] text-text-tertiary lg:flex"><Clock3 className="h-3.5 w-3.5"/>{utcTime} UTC</div><button onClick={() => setPaletteOpen(true)} className="hidden items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.025] px-3 py-2 text-xs text-text-secondary transition hover:border-white/[0.14] hover:text-white sm:flex"><Command className="h-3.5 w-3.5"/>Search<span className="rounded border border-white/[0.08] px-1.5 py-0.5 font-mono text-[9px] text-text-tertiary">⌘ K</span></button><button onClick={() => setChaosOpen(true)} className="inline-flex items-center gap-2 rounded-xl border border-[#C8A97E]/20 bg-[#C8A97E]/[0.07] px-3 py-2 text-xs font-medium text-[#D9C1A1] transition hover:bg-[#C8A97E]/[0.13]"><Flame className="h-3.5 w-3.5"/><span className="hidden sm:inline">Simulate</span></button>
+        <div className="ml-1 flex items-center gap-2 border-l border-white/[0.08] pl-3"><div className="hidden text-right md:block"><div className="text-xs font-medium text-white">{user?.name || 'Operator'}</div><div className={`mt-0.5 text-[9px] font-mono ${roleTone}`}>{(user?.role || 'VIEWER').replace('_', ' ')}</div></div><div className="grid h-8 w-8 place-items-center rounded-full border border-white/[0.1] bg-white/[0.05] text-xs font-semibold text-[#D9C1A1]">{user?.name?.[0] || 'P'}</div><button onClick={logout} title="Sign out" aria-label="Sign out" className="rounded-lg p-2 text-text-tertiary transition hover:bg-white/[0.05] hover:text-white"><LogOut className="h-4 w-4"/></button></div>
+      </div>
+    </header>
+    <div className="flex min-h-[calc(100vh-64px)]">
+      <aside className="app-sidebar hidden w-[232px] shrink-0 flex-col justify-between border-r border-white/[0.06] bg-[#070709] px-4 py-6 md:flex"><div><div className="mb-8 flex items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-3"><div className="min-w-0"><div className="truncate text-xs font-medium text-white">{organization?.name || 'Pulse Workspace'}</div><div className="mt-1 text-[10px] text-text-tertiary">Production environment</div></div><ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-text-tertiary"/></div>
+        <nav className="space-y-7" aria-label="Primary navigation">{sections.map(section => <div key={section.title}><div className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-[.16em] text-text-tertiary">{section.title}</div><div className="space-y-1">{section.items.map(item => { const Icon = item.icon; return <NavLink key={item.to} to={item.to} end={!item.match} className={({ isActive }) => `group flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs transition-all ${isActive ? 'border border-white/[0.07] bg-white/[0.07] text-white shadow-[inset_0_1px_0_rgba(255,255,255,.04)]' : 'border border-transparent text-text-secondary hover:bg-white/[0.035] hover:text-white'}`}><Icon className="h-4 w-4 text-text-tertiary transition group-hover:text-text-secondary"/>{item.label}</NavLink>; })}</div></div>)}</nav>
+      </div><div className="border-t border-white/[0.06] pt-4"><div className="flex items-center gap-2 px-2 text-[10px] text-text-tertiary"><ShieldCheck className="h-3.5 w-3.5 text-[#91B5A1]"/>SLA monitoring active</div><div className="mt-3 truncate px-2 text-[10px] text-text-tertiary">{organization?.name || 'Pulse'}</div></div></aside>
+      <main className="min-w-0 flex-1 overflow-y-auto"><Outlet/></main>
     </div>
-  );
+    <ChaosSimulatorDrawer isOpen={chaosOpen} onClose={() => setChaosOpen(false)}/><CommandPalette isOpen={paletteOpen} onClose={() => setPaletteOpen(false)} onOpenChaos={() => setChaosOpen(true)}/><EvaluatorSandboxDock/>
+  </div>;
 };
-
 export default AppShell;
