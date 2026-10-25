@@ -90,17 +90,13 @@ export const AuthProvider = ({ children }) => {
 
   // 1-Click Evaluator Role Switcher
   const switchDemoRole = async (targetRole) => {
-    try {
-      const response = await apiClient.post('/auth/demo-switch', { role: targetRole });
-      if (response.success) {
-        storeSession(response.data);
-        toast.success(`Role switched to [${targetRole}]: ${response.data.user.name}`, {
-          icon: '⚡',
-        });
-        return response.data;
-      }
-    } catch (err) {
-      toast.error(err.message || 'Role switch failed');
+    const response = await apiClient.post('/auth/demo-switch', { role: targetRole });
+    if (response?.success) {
+      storeSession(response.data);
+      toast.success(`Role switched to [${targetRole}]: ${response.data.user.name}`, {
+        icon: '⚡',
+      });
+      return response.data;
     }
   };
 

@@ -32,10 +32,12 @@ export const RegisterPage = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await register(formData);
-      navigate('/dashboard');
+      const data = await register(formData);
+      if (data) {
+        navigate('/dashboard');
+      }
     } catch (err) {
-      // handled
+      console.error('Registration failed:', err);
     } finally {
       setLoading(false);
     }

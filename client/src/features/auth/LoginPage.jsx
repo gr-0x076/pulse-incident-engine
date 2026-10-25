@@ -16,10 +16,12 @@ export const LoginPage = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await login(email, password);
-      navigate('/dashboard');
+      const data = await login(email, password);
+      if (data) {
+        navigate('/dashboard');
+      }
     } catch (err) {
-      // toast handled in client interceptor or context
+      console.error('Manual login failed:', err);
     } finally {
       setLoading(false);
     }
@@ -28,8 +30,12 @@ export const LoginPage = () => {
   const handleQuickDossier = async (role) => {
     setLoading(true);
     try {
-      await switchDemoRole(role);
-      navigate('/dashboard');
+      const data = await switchDemoRole(role);
+      if (data) {
+        navigate('/dashboard');
+      }
+    } catch (err) {
+      console.error('Quick dossier login failed:', err);
     } finally {
       setLoading(false);
     }
