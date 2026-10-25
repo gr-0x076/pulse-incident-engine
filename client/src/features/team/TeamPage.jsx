@@ -135,7 +135,7 @@ export const TeamPage = () => {
       {/* Invite Modal */}
       {inviteModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
-          <div className="w-full max-w-md bg-bg-secondary border border-border-default rounded-lg p-5 shadow-2xl glass-panel relative">
+          <div className="w-full max-w-md rounded-lg p-5 modal-surface relative">
             <div className="flex items-center justify-between border-b border-border-subtle pb-3 mb-4">
               <h3 className="text-xs font-mono font-bold uppercase text-text-primary">
                 // GENERATE_MEMBER_INVITE

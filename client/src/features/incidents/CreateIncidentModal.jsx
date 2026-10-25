@@ -57,7 +57,7 @@ export const CreateIncidentModal = ({ isOpen, onClose, onCreated, teamMembers = 
 
   return (
     <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
-      <div className="w-full max-w-lg bg-bg-secondary border border-border-default rounded-lg shadow-2xl glass-panel relative overflow-hidden">
+      <div className="w-full max-w-lg rounded-lg modal-surface relative overflow-hidden text-text-primary">
         {/* Top Header */}
         <div className="px-5 py-3.5 border-b border-border-subtle flex items-center justify-between bg-bg-tertiary/40">
           <div className="flex items-center gap-2">
