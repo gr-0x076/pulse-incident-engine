@@ -37,6 +37,10 @@ export const SocketProvider = ({ children }) => {
       setConnected(false);
     });
 
+    socketInstance.on('connect_error', () => {
+      setConnected(false);
+    });
+
     // Domain Event Listeners
     socketInstance.on('incident:created', (incident) => {
       queryClient.invalidateQueries({ queryKey: ['incidents'] });
@@ -96,10 +100,41 @@ export const SocketProvider = ({ children }) => {
       queryClient.invalidateQueries({ queryKey: ['incidents'] });
     });
 
+    // Fallback: Listen for local mock events when backend socket is offline
+    const handleMockEvent = (e) => {
+      const { event, data } = e.detail || {};
+      if (event === 'incident:created') {
+        queryClient.invalidateQueries({ queryKey: ['incidents'] });
+        queryClient.invalidateQueries({ queryKey: ['analytics'] });
+        toast(
+          (t) => (
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-severity-p1 animate-pulse shadow-[0_0_8px_rgba(229,193,133,0.4)]" />
+              <span className="text-xs">
+                <strong className="font-mono text-severity-p1">INC-{String(data.incidentNumber).padStart(5, '0')}</strong>{' '}
+                {data.title}
+              </span>
+            </div>
+          ),
+          {
+            duration: 2200,
+            style: { borderLeft: '3px solid #C8A97E' },
+          }
+        );
+      } else if (event === 'incident:transitioned') {
+        queryClient.invalidateQueries({ queryKey: ['incidents'] });
+        queryClient.invalidateQueries({ queryKey: ['incident', data._id || data.id] });
+        queryClient.invalidateQueries({ queryKey: ['timeline', data._id || data.id] });
+        queryClient.invalidateQueries({ queryKey: ['analytics'] });
+      }
+    };
+    window.addEventListener('pulse:mock-event', handleMockEvent);
+
     setSocket(socketInstance);
 
     return () => {
       socketInstance.disconnect();
+      window.removeEventListener('pulse:mock-event', handleMockEvent);
     };
   }, [user?.orgId, queryClient]);
 
