@@ -150,8 +150,8 @@ flowchart TD
 ### Option A: 1-Command Startup with Monorepo Tooling
 ```bash
 # 1. Clone repository
-git clone https://github.com/your-username/pulse.git
-cd pulse
+git clone https://github.com/gr-0x076/pulse-incident-engine.git
+cd pulse-incident-engine
 
 # 2. Install dependencies across root, server, and client
 npm run install:all
