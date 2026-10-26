@@ -159,7 +159,7 @@ export const RegisterPage = () => {
                 required
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="Sarah Chen"
+                placeholder="Commander Alex Morgan"
                 className="w-full bg-[#070709] border border-white/[0.08] focus:border-white/20 rounded-xl px-3.5 py-2.5 pl-10 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none transition-colors"
               />
             </div>
@@ -177,7 +177,7 @@ export const RegisterPage = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="sarah@acme.corp"
+                placeholder="alex@company.com"
                 className="w-full bg-[#070709] border border-white/[0.08] focus:border-white/20 rounded-xl px-3.5 py-2.5 pl-10 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none transition-colors"
               />
             </div>

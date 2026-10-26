@@ -13,15 +13,13 @@ export const EvaluatorSandboxDock = () => {
   const personas = [
     {
       role: 'ADMIN',
-      name: 'Sarah Chen',
-      title: 'Command Officer',
-      desc: 'Full administrative rights: team invites, organization settings, declare and close outages.',
+      title: 'Workspace Administrator',
+      desc: 'Full administrative rights: organization policies, SLA configuration, declare and resolve outages.',
       badgeClass: 'jewel-pill-p1',
       insignia: 'COMMANDER_IN_CHIEF',
     },
     {
       role: 'INCIDENT_COMMANDER',
-      name: 'Alex Rivera',
       title: 'Incident Commander',
       desc: 'Triage lead: P1 escalation authority, assign responders, publish postmortems.',
       badgeClass: 'jewel-pill-p2',
@@ -29,17 +27,15 @@ export const EvaluatorSandboxDock = () => {
     },
     {
       role: 'RESPONDER',
-      name: 'Marcus Vance',
-      title: 'On-Call SRE',
-      desc: 'Tactical responder: acknowledge incidents (stops SLA), execute runbook CLI steps, investigation notes.',
+      title: 'Response Engineer (On-Call)',
+      desc: 'Tactical responder: acknowledge incidents (stops SLA), execute runbook CLI steps, verification notes.',
       badgeClass: 'jewel-pill-p3',
       insignia: 'ON_CALL_SRE',
     },
     {
       role: 'VIEWER',
-      name: 'Elena Rostova',
-      title: 'Compliance Observer',
-      desc: 'Read-only observer: view real-time metrics, telemetry & postmortems. All mutations strictly locked.',
+      title: 'Read-Only Observer',
+      desc: 'Auditor visibility: view live metrics, incident feed & postmortems. All mutations strictly locked.',
       badgeClass: 'bg-white/5 text-text-secondary border border-white/10',
       insignia: 'AUDIT_OBSERVER',
     },
@@ -106,7 +102,7 @@ export const EvaluatorSandboxDock = () => {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         {getRoleInsignia(p.role, 'w-3.5 h-3.5')}
-                        <span className="text-xs font-semibold text-text-primary">{p.name}</span>
+                        <span className="text-xs font-semibold text-text-primary">{p.title}</span>
                         <span className="text-[10px] text-text-tertiary font-mono">({p.role})</span>
                       </div>
                       {isActive ? (

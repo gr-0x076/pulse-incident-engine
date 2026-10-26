@@ -58,20 +58,45 @@ export const handleMockRequest = async (config) => {
   // 1. Auth: /auth/login
   if (url === '/auth/login' && method === 'post') {
     const email = (body.email || '').toLowerCase().trim();
-    const user = users.find((u) => u.email.toLowerCase() === email) || users[0];
+    const password = body.password || '';
+
+    // Search in current users list
+    const user = users.find((u) => u.email.toLowerCase() === email);
+    if (!user) {
+      return {
+        success: false,
+        error: {
+          code: 'INVALID_CREDENTIALS',
+          message: 'Invalid email or password. Please verify your credentials.',
+        },
+      };
+    }
+
+    // Verify password: check user.password or standard demo password 'password123'
+    const validPassword = user.password || 'password123';
+    if (password !== validPassword && password !== 'password123') {
+      return {
+        success: false,
+        error: {
+          code: 'INVALID_CREDENTIALS',
+          message: 'Invalid email or password. Please check your password.',
+        },
+      };
+    }
+
     const session = {
       user: {
-        id: user.id,
-        _id: user.id,
+        id: user.id || user._id,
+        _id: user.id || user._id,
         name: user.name,
         email: user.email,
         role: user.role,
-        orgId: org.id,
+        orgId: user.orgId || org.id,
       },
       organization: org,
       tokens: {
-        accessToken: `mock_jwt_access_${user.role}`,
-        refreshToken: `mock_jwt_refresh_${user.role}`,
+        accessToken: `mock_jwt_access_${user.role}_${Date.now()}`,
+        refreshToken: `mock_jwt_refresh_${user.role}_${Date.now()}`,
       },
     };
     return { success: true, data: session };
@@ -80,20 +105,29 @@ export const handleMockRequest = async (config) => {
   // 2. Auth: /auth/demo-switch
   if (url === '/auth/demo-switch' && method === 'post') {
     const targetRole = body.role || 'ADMIN';
-    const user = users.find((u) => u.role === targetRole) || users[0];
+    const savedUser = localStorage.getItem('pulse_user');
+    let currentName = 'Operator';
+    let currentEmail = 'operator@pulse.dev';
+    if (savedUser) {
+      try {
+        const u = JSON.parse(savedUser);
+        if (u.name) currentName = u.name;
+        if (u.email) currentEmail = u.email;
+      } catch (e) {}
+    }
     const session = {
       user: {
-        id: user.id,
-        _id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
+        id: `usr_${targetRole.toLowerCase()}`,
+        _id: `usr_${targetRole.toLowerCase()}`,
+        name: currentName,
+        email: currentEmail,
+        role: targetRole,
         orgId: org.id,
       },
       organization: org,
       tokens: {
-        accessToken: `mock_jwt_access_${user.role}`,
-        refreshToken: `mock_jwt_refresh_${user.role}`,
+        accessToken: `mock_jwt_access_${targetRole}_${Date.now()}`,
+        refreshToken: `mock_jwt_refresh_${targetRole}_${Date.now()}`,
       },
     };
     return { success: true, data: session };
@@ -101,29 +135,49 @@ export const handleMockRequest = async (config) => {
 
   // 3. Auth: /auth/me
   if (url === '/auth/me' && method === 'get') {
+    const token = localStorage.getItem('pulse_access_token');
     const savedUser = localStorage.getItem('pulse_user');
-    const currentUser = savedUser ? JSON.parse(savedUser) : users[0];
-    return {
-      success: true,
-      data: {
-        ...currentUser,
-        organization: org,
-      },
-    };
+    if (!token || !savedUser) {
+      return {
+        success: false,
+        error: {
+          code: 'UNAUTHORIZED',
+          message: 'No active session. Please log in.',
+        },
+      };
+    }
+    try {
+      const currentUser = JSON.parse(savedUser);
+      return {
+        success: true,
+        data: {
+          ...currentUser,
+          organization: org,
+        },
+      };
+    } catch (e) {
+      return {
+        success: false,
+        error: { code: 'UNAUTHORIZED', message: 'Invalid session data' },
+      };
+    }
   }
 
   // 4. Auth: /auth/register
   if (url === '/auth/register' && method === 'post') {
     const newOrg = {
       id: `org_${Date.now()}`,
-      name: body.orgName || 'Acme SRE',
-      slug: body.orgSlug || 'acme-sre',
+      _id: `org_${Date.now()}`,
+      name: body.orgName || 'Engineering Squadron',
+      slug: body.orgSlug || 'squadron',
       settings: org.settings,
     };
     const newUser = {
       id: `usr_${Date.now()}`,
-      name: body.name || 'Admin Officer',
-      email: body.email,
+      _id: `usr_${Date.now()}`,
+      name: body.name || 'Workspace Administrator',
+      email: body.email.toLowerCase().trim(),
+      password: body.password,
       role: 'ADMIN',
       orgId: newOrg.id,
     };

@@ -91,7 +91,7 @@ export const CommandPalette = ({ isOpen, onClose, onOpenChaos, onOpenCreateIncid
     },
     {
       id: 'switch-admin',
-      title: 'Switch Role: ADMIN (Sarah Chen)',
+      title: 'Switch Role: ADMIN (Full Authority)',
       category: 'Role Switcher',
       icon: Shield,
       action: () => {
@@ -101,7 +101,7 @@ export const CommandPalette = ({ isOpen, onClose, onOpenChaos, onOpenCreateIncid
     },
     {
       id: 'switch-commander',
-      title: 'Switch Role: INCIDENT COMMANDER (Alex Rivera)',
+      title: 'Switch Role: INCIDENT COMMANDER (Triage Lead)',
       category: 'Role Switcher',
       icon: UserCheck,
       action: () => {
@@ -111,7 +111,7 @@ export const CommandPalette = ({ isOpen, onClose, onOpenChaos, onOpenCreateIncid
     },
     {
       id: 'switch-responder',
-      title: 'Switch Role: RESPONDER (Marcus Vance)',
+      title: 'Switch Role: RESPONDER (On-Call SRE)',
       category: 'Role Switcher',
       icon: UserCheck,
       action: () => {
@@ -121,7 +121,7 @@ export const CommandPalette = ({ isOpen, onClose, onOpenChaos, onOpenCreateIncid
     },
     {
       id: 'switch-viewer',
-      title: 'Switch Role: VIEWER (Elena Rostova)',
+      title: 'Switch Role: VIEWER (Read-Only Observer)',
       category: 'Role Switcher',
       icon: UserCheck,
       action: () => {

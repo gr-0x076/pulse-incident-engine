@@ -6,12 +6,14 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
+    const token = localStorage.getItem('pulse_access_token');
     const saved = localStorage.getItem('pulse_user');
-    return saved ? JSON.parse(saved) : null;
+    return token && saved ? JSON.parse(saved) : null;
   });
   const [organization, setOrganization] = useState(() => {
+    const token = localStorage.getItem('pulse_access_token');
     const saved = localStorage.getItem('pulse_org');
-    return saved ? JSON.parse(saved) : null;
+    return token && saved ? JSON.parse(saved) : null;
   });
   const [loading, setLoading] = useState(true);
 
