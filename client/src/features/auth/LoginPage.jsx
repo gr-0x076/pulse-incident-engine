@@ -1,14 +1,35 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight, KeyRound, LockKeyhole, Mail, Radio } from 'lucide-react';
+import { ArrowRight, KeyRound, LockKeyhole, Mail, Radio, RotateCcw } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import apiClient from '../../api/client';
+import toast from 'react-hot-toast';
 
 export const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [resetting, setResetting] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  const handleResetDemoData = async () => {
+    setResetting(true);
+    try {
+      try {
+        await apiClient.post('/demo/reset');
+      } catch (err) {
+        console.warn('API reset fallback to sandbox:', err);
+      }
+      localStorage.removeItem('pulse_sandbox_store_v1');
+      toast.success('Environment & database reset: INC-00001 is fresh in FIRED status.', { icon: '🔄' });
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } finally {
+      setResetting(false);
+    }
+  };
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -186,14 +207,12 @@ export const LoginPage = () => {
           <div className="flex items-center justify-between text-xs text-text-secondary pt-2">
             <button
               type="button"
-              onClick={() => {
-                localStorage.removeItem('pulse_sandbox_store_v1');
-                window.location.reload();
-              }}
-              className="text-[11px] text-[#D9C1A1] hover:underline font-mono"
+              disabled={resetting}
+              onClick={handleResetDemoData}
+              className="text-[11px] text-[#D9C1A1] hover:underline font-mono disabled:opacity-50"
               title="Reset incidents back to seed state (INC-00001 fresh in FIRED status)"
             >
-              ↺ Reset Demo Data
+              {resetting ? '↺ Resetting...' : '↺ Reset Demo Data'}
             </button>
             <Link to="/register" className="text-white hover:text-[#D9C1A1] transition-colors font-medium">
               Create Organization →

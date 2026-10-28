@@ -13,8 +13,8 @@ const SEED_ORG = {
   slug: 'acme-engineering',
   settings: {
     sla: {
-      p1AcknowledgeMinutes: 5,
-      p2AcknowledgeMinutes: 15,
+      p1AcknowledgeMinutes: 15,
+      p2AcknowledgeMinutes: 30,
       p3AcknowledgeMinutes: 60,
       p4AcknowledgeMinutes: 240,
     },
