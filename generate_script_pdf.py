@@ -208,17 +208,17 @@ def build_pdf():
             "num": "5",
             "timing": "3:30 – 4:45 (75s)",
             "title": "Incident War Room & Interactive Terminal SOP Execution",
-            "visual": "Incident Detail Page: linear state pipeline, interactive runbook execution console, and chronological audit timeline.",
-            "narration": "We enter the incident War Room. At the top is our guarded finite state machine: FIRED, ACKNOWLEDGED, INVESTIGATING, MITIGATED, RESOLVED, and CLOSED. Responders cannot skip stages. On the right is the interactive SOP playbook. Rather than reading static wikis, engineers can run verified CLI commands. Let's click 'Run & Verify' on Step 1: Check Grafana Dashboard.",
+            "visual": "Incident Detail Page for INC-00001: horizontal pipeline bar, live SLA countdown timer (~14m remaining), interactive runbook console, and audit timeline.",
+            "narration": "We enter the incident War Room for INC-00001. At the top is our guarded finite state machine: FIRED, ACKNOWLEDGED, INVESTIGATING, MITIGATED, RESOLVED, and CLOSED. Notice the live SLA countdown timer tracking our 15-minute acknowledgment window. Below is the automated SOP playbook attached via keyword heuristic. Rather than reading stale static wikis, responders run verified CLI commands. Let's click 'Run & Verify' on Step 1: Check Grafana Dashboard.",
             "actions": "Click 'Run & Verify' on Step 1. Watch terminal output simulate live diagnostic probe with HTTP 200 OK. Step automatically marks COMPLETED with verification output recorded in the timeline."
         },
         {
             "num": "6",
             "timing": "4:45 – 5:45 (60s)",
-            "title": "Optimistic Concurrency Control (OCC) & State Transitions",
-            "visual": "Click 'Acknowledge' and advance to 'Investigating'. Open Transition Modal with mitigation details.",
-            "narration": "Now let's advance the incident lifecycle. Clicking 'Acknowledge' transitions the state from FIRED to ACKNOWLEDGED and halts the SLA timer. To protect against split-brain triage when multiple responders act simultaneously, Pulse implements Optimistic Concurrency Control (OCC) with document versioning. Notice how the timeline logs every actor, state change, and timestamp.",
-            "actions": "Click 'Acknowledge'. Then click 'Advance to Mitigated', enter root cause and mitigation summary: 'Traffic rerouted via fallback ingress gateway'. Transition successfully."
+            "title": "Optimistic Concurrency Control (OCC) & Guarded State Transitions",
+            "visual": "State Lifecycle Controls card showing transition buttons (Transition → ACKNOWLEDGED, Transition → MITIGATED, Transition → RESOLVED), then modal inputs.",
+            "narration": "Now let's advance the incident through its guarded lifecycle. Under State Lifecycle Controls, we click 'Transition → ACKNOWLEDGED'. Instantly, notice that the live SLA countdown timer halts with a green checkmark! Next, Pulse allows moving to INVESTIGATING or directly to MITIGATED. Let's click 'Transition → MITIGATED'. The Transition Gate modal opens, enforcing our OCC version guard and requiring a containment summary. We enter our tactical action: 'Rerouted edge ingress traffic to auxiliary cluster'. Submitting commits the state to MITIGATED. Finally, clicking 'Transition → RESOLVED' prompts for root cause taxonomy (INFRA) and explanation. The incident resolves, and notice the prompt appears: 'Author Postmortem to Unlock Closure', proving that incidents cannot be CLOSED without an attached published postmortem.",
+            "actions": "1. Click 'Transition → ACKNOWLEDGED'. Note SLA timer stops. 2. Click 'Transition → MITIGATED'. In modal, enter mitigation summary and click Confirm. Status updates to MITIGATED. 3. Click 'Transition → RESOLVED', select Category 'INFRA', enter description, and submit. Status updates to RESOLVED. Highlight 'Author Postmortem to Unlock Closure →' badge."
         },
         {
             "num": "7",
