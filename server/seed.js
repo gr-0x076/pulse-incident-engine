@@ -311,8 +311,8 @@ const seed = async () => {
         stepIndex: s.order,
         status: RUNBOOK_STEP_STATUS.PENDING,
       })),
-      createdAt: timeTMinus(4),
-      updatedAt: timeTMinus(4),
+      createdAt: timeTMinus(0.5),
+      updatedAt: timeTMinus(0.5),
     });
 
     // 2. FIRED (P3)

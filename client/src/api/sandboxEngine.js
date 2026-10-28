@@ -258,8 +258,8 @@ const SEED_INCIDENTS = [
       status: 'PENDING',
       verificationInput: '',
     })),
-    createdAt: tMinus(4),
-    updatedAt: tMinus(4),
+    createdAt: tMinus(0.5),
+    updatedAt: tMinus(0.5),
   },
   {
     _id: 'inc_02',
@@ -633,7 +633,22 @@ class SandboxEngine {
     this.org = { ...SEED_ORG };
     this.users = JSON.parse(JSON.stringify(SEED_USERS));
     this.runbooks = JSON.parse(JSON.stringify(SEED_RUNBOOKS));
-    this.incidents = JSON.parse(JSON.stringify(SEED_INCIDENTS));
+    const freshIncidents = JSON.parse(JSON.stringify(SEED_INCIDENTS));
+    const freshNow = Date.now();
+    freshIncidents[0].createdAt = new Date(freshNow - 30 * 1000).toISOString();
+    freshIncidents[0].updatedAt = new Date(freshNow - 30 * 1000).toISOString();
+    freshIncidents[0].status = 'FIRED';
+    freshIncidents[0].version = 1;
+    freshIncidents[0].acknowledgedAt = null;
+    freshIncidents[0].mitigatedAt = null;
+    freshIncidents[0].resolvedAt = null;
+    freshIncidents[0].closedAt = null;
+    freshIncidents[0].runbookProgress = this.runbooks[0].steps.map((s) => ({
+      stepIndex: s.order,
+      status: 'PENDING',
+      verificationInput: '',
+    }));
+    this.incidents = freshIncidents;
     this.timelines = JSON.parse(JSON.stringify(SEED_TIMELINE));
     this.postmortems = JSON.parse(JSON.stringify(SEED_POSTMORTEMS));
     this.counter = 8;
