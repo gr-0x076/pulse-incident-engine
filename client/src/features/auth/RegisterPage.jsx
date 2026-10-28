@@ -159,7 +159,7 @@ export const RegisterPage = () => {
                 required
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="Commander Alex Morgan"
+                placeholder="Alex Morgan"
                 className="w-full bg-[#070709] border border-white/[0.08] focus:border-white/20 rounded-xl px-3.5 py-2.5 pl-10 text-xs text-text-primary placeholder:text-text-tertiary focus:outline-none transition-colors"
               />
             </div>
@@ -185,7 +185,7 @@ export const RegisterPage = () => {
 
           <div>
             <label className="text-xs font-medium text-text-secondary block mb-1.5">
-              Master Password
+              Password
             </label>
             <div className="relative">
               <Lock className="w-4 h-4 text-text-tertiary absolute left-3.5 top-3" />
@@ -208,10 +208,10 @@ export const RegisterPage = () => {
             className="btn-ivory w-full py-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 mt-4"
           >
             {loading ? (
-              <span>Deploying Squadron...</span>
+              <span>Creating workspace...</span>
             ) : (
               <>
-                <span>Initialize Workspace</span>
+                <span>Create Workspace</span>
                 <ArrowRight className="w-4 h-4" />
               </>
             )}
@@ -219,9 +219,9 @@ export const RegisterPage = () => {
         </form>
 
         <div className="text-center text-xs text-text-secondary pt-2">
-          Already deployed?{' '}
+          Already have an account?{' '}
           <Link to="/login" className="text-text-primary font-medium hover:underline">
-            Access Terminal →
+            Sign In →
           </Link>
         </div>
       </div>

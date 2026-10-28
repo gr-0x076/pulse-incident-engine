@@ -37,6 +37,8 @@ export const AuthProvider = ({ children }) => {
             orgId: response.data.organization.id,
           });
           setOrganization(response.data.organization);
+        } else {
+          throw new Error('Session invalid');
         }
       } catch (err) {
         console.error('Session validation failed:', err);

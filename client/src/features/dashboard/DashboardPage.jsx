@@ -29,7 +29,7 @@ export const DashboardPage = () => {
     refetchInterval: 8000,
   });
   const { data: metrics = {} } = useQuery({ queryKey: ['analytics'], queryFn: async () => (await apiClient.get('/analytics/overview')).data, refetchInterval: 12000 });
-  const incidents = incidentData?.data || [];
+  const incidents = Array.isArray(incidentData?.data) ? incidentData.data : (Array.isArray(incidentData) ? incidentData : []);
   const activeCount = incidents.filter(i => ['FIRED', 'ACKNOWLEDGED', 'INVESTIGATING', 'ESCALATED'].includes(i.status)).length;
   const services = useMemo(() => [
     ['API Gateway', '24 ms', ['gateway', 'api', '5xx']], ['Auth Cluster', '1.2k req/s', ['auth', 'token']],

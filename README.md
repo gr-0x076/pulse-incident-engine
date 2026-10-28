@@ -11,6 +11,24 @@
 
 ---
 
+### 🌐 Evaluator Quick Access & Submission Links
+- **Live Hosted Application:** [https://pulse-incident-engine.vercel.app/](https://pulse-incident-engine.vercel.app/)
+- **Demo Video Walkthrough:** *[Demo Video Link — Recording in Progress]*
+- **Demo Video Script PDF:** [Pulse_Demo_Video_Script.pdf](./Pulse_Demo_Video_Script.pdf)
+- **Source Code Repository:** [https://github.com/gr-0x076/pulse-incident-engine](https://github.com/gr-0x076/pulse-incident-engine)
+
+#### 🔑 Demo Accounts (Password: `password123`)
+| Role | Email | Privileges |
+|---|---|---|
+| **Administrator** | `admin@acme.dev` | Full cluster permissions, org policies, postmortem publishing |
+| **Incident Commander** | `commander@acme.dev` | Triage lead, P1 escalation, responder assignment |
+| **Responder** | `responder@acme.dev` | Tactical response, CLI runbook step execution, note logging |
+| **Viewer** | `viewer@acme.dev` | Read-only audit observer (all mutations locked) |
+
+*(Quick 1-Click Autofill pills are also provided directly on the login screen for instant evaluation!)*
+
+---
+
 ## 1. Problem Statement
 
 When production outages strike, engineering response is notoriously chaotic:

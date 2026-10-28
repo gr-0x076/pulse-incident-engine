@@ -75,10 +75,12 @@ export const IncidentDetailPage = () => {
     },
   });
 
-  const incident = data?.incident;
-  const timeline = data?.timeline || [];
-  const teamMembers = teamData?.members || [];
-  const runbook = incident?.runbookId;
+  const incident = data?.incident || (data?.title ? data : null);
+  const timeline = data?.timeline || (data?.incident?.timeline) || [];
+  const teamMembers = teamData?.members || (Array.isArray(teamData) ? teamData : []);
+  const runbook = (incident?.runbookId && typeof incident.runbookId === 'object' && Array.isArray(incident.runbookId.steps))
+    ? incident.runbookId
+    : ((incident?.runbook && Array.isArray(incident.runbook.steps)) ? incident.runbook : null);
 
   // Handle direct transitions
   const handleTransition = async (payload) => {
@@ -392,8 +394,10 @@ export const IncidentDetailPage = () => {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {runbook.steps.map((step) => {
-                    const progress = incident.runbookProgress?.find((p) => p.stepIndex === step.order);
+                  {runbook.steps.map((step, idx) => {
+                    const progress = incident.runbookProgress?.find(
+                      (p) => p.stepIndex === step.order || p.stepIndex === (step.order - 1) || p.stepIndex === idx
+                    );
                     const isDone = progress?.status === 'COMPLETED';
                     const isSkipped = progress?.status === 'SKIPPED';
                     const isRunning = executingStep === step.order;

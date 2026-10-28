@@ -1,6 +1,7 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { handleMockRequest } from './mockHandler';
+
+import sandboxEngine from './sandboxEngine';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
@@ -27,20 +28,20 @@ apiClient.interceptors.request.use(
   }
 );
 
-// Response interceptor — handle errors globally & fallback to mock engine
+// Response interceptor — handle errors globally with seamless sandbox fallback
 apiClient.interceptors.response.use(
   (response) => response.data,
   async (error) => {
-    // If backend is unreachable or CORS blocked (pure network error)
-    if (!error.response || error.code === 'ERR_NETWORK' || error.message?.includes('Network Error')) {
+    // Pure network / connection refused error (e.g. standalone Vercel preview or backend down)
+    if (!error.response && error.config) {
       try {
-        const mockResult = await handleMockRequest(error.config);
-        if (mockResult) {
-          console.info('⚡ Pulse Sandbox Engine: seamlessly fulfilled offline/preview request', error.config?.url);
-          return mockResult;
+        const sandboxResult = await sandboxEngine.handleRequest(error.config);
+        return sandboxResult;
+      } catch (sandboxError) {
+        if (sandboxError.code) {
+          toast.error(sandboxError.message || 'Operation failed');
+          return Promise.reject(sandboxError);
         }
-      } catch (mockErr) {
-        console.error('Mock engine error:', mockErr);
       }
     }
 
@@ -69,7 +70,6 @@ apiClient.interceptors.response.use(
     }
 
     if (!error.response) {
-      // Pure network / connection refused error
       return Promise.reject({
         code: 'NETWORK_ERROR',
         message: errorMessage,

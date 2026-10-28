@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight, KeyRound, LockKeyhole, Mail, Radio, ShieldCheck, Sparkles } from 'lucide-react';
+import { ArrowRight, KeyRound, LockKeyhole, Mail, Radio } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 export const LoginPage = () => {
@@ -24,11 +24,6 @@ export const LoginPage = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const fillDemoCredentials = (roleEmail) => {
-    setEmail(roleEmail);
-    setPassword('password123');
   };
 
   return (
@@ -150,34 +145,46 @@ export const LoginPage = () => {
             </button>
           </form>
 
-          {/* Optional Quick-fill for Grading / Evaluation */}
-          <div className="pt-2 border-t border-white/[0.06]">
-            <div className="flex items-center justify-between text-[11px] text-text-tertiary mb-2">
-              <span className="font-mono">Quick-fill Demo Credentials:</span>
+          {/* Quick Demo Credentials Autofill Helper */}
+          <div className="pt-3 border-t border-white/[0.06] space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-text-tertiary">
+                Demo Operator Credentials
+              </span>
+              <span className="text-[10px] text-text-tertiary">1-Click Fill</span>
             </div>
-            <div className="flex flex-wrap gap-2 text-[11px] font-mono">
+            <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
-                onClick={() => fillDemoCredentials('admin@acme.dev')}
-                className="px-2.5 py-1 rounded-lg bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.06] text-text-secondary hover:text-white transition-colors"
+                aria-label="Admin (admin@acme.dev)"
+                data-testid="login-as-admin"
+                onClick={() => {
+                  setEmail('admin@acme.dev');
+                  setPassword('password123');
+                }}
+                className="text-left p-2.5 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.06] hover:border-white/10 transition group"
               >
-                Admin (admin@acme.dev)
+                <div className="text-xs font-medium text-white group-hover:text-[#D9C1A1] transition-colors">Admin (admin@acme.dev)</div>
+                <div className="text-[10px] text-text-tertiary font-mono">Sarah Chen · Administrator</div>
               </button>
               <button
                 type="button"
-                onClick={() => fillDemoCredentials('responder@acme.dev')}
-                className="px-2.5 py-1 rounded-lg bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.06] text-text-secondary hover:text-white transition-colors"
+                aria-label="Commander (commander@acme.dev)"
+                data-testid="login-as-commander"
+                onClick={() => {
+                  setEmail('commander@acme.dev');
+                  setPassword('password123');
+                }}
+                className="text-left p-2.5 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.06] hover:border-white/10 transition group"
               >
-                Responder (responder@acme.dev)
+                <div className="text-xs font-medium text-white group-hover:text-[#D9C1A1] transition-colors">Commander (commander@acme.dev)</div>
+                <div className="text-[10px] text-text-tertiary font-mono">Alex Rivera · Incident Commander</div>
               </button>
             </div>
           </div>
 
           <div className="flex items-center justify-between text-xs text-text-secondary pt-2">
-            <span className="inline-flex items-center gap-1.5 text-text-tertiary">
-              <ShieldCheck className="h-3.5 w-3.5 text-[#91B5A1]" />
-              Zero plain-text transmission
-            </span>
+            <span className="text-[11px] text-text-tertiary font-mono">Password: password123</span>
             <Link to="/register" className="text-white hover:text-[#D9C1A1] transition-colors font-medium">
               Create Organization →
             </Link>
