@@ -13,7 +13,7 @@
 
 ### 🌐 Evaluator Quick Access & Submission Links
 - **Live Hosted Application:** [https://pulse-incident-engine.vercel.app/](https://pulse-incident-engine.vercel.app/)
-- **Demo Video Walkthrough:** *[Demo Video Link — Recording in Progress]*
+- **Demo Video Walkthrough:** [Watch Video Demonstration (Google Drive)](https://drive.google.com/file/d/1U9BpKGP332df7-rwogVOY-GfjOBdtu3V/view?usp=sharing)
 - **Demo Video Script PDF:** [Pulse_Demo_Video_Script.pdf](./Pulse_Demo_Video_Script.pdf)
 - **Source Code Repository:** [https://github.com/gr-0x076/pulse-incident-engine](https://github.com/gr-0x076/pulse-incident-engine)
 
