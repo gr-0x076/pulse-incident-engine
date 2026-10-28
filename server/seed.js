@@ -307,8 +307,8 @@ const seed = async () => {
       responders: [],
       alertFingerprint: 'alert-sha256-apigw-503-spike-01',
       runbookId: runbookApiGateway._id,
-      runbookProgress: runbookApiGateway.steps.map((s, idx) => ({
-        stepIndex: idx,
+      runbookProgress: runbookApiGateway.steps.map((s) => ({
+        stepIndex: s.order,
         status: RUNBOOK_STEP_STATUS.PENDING,
       })),
       createdAt: timeTMinus(4),
@@ -362,28 +362,28 @@ const seed = async () => {
       runbookId: runbookPayments._id,
       runbookProgress: [
         {
-          stepIndex: 0,
+          stepIndex: 1,
           status: RUNBOOK_STEP_STATUS.COMPLETED,
           completedBy: commanderUser._id,
           completedAt: timeTMinus(52),
           verificationInput: 'Stripe API reporting elevated latency (> 4200ms) in US-East-1 availability zone; status degraded.',
         },
         {
-          stepIndex: 1,
+          stepIndex: 2,
           status: RUNBOOK_STEP_STATUS.COMPLETED,
           completedBy: responderUser._id,
           completedAt: timeTMinus(41),
           verificationInput: 'Edge TLS verification passed. Node worker pool connection queue at 98% capacity.',
         },
         {
-          stepIndex: 2,
+          stepIndex: 3,
           status: RUNBOOK_STEP_STATUS.COMPLETED,
           completedBy: responderUser._id,
           completedAt: timeTMinus(22),
           verificationInput: 'Identified retry storm: 1,450 concurrent webhook retries backed up in SQS dead-letter queue.',
         },
         {
-          stepIndex: 3,
+          stepIndex: 4,
           status: RUNBOOK_STEP_STATUS.PENDING,
         },
       ],

@@ -395,9 +395,9 @@ export const IncidentDetailPage = () => {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {runbook.steps.map((step, idx) => {
+                  {runbook.steps.map((step) => {
                     const progress = incident.runbookProgress?.find(
-                      (p) => p.stepIndex === step.order || p.stepIndex === (step.order - 1) || p.stepIndex === idx
+                      (p) => p.stepIndex === step.order
                     );
                     const isDone = progress?.status === 'COMPLETED';
                     const isSkipped = progress?.status === 'SKIPPED';
