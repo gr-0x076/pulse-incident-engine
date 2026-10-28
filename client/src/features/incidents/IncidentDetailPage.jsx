@@ -16,6 +16,7 @@ import {
   FileText,
   Lock,
   ChevronRight,
+  Zap,
 } from 'lucide-react';
 import apiClient from '../../api/client';
 import { useAuth } from '../../context/AuthContext';
