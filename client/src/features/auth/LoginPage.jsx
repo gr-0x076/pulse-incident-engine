@@ -184,7 +184,17 @@ export const LoginPage = () => {
           </div>
 
           <div className="flex items-center justify-between text-xs text-text-secondary pt-2">
-            <span className="text-[11px] text-text-tertiary font-mono">Password: password123</span>
+            <button
+              type="button"
+              onClick={() => {
+                localStorage.removeItem('pulse_sandbox_store_v1');
+                window.location.reload();
+              }}
+              className="text-[11px] text-[#D9C1A1] hover:underline font-mono"
+              title="Reset incidents back to seed state (INC-00001 fresh in FIRED status)"
+            >
+              ↺ Reset Demo Data
+            </button>
             <Link to="/register" className="text-white hover:text-[#D9C1A1] transition-colors font-medium">
               Create Organization →
             </Link>

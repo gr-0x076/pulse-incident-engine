@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { Shield, Sparkles, ChevronUp, ChevronDown, Check, User, FlaskConical, Lock } from 'lucide-react';
+import { Shield, Sparkles, ChevronUp, ChevronDown, Check, User, FlaskConical, Lock, RotateCcw } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { getRoleInsignia } from '../ui/TacticalInsignia';
+import apiClient from '../../api/client';
+import toast from 'react-hot-toast';
 
 export const EvaluatorSandboxDock = () => {
   const { user, switchDemoRole } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [switching, setSwitching] = useState(false);
+  const [resetting, setResetting] = useState(false);
 
   if (!user) return null;
 
@@ -49,6 +52,25 @@ export const EvaluatorSandboxDock = () => {
       setIsOpen(false);
     } finally {
       setSwitching(false);
+    }
+  };
+
+  const handleResetData = async () => {
+    setResetting(true);
+    try {
+      try {
+        await apiClient.post('/demo/reset');
+      } catch (e) {
+        console.warn('API demo/reset fallback to client clear', e);
+      }
+      localStorage.removeItem('pulse_sandbox_store_v1');
+      toast.success('Environment reset: INC-00001 is fresh in FIRED state (0/6 steps).', { icon: '🔄' });
+      setIsOpen(false);
+      setTimeout(() => {
+        window.location.href = '/dashboard';
+      }, 400);
+    } finally {
+      setResetting(false);
     }
   };
 
@@ -122,6 +144,17 @@ export const EvaluatorSandboxDock = () => {
                 );
               })}
             </div>
+
+            {/* 1-Click Reset to Initial Demo Seed */}
+            <button
+              type="button"
+              disabled={resetting}
+              onClick={handleResetData}
+              className="w-full mt-3 p-2.5 rounded-xl border border-[#C8A97E]/30 bg-[#C8A97E]/[0.08] hover:bg-[#C8A97E]/[0.15] text-[#D9C1A1] transition flex items-center justify-center gap-2 text-xs font-semibold"
+            >
+              <RotateCcw className={`w-3.5 h-3.5 ${resetting ? 'animate-spin' : ''}`} />
+              <span>{resetting ? 'Resetting Data...' : 'Reset Incidents (INC-00001 Fresh 0/6)'}</span>
+            </button>
 
             {/* Notice Footer */}
             <div className="mt-3 pt-2.5 border-t border-border-subtle flex items-center justify-between text-[10px] font-mono text-text-tertiary">

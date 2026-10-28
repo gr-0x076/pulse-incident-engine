@@ -781,6 +781,14 @@ class SandboxEngine {
       };
     }
 
+    if (path === '/demo/reset' && method === 'POST') {
+      this.resetToDefaults();
+      return {
+        success: true,
+        message: 'Sandbox state reset to initial seed values.',
+      };
+    }
+
     // 2. INCIDENTS
     if (path === '/incidents' && method === 'GET') {
       const statusFilter = searchParams.get('status') || '';
